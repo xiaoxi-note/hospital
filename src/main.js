@@ -19,6 +19,12 @@ Vue.use(resource)
 
 Vue.mixin(mixin)
 
+// TODO VUEX DEMO
+
+// TODO PHONE-MSG DEMO
+// TODO IMG-CODE DEMO
+// TODO WECHAT PAY DEMO
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
