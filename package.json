@@ -8,7 +8,7 @@
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
-    "moc":"node moc/start.js"
+    "moc": "node moc/start.js"
   },
   "dependencies": {
     "axios": "^0.16.0",
@@ -18,13 +18,15 @@
     "less-loader": "^4.0.3",
     "lru-cache": "^4.0.2",
     "serialize-javascript": "^1.3.0",
+    "stylus": "^0.54.5",
     "v-tap": "^3.0.1",
     "vue": "^2.2.6",
     "vue-resource": "^1.2.1",
     "vue-router": "^2.3.1",
     "vue-server-renderer": "^2.2.6",
     "vue-style-loader": "^2.0.5",
-    "vux": "^2.1.1-rc.14"
+    "vux": "^2.1.1-rc.14",
+    "vux-loader": "^1.0.57"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
