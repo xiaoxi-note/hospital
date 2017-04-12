@@ -8,14 +8,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
+      name: 'hello',
       component: (resolve) => {
         require(['../components/Hello'], resolve)
       }
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: (resolve) => {
         require(['../components/Login'], resolve)
       }
