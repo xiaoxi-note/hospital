@@ -46,6 +46,7 @@ Object.keys(proxyTable).forEach(function (context) {
   if (typeof options === 'string') {
     options = { target: options }
   }
+  console.log(context, options);
   app.use(proxyMiddleware(options.filter || context, options))
 })
 
@@ -81,7 +82,9 @@ devMiddleware.waitUntilValid(() => {
   _resolve()
 })
 
-var server = app.listen(port)
+var server = app.listen(port,function () {
+  console.log('dev server start ...')
+})
 var mocServer  = appMoc.listen(3033,function() {
   console.log('moc data start ...')
 })
@@ -89,6 +92,7 @@ var mocServer  = appMoc.listen(3033,function() {
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close()
+    server.close();
+    mocServer.close();
   }
 }

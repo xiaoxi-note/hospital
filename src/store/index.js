@@ -1,3 +1,29 @@
 /**
  * Created by dumeng on 2017/4/6.
  */
+import Vue from 'vue'
+import Vuex from 'vuex'
+import mutations from './mutation'
+import actions from './action'
+
+Vue.use(Vuex)
+
+// const isProductionEnv = process.env.NODE_ENV === 'production'
+
+const state = {
+  getInfo: {payload: {}},
+  loginState: 'valid'
+}
+
+const store = new Vuex.Store({
+  state,
+  getters: {
+    getInfo (state) {
+      return state.getInfo
+    }
+  },
+  mutations: mutations,
+  actions: actions
+})
+
+export default store

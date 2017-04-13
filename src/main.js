@@ -4,8 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import resource from 'vue-resource'
-import { AlertPlugin, ToastPlugin } from 'vux'
+import {AlertPlugin, ToastPlugin} from 'vux'
 import vueTap from 'v-tap'
+import store from './store'
 
 import mixin from './util'
 Vue.use(vueTap)
@@ -30,5 +31,6 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: {App}
+  components: {App},
+  store: store
 })
