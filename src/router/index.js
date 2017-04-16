@@ -19,6 +19,13 @@ let router = new Router({
       component: (resolve) => {
         require(['../components/Login'], resolve)
       }
+    },
+    {
+      path: '/register',
+      name: '注册',
+      component: (resolve) => {
+        require(['../components/Register'], resolve)
+      }
     }
   ]
 })
