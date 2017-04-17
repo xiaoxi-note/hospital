@@ -15,7 +15,7 @@ let router = new Router({
     },
     {
       path: '/login',
-      name: 'login',
+      name: '登录',
       component: (resolve) => {
         require(['../components/Login'], resolve)
       }
@@ -25,6 +25,13 @@ let router = new Router({
       name: '注册',
       component: (resolve) => {
         require(['../components/Register'], resolve)
+      }
+    },
+    {
+      path: '/doctor',
+      name: '医生简介',
+      component: (resolve) => {
+        require(['../components/Doctor'], resolve)
       }
     }
   ]

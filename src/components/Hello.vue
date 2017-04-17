@@ -7,6 +7,9 @@
     <div v-tap="{methods:getApiInfo}"
          class="to-login">get api data
     </div>
+    <div v-tap="{methods:goDoctor}"
+         class="to-login">医生简介
+    </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
     </div>
@@ -31,11 +34,16 @@
     methods: {
       ogLogin () {
         this.$router.push({
-          name: 'login'
+          name: '登录'
         })
       },
       getApiInfo () {
         this.$store.dispatch(GET_INFO)
+      },
+      goDoctor () {
+        this.$router.push({
+          name: '医生简介'
+        })
       }
     },
     ready () {
