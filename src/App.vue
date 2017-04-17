@@ -18,6 +18,9 @@
   a{
     text-decoration: none;
   }
+  ul,li{
+    list-style: none;
+  }
   body{
     /*background: #eff2f4;*/
     font-size: 62.5%;

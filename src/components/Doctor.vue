@@ -26,32 +26,29 @@
         </card>
       </div>
     </header>
-    <div class="content">
-      <ul>
-        <li>
-          <div>
-            <img src="../assets/icon.png">
-            <span>执业点</span>
-          </div>
-          <p>天津国医馆--内科</p>
-        </li>
-        <li>
-          <div>
-            <img src="../assets/icon.png">
-            <span>擅长</span>
-          </div>
-          <p>食管、胃疾病的中西医结合诊治</p>
-        </li>
-        <li>
-          <div>
-            <img src="../assets/icon.png">
-            <span>执业点</span>
-            <span>展开</span>
-          </div>
-          <p>毕业于天津医科大学，师从著名医生著名解...</p>
-        </li>
-      </ul>
-    </div>
+    <ul class="content">
+      <li>
+        <div class="area">
+          执业点
+        </div>
+        <p>天津国医馆--内科</p>
+      </li>
+      <li>
+        <div class="skill">
+          擅长
+        </div>
+        <p>食管、胃疾病的中西医结合诊治</p>
+      </li>
+      <li>
+        <div class="intro">
+          <span>简介</span>
+          <span v-if="isClose" v-tap="{methods:open}" class="drop">展开</span>
+          <span v-else v-tap="{methods:close}" class="drop">收起</span>
+        </div>
+        <p v-if="isClose">毕业于天津医科大学，师从著名医生著名解...</p>
+        <p v-else>毕业于天津医科大学，师从著名医生著名解,毕业于天津医科大学，师从著名医生著名解,毕业于天津医科大学，师从著名医生著名解</p>
+      </li>
+    </ul>
     <footer>
       <card>
           <div slot="content" class="card-demo-flex card-demo-content01">
@@ -59,7 +56,7 @@
               <img src="../assets/icon.png">
               <span>关注</span>
             </div>
-            <div>
+            <div v-tap="{methods:goOrder}">
               <img src="../assets/icon.png">
               <span>预约挂号</span>
             </div>
@@ -76,7 +73,7 @@
     name: 'NAME',
     data () {
       return {
-        value: ''
+        isClose: true
       }
     },
     components: {
@@ -88,6 +85,17 @@
     ready () {
     },
     methods: {
+      open () {
+        this.isClose = false
+      },
+      close () {
+        this.isClose = true
+      },
+      goOrder () {
+        this.$router.push({
+          name: '预约挂号'
+        })
+      }
     }
   }
 </script>
@@ -97,7 +105,7 @@
   }
   header{
     position: relative;
-    height: 12rem;
+    height: 12.5rem;
     background: url('../assets/doctor-bg.png') 0 0 no-repeat;
     background-size: 100% auto;
   }
@@ -115,7 +123,6 @@
   }
   header .info{
     width: 100%;
-    height: 3rem;
     background: #990005;
     position: absolute;
     bottom: 0;
@@ -161,6 +168,57 @@
     -webkit-transform: scaleX(0.5);
     transform: scaleX(0.5);
     transform: translateY(-50%);
+  }
+  .content{
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+  }
+  .content li{
+    width: 90%;
+    margin: auto;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    font-size: 0.8rem;
+    color: #666;
+    padding: .5rem 0;
+  }
+  .content li:last-child{
+    border-bottom: none;
+  }
+  .content li .area,.content li .skill,.content li .intro{
+    font-size: 1rem;
+    color: #333;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .content li .area{
+    background: url('../assets/icon.png') 0 0 no-repeat;
+    background-size: 1rem auto;
+    background-position: center left;
+  }
+  .content li .skill{
+    background: url('../assets/icon.png') 0 0 no-repeat;
+    background-size: 1rem auto;
+    background-position: center left;
+  }
+  .content li .intro{
+    background: url('../assets/icon.png') 0 0 no-repeat;
+    background-size: 1rem auto;
+    background-position: center left;
+  }
+  .content li .intro .drop{
+    position: absolute;
+    right: 0;
+    background: url('../assets/icon.png') 0 0 no-repeat;
+    background-size: .8rem auto;
+    background-position: center right;
+    padding-right: 1rem;
+    color: #b60005;
+    font-size: 0.8rem;
+  }
+  .content li p{
+    margin-top: .5rem;
+    margin-left: 1.5rem;
   }
   footer{
     width: 100%;

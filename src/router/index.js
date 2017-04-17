@@ -33,6 +33,13 @@ let router = new Router({
       component: (resolve) => {
         require(['../components/Doctor'], resolve)
       }
+    },
+    {
+      path: '/order',
+      name: '预约挂号',
+      component: (resolve) => {
+        require(['../components/Order'], resolve)
+      }
     }
   ]
 })
