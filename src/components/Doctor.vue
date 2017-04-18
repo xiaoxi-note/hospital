@@ -127,12 +127,10 @@
     position: absolute;
     bottom: 0;
   }
-  header .info>div{
-    background: #990005;
-  }
   .card-demo-flex {
     display: flex;
     color: #fff;
+    background: #990005;
   }
   .card-demo-content01 {
     padding: 10px 0;
@@ -224,6 +222,9 @@
     width: 100%;
     position: fixed;
     bottom: 0;
+  }
+  footer .card-demo-flex{
+    background: #fff;
   }
   footer .card-demo-flex>div>img {
     position: absolute;

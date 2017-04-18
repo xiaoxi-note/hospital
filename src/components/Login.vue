@@ -24,7 +24,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {Group, Cell, Alert} from 'vux'
+  import { Group, Cell, Alert } from 'vux'
 
   export default {
     name: 'NAME',
