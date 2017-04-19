@@ -10,6 +10,15 @@
     <div v-tap="{methods:goDoctor}"
          class="to-login">医生简介
     </div>
+    <div v-tap="{methods:goRegister}"
+         class="to-login">注册
+    </div>
+    <div v-tap="{methods:goLogin}"
+         class="to-login">登录
+    </div>
+    <div v-tap="{methods:goOrder}"
+         class="to-login">预约
+    </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
     </div>
@@ -34,7 +43,7 @@
     methods: {
       ogLogin () {
         this.$router.push({
-          name: '登录'
+          name: 'login'
         })
       },
       getApiInfo () {
@@ -42,7 +51,22 @@
       },
       goDoctor () {
         this.$router.push({
-          name: '医生简介'
+          name: 'doctorInfo'
+        })
+      },
+      goRegister () {
+        this.$router.push({
+          name: 'register'
+        })
+      },
+      goLogin () {
+        this.$router.push({
+          name: 'login'
+        })
+      },
+      goOrder () {
+        this.$router.push({
+          name: 'order'
         })
       }
     },

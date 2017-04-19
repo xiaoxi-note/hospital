@@ -9,44 +9,52 @@ let router = new Router({
     {
       path: '/',
       name: 'hello',
-      component: (resolve) => {
+      component: function(resolve) {
+        nextPage('Hello Word')
         require(['../components/Hello'], resolve)
       }
     },
     {
       path: '/login',
-      name: '登录',
-      component: (resolve) => {
+      name: 'login',
+      component: function (resolve) {
+        nextPage('登录')
         require(['../components/Login'], resolve)
       }
     },
     {
       path: '/register',
-      name: '注册',
-      component: (resolve) => {
+      name: 'register',
+      component: function(resolve) {
+        nextPage('注册')
         require(['../components/Register'], resolve)
       }
     },
     {
-      path: '/doctor',
-      name: '医生简介',
-      component: (resolve) => {
+      path: '/doctorInfo',
+      name: 'doctorInfo',
+      component: function(resolve){
+        nextPage('医生简介')
         require(['../components/Doctor'], resolve)
       }
     },
     {
       path: '/order',
-      name: '预约挂号',
-      component: (resolve) => {
+      name: 'order',
+      component: function(resolve) {
+        nextPage('预约挂号')
         require(['../components/Order'], resolve)
       }
     }
   ]
 })
 
+let nextPage = function (titleStr) {
+  debugger
+   document.title = titleStr
+}
 router.beforeEach((to, from, next) => {
   console.log('ssss')
-  document.title = to.name
   next()
 })
 
