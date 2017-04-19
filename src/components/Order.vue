@@ -2,12 +2,33 @@
   <div class="page-order">
     <header>
       <card>
-          <div slot="content" class="card-demo-flex card-demo-content01">
-            <div class="vux-1px-r">全科</div>
-            <div class="vux-1px-r">盛世国医</div>
-            <div class="">3月28</div>
-          </div>
-        </card>
+        <div slot="content" class="card-demo-flex">
+          <div class="vux-1px-r" :class="{active : isActive}">全科</div>
+          <div class="vux-1px-r">盛世国医</div>
+          <div class="">3月28</div>
+        </div>
+      </card>
+      <div class="option subject" :class="{active : isActive}">
+        <ul>
+          <li>内科</li>
+          <li>妇科</li>
+          <li>肿瘤科</li>
+        </ul>
+      </div>
+      <div class="option">
+        <ul>
+          <li>xxxxx</li>
+          <li>妇科</li>
+          <li>肿瘤科</li>
+        </ul>
+      </div>
+      <div class="option">
+        <ul>
+          <li>aaaaa</li>
+          <li>妇科</li>
+          <li>肿瘤科</li>
+        </ul>
+      </div>
     </header>
     <div class="search-box">
       <div class="inner">
@@ -21,7 +42,29 @@
         </div>
       </div>
     </div>
-    <ul>
+    <ul class="doctor-list">
+      <li>
+        <flexbox align="center" justify="space-between" :gutter="8">
+          <flexbox-item :span="1/5">
+            <div class="flex-item left">
+              <img src="../assets/doctor.png">
+            </div>
+          </flexbox-item>
+          <flexbox-item>
+            <div class="flex-item middle">
+              <h2>邓文卓</h2>
+              <p><span>主任医师</span><span>心内科</span></p>
+              <p>首都医科大学附属医院</p>
+              <p><span>剩余费：</span><span class="orange rest-order">2</span><span>挂号费：</span><span class="orange">￥126</span></p>
+            </div>
+          </flexbox-item>
+          <flexbox-item :span="1/5">
+            <div class="flex-item right">
+              <div class="btn-order">预约</div>
+            </div>
+          </flexbox-item>
+        </flexbox>
+      </li>
       <li>
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
@@ -55,7 +98,10 @@
     name: 'NAME',
     data () {
       return {
+        isActive: false
       }
+    },
+    computed: {
     },
     components: {
       Group,
@@ -77,14 +123,16 @@
     color: #f39700;
   }
   .page-order{
+    height: 100%;
+  }
+  header{
+    position: relative;
   }
   .card-demo-flex {
     display: flex;
     color: #fff;
     background: #990005;
-  }
-  .card-demo-content01 {
-    padding: 10px 0;
+    padding: 0 .5rem;
   }
   .card-padding {
     padding: 15px;
@@ -92,7 +140,9 @@
   .card-demo-flex > div {
     flex: 1;
     text-align: center;
-    font-size: 12px;
+    font-size: 1rem;
+    height: 3rem;
+    line-height: 3rem;
   }
   .card-demo-flex>div>span {
     font-size: 1.1rem;
@@ -117,6 +167,25 @@
     -webkit-transform: scaleX(0.5);
     transform: scaleX(0.5);
     transform: translateY(-50%);
+  }
+  .option{
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+  }
+  .option li{
+    width: 90%;
+    height: 3rem;
+    line-height: 3rem;
+    margin: auto;
+    border-bottom: 1px solid #ccc;
+    font-size: .9rem;
+    color: #666;
+  }
+  .option li:last-child{
+    border: none;
   }
   .search-box{
     width: 100%;
@@ -163,39 +232,39 @@
     border:0px;
     margin-left: 2rem;
   }
-  ul{
+  .doctor-list{
     clear: both;
     background: #fff;
     border-bottom: 1px solid #ccc;
   }
-  ul li{
+  .doctor-list li{
     /*height: 10rem;*/
     width: 90%;
     margin: auto;
     padding: 1.5rem 0;
     border-bottom: 1px solid #ccc;
   }
-  ul li:last-child{
+  .doctor-list li:last-child{
     border: none;
   }
-  ul .flex-item {
+  .doctor-list .flex-item {
     text-align: center;
     color: #fff;
     /*background-clip: padding-box;*/
   }
-  ul .flex-item.middle {
+  .doctor-list .flex-item.middle {
     text-align: left;
   }
-  ul .flex-item h2{
+  .doctor-list .flex-item h2{
     color: #333;
     font-size: .8rem;
     line-height: 1.8;
   }
-  ul .flex-item>p{
+  .doctor-list .flex-item>p{
     color: #666;
     line-height: 1.8;
   }
-  ul .flex-item .btn-order{
+  .doctor-list .flex-item .btn-order{
     width: 4rem;
     height: 1.5rem;
     line-height: 1.5rem;
@@ -205,11 +274,11 @@
     background: #f39700;
     float: right;
   }
-  ul .flex-item.left img{
+  .doctor-list .flex-item.left img{
     width: 3rem;
     float: left;
   }
-  ul .flex-item .rest-order{
+  .doctor-list .flex-item .rest-order{
     padding-right: 1rem;
   }
 </style>

@@ -51,7 +51,7 @@
       },
       goRegister () {
         this.$router.push({
-          name: '注册'
+          name: 'login'
         })
       }
     }

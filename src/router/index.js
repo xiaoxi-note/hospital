@@ -9,7 +9,7 @@ let router = new Router({
     {
       path: '/',
       name: 'hello',
-      component: function(resolve) {
+      component: resolve => {
         nextPage('Hello Word')
         require(['../components/Hello'], resolve)
       }
@@ -17,7 +17,7 @@ let router = new Router({
     {
       path: '/login',
       name: 'login',
-      component: function (resolve) {
+      component: resolve => {
         nextPage('登录')
         require(['../components/Login'], resolve)
       }
@@ -25,7 +25,7 @@ let router = new Router({
     {
       path: '/register',
       name: 'register',
-      component: function(resolve) {
+      component: resolve => {
         nextPage('注册')
         require(['../components/Register'], resolve)
       }
@@ -33,25 +33,32 @@ let router = new Router({
     {
       path: '/doctorInfo',
       name: 'doctorInfo',
-      component: function(resolve){
+      component: resolve => {
         nextPage('医生简介')
-        require(['../components/Doctor'], resolve)
+        require(['../components/DoctorInfo'], resolve)
       }
     },
     {
       path: '/order',
       name: 'order',
-      component: function(resolve) {
+      component: resolve => {
         nextPage('预约挂号')
         require(['../components/Order'], resolve)
+      }
+    },
+    {
+      path: '/orderInfo',
+      name: 'orderInfo',
+      component: resolve => {
+        nextPage('预约信息')
+        require(['../components/OrderInfo'], resolve)
       }
     }
   ]
 })
 
 let nextPage = function (titleStr) {
-  debugger
-   document.title = titleStr
+  document.title = titleStr
 }
 router.beforeEach((to, from, next) => {
   console.log('ssss')

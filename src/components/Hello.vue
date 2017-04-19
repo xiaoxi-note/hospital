@@ -7,7 +7,7 @@
     <div v-tap="{methods:getApiInfo}"
          class="to-login">get api data
     </div>
-    <div v-tap="{methods:goDoctor}"
+    <div v-tap="{methods:goDoctorInfo}"
          class="to-login">医生简介
     </div>
     <div v-tap="{methods:goRegister}"
@@ -18,6 +18,9 @@
     </div>
     <div v-tap="{methods:goOrder}"
          class="to-login">预约
+    </div>
+    <div v-tap="{methods:goOrderInfo}"
+         class="to-login">预约信息
     </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
@@ -49,7 +52,7 @@
       getApiInfo () {
         this.$store.dispatch(GET_INFO)
       },
-      goDoctor () {
+      goDoctorInfo () {
         this.$router.push({
           name: 'doctorInfo'
         })
@@ -67,6 +70,11 @@
       goOrder () {
         this.$router.push({
           name: 'order'
+        })
+      },
+      goOrderInfo () {
+        this.$router.push({
+          name: 'orderInfo'
         })
       }
     },

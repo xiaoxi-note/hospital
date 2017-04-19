@@ -93,7 +93,7 @@
       },
       goOrder () {
         this.$router.push({
-          name: '预约挂号'
+          name: 'order'
         })
       }
     }
