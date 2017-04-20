@@ -53,6 +53,14 @@ let router = new Router({
         nextPage('预约信息')
         require(['../components/OrderInfo'], resolve)
       }
+    },
+    {
+      path: '/myorder',
+      name: 'myorder',
+      component: resolve => {
+        nextPage('我的预约')
+        require(['../components/Myorder'], resolve)
+      }
     }
   ]
 })
