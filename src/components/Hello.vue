@@ -1,20 +1,16 @@
 <template>
   <div class="">
-    Hello word
-    <div v-tap="{methods:ogLogin}"
-         class="to-login">go to login
-    </div>
     <div v-tap="{methods:getApiInfo}"
          class="to-login">get api data
-    </div>
-    <div v-tap="{methods:goDoctorInfo}"
-         class="to-login">医生简介
     </div>
     <div v-tap="{methods:goRegister}"
          class="to-login">注册
     </div>
     <div v-tap="{methods:goLogin}"
          class="to-login">登录
+    </div>
+    <div v-tap="{methods:goDoctorInfo}"
+         class="to-login">医生简介
     </div>
     <div v-tap="{methods:goOrder}"
          class="to-login">预约
@@ -24,6 +20,9 @@
     </div>
     <div v-tap="{methods:goMyOrder}"
          class="to-login">我的预约
+    </div>
+    <div v-tap="{methods:goMyOrderInfo}"
+         class="to-login">我的预约情况
     </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
@@ -83,6 +82,11 @@
       goMyOrder () {
         this.$router.push({
           name: 'myorder'
+        })
+      },
+      goMyOrderInfo () {
+        this.$router.push({
+          name: 'myorderinfo'
         })
       }
     },

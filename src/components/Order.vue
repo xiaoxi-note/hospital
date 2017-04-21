@@ -43,7 +43,7 @@
       </div>
     </div>
     <ul class="doctor-list">
-      <li>
+      <li v-for="item in doctorList">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -53,36 +53,22 @@
           <flexbox-item>
             <div class="flex-item middle">
               <h2>邓文卓</h2>
-              <p><span>主任医师</span><span>心内科</span></p>
+              <p>
+                <span>主任医师</span>
+                <span>心内科</span>
+              </p>
               <p>首都医科大学附属医院</p>
-              <p><span>剩余费：</span><span class="orange rest-order">2</span><span>挂号费：</span><span class="orange">￥126</span></p>
+              <p>
+                <span>剩余费：</span>
+                <span class="rest-order" :style="{ color: item.color }">2</span>
+                <span>挂号费：</span>
+                <span class="" :style="{ color: item.color }">￥126</span>
+              </p>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/5">
             <div class="flex-item right">
-              <div class="btn-order">预约</div>
-            </div>
-          </flexbox-item>
-        </flexbox>
-      </li>
-      <li>
-        <flexbox align="center" justify="space-between" :gutter="8">
-          <flexbox-item :span="1/5">
-            <div class="flex-item left">
-              <img src="../assets/doctor.png">
-            </div>
-          </flexbox-item>
-          <flexbox-item>
-            <div class="flex-item middle">
-              <h2>邓文卓</h2>
-              <p><span>主任医师</span><span>心内科</span></p>
-              <p>首都医科大学附属医院</p>
-              <p><span>剩余费：</span><span class="orange rest-order">2</span><span>挂号费：</span><span class="orange">￥126</span></p>
-            </div>
-          </flexbox-item>
-          <flexbox-item :span="1/5">
-            <div class="flex-item right">
-              <div class="btn-order">预约</div>
+              <div class="btn-order" :style="{ background: item.backgroundColor }">预约</div>
             </div>
           </flexbox-item>
         </flexbox>
@@ -98,7 +84,11 @@
     name: 'NAME',
     data () {
       return {
-        isActive: false
+        isActive: false,
+        doctorList: [
+          { type: 1, backgroundColor: '#f39700', color: '#f39700' },
+          { type: 0, backgroundColor: '#cccccc', color: '#666' }
+        ]
       }
     },
     computed: {
@@ -119,9 +109,6 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .orange{
-    color: #f39700;
-  }
   .page-order{
     height: 100%;
   }
@@ -169,6 +156,7 @@
     transform: translateY(-50%);
   }
   .option{
+    display: none;
     background: #fff;
     border-bottom: 1px solid #ccc;
     position: absolute;
@@ -188,9 +176,19 @@
     border: none;
   }
   .search-box{
+    position: relative;
     width: 100%;
     background: #fff;
-    border-bottom: 1px solid #ccc;
+  }
+  .search-box:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #cacaca;
+    transform: scaleY(.5);
   }
   .search-box .inner{
     width: 90%;
@@ -233,24 +231,43 @@
     margin-left: 2rem;
   }
   .doctor-list{
+    position: relative;
     clear: both;
     background: #fff;
-    border-bottom: 1px solid #ccc;
+  }
+  .doctor-list:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #cacaca;
+    transform: scaleY(.5);
   }
   .doctor-list li{
-    /*height: 10rem;*/
+    position: relative;
     width: 90%;
     margin: auto;
     padding: 1.5rem 0;
-    border-bottom: 1px solid #ccc;
   }
-  .doctor-list li:last-child{
-    border: none;
+  .doctor-list li:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: #cacaca;
+    transform: scaleY(.5);
+  }
+  .doctor-list li:last-child:after{
+    content: '';
+    height: 0;
   }
   .doctor-list .flex-item {
     text-align: center;
     color: #fff;
-    /*background-clip: padding-box;*/
   }
   .doctor-list .flex-item.middle {
     text-align: left;
@@ -271,7 +288,6 @@
     color: #fff;
     font-size: .9rem;
     border-radius: 1.5rem;
-    background: #f39700;
     float: right;
   }
   .doctor-list .flex-item.left img{
@@ -279,6 +295,6 @@
     float: left;
   }
   .doctor-list .flex-item .rest-order{
-    padding-right: 1rem;
+    padding-right: .5rem;
   }
 </style>

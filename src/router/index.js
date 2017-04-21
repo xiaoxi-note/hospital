@@ -61,6 +61,14 @@ let router = new Router({
         nextPage('我的预约')
         require(['../components/Myorder'], resolve)
       }
+    },
+    {
+      path: '/myorderinfo',
+      name: 'myorderinfo',
+      component: resolve => {
+        nextPage('我的预约情况')
+        require(['../components/MyorderInfo'], resolve)
+      }
     }
   ]
 })

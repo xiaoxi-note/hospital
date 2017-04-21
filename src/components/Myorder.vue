@@ -7,7 +7,7 @@
       <tab-item @on-item-click="onItemClick" class="wait">待处理</tab-item>
     </tab>
     <ul class="list">
-      <li>
+      <li v-for="item in items">
         <div class="doctor-info">
           <flexbox align="center" justify="space-between" :gutter="8">
             <flexbox-item :span="1/5">
@@ -24,7 +24,16 @@
             </flexbox-item>
             <flexbox-item :span="1/4">
               <div class="flex-item right">
-                <div class="btn-order">取消预约</div>
+                <div
+                  class="btn-order"
+                  v-if='item.type=="已预约"'
+                  v-tap="{ methods: cancelOrder }"
+                >取消预约</div>
+                <div
+                  class="btn-pay"
+                  v-if='item.type=="待支付"'
+                  v-tap="{ methods: goPay }"
+                >支付</div>
               </div>
             </flexbox-item>
           </flexbox>
@@ -33,7 +42,7 @@
           <p class="left">就诊人：<span>万甜甜</span></p>
           <p class="right">修改</p>
         </div>
-        <div class="status">已预约</div>
+        <div class="status" :style="{ background: item.backgroudColor }">{{item.type}}</div>
       </li>
     </ul>
   </div>
@@ -46,6 +55,11 @@
     name: 'NAME',
     data () {
       return {
+        items: [
+          { type: '已预约', backgroudColor: '#63c602' },
+          { type: '已过期', backgroudColor: '#cccccc' },
+          { type: '待支付', backgroudColor: '#ff6600' }
+        ]
       }
     },
     components: {
@@ -61,6 +75,10 @@
     },
     methods: {
       onItemClick () {
+      },
+      cancelOrder () {
+      },
+      goPay () {
       }
     }
   }
@@ -97,7 +115,7 @@
   	content: "";
   	width: 0;
   }
-  /*.vux-tab-ink-bar::after{
+  /*.vux-tab-ink-bar:after{
   	content: 'xxxxx';
   	width: 0;
     height: 0;
@@ -152,8 +170,21 @@
   }
   .doctor-info .left .week{
     line-height: 2rem;
-    font-size: 1rem;
+    font-size: .9rem;
     font-weight: bold;
+  }
+  .doctor-info .middle h2{
+    font-size: .8rem;
+  }
+  .doctor-info .right .btn-pay{
+    width: 3.6rem;
+    height: 1.3rem;
+    line-height: 1.3rem;
+    background: #f39700;
+    text-align: center;
+    border-radius: 1.3rem;
+    color: #fff;
+    font-size: .8rem;
   }
   .patient-info{
     width: 90%;
@@ -183,7 +214,6 @@
     width: 6rem;
     height: 1.5rem;
     line-height: 1.5rem;
-    background: #63c602;
     color: #fff;
     transform: rotate(45deg);
   }
