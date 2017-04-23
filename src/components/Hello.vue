@@ -24,6 +24,9 @@
     <div v-tap="{methods:goMyOrderInfo}"
          class="to-login">我的预约情况
     </div>
+    <div v-tap="{methods:goTinyPharmacy}"
+         class="to-login">微药房
+    </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
     </div>
@@ -87,6 +90,11 @@
       goMyOrderInfo () {
         this.$router.push({
           name: 'myorderinfo'
+        })
+      },
+      goTinyPharmacy () {
+        this.$router.push({
+          name: 'tinypharmacy'
         })
       }
     },

@@ -69,6 +69,22 @@ let router = new Router({
         nextPage('我的预约情况')
         require(['../components/MyorderInfo'], resolve)
       }
+    },
+    {
+      path: '/tinypharmacy',
+      name: 'tinypharmacy',
+      component: resolve => {
+        nextPage('微药房')
+        require(['../components/TinyPharmacy'], resolve)
+      }
+    },
+    {
+      path: '/takedrug',
+      name: 'takedrug',
+      component: resolve => {
+        nextPage('我要抓药')
+        require(['../components/Takedrug'], resolve)
+      }
     }
   ]
 })
