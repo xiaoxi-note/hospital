@@ -92,9 +92,15 @@ let router = new Router({
 let nextPage = function (titleStr) {
   document.title = titleStr
 }
+
 router.beforeEach((to, from, next) => {
-  console.log('ssss')
+  console.log(this)
+  Vue.$vux.loading.show({text: 'Loading'})
   next()
 })
+router.afterEach((route) => {
+  Vue.$vux.loading.hide()
+})
+
 
 export default router

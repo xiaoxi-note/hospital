@@ -4,7 +4,7 @@
       <card>
         <div slot="content" class="card-demo-flex">
           <div class="vux-1px-r" :class="{active : isActive}">全科</div>
-          <div class="vux-1px-r">盛世国医</div>
+          <div class="vux-1px-r">盛实国医</div>
           <div class="">3月28</div>
         </div>
       </card>

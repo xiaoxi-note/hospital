@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import resource from 'vue-resource'
-import {AlertPlugin, ToastPlugin} from 'vux'
+import {AlertPlugin, ToastPlugin, LoadingPlugin} from 'vux'
 import vueTap from 'v-tap'
 import store from './store'
 
@@ -13,6 +13,7 @@ Vue.use(vueTap)
 
 Vue.use(AlertPlugin)
 Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
 
 Vue.config.productionTip = false
 

@@ -66,7 +66,7 @@
     margin-top: 3rem;    
   }
   .logo{
-    width: 70%;
+    width: 13rem;
   }
   .box-input{
     margin-top: 1rem;
@@ -135,7 +135,7 @@
   }
   .slogan{
     display: block;
-    width: 80%;
+    width: 11rem;
     position: absolute;
     bottom: 4rem;
     left: 50%;

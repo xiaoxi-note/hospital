@@ -34,4 +34,9 @@
     text-align: center;
     color: #2c3e50;
   }
+  /* 重写vux dialog width & height */
+  .weui-toast{
+    width: 120px !important;
+    height: 120px;
+  }
 </style>
