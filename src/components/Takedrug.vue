@@ -184,7 +184,7 @@
   footer .btn-submit{
     display: block;
     margin: auto;
-    margin-top: 1.5rem;
+    margin-top: .8rem;
     width: 90%;
     height: 2rem;
     line-height: 2rem;

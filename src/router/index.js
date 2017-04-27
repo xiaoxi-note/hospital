@@ -85,6 +85,22 @@ let router = new Router({
         nextPage('我要抓药')
         require(['../components/Takedrug'], resolve)
       }
+    },
+    {
+      path: '/searchprogress',
+      name: 'searchprogress',
+      component: resolve => {
+        nextPage('查看进度')
+        require(['../components/SearchProgress'], resolve)
+      }
+    },
+    {
+      path: '/progressDetail',
+      name: 'progressDetail',
+      component: resolve => {
+        nextPage('查看进度')
+        require(['../components/ProgressDetail'], resolve)
+      }
     }
   ]
 })

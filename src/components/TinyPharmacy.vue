@@ -9,7 +9,7 @@
         <span class="left">我要转方</span>
         <span class="right">已认证</span>
       </li>
-      <li>
+      <li v-tap="{methods:searchProgress}">
         <span class="left">进度查询</span>
         <span class="right"></span>
       </li>
@@ -42,6 +42,11 @@
       takeDrug () {
         this.$router.push({
           name: 'takedrug'
+        })
+      },
+      searchProgress () {
+        this.$router.push({
+          name: 'searchprogress'
         })
       }
     }
