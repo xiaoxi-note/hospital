@@ -65,8 +65,8 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-tyny{  
-    position: relative; 
+  .page-tiny{  
+    /*position: relative; */
   }
   .content{
     position: relative;

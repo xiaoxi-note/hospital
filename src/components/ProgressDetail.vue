@@ -7,7 +7,9 @@
           <p class="time">10:53</p>
         </div>
         <div class="center">
-          <div class="circle"></div>
+          <div class="circle">
+            <img src="../assets/icon1.png">
+          </div>
           <div class="line-grey"></div>
           <div class="line-red"></div>
         </div>
@@ -22,7 +24,9 @@
           <p class="time">10:53</p>
         </div>
         <div class="center">
-          <div class="circle"></div>
+          <div class="circle">
+            <img src="../assets/icon2.png">
+          </div>
           <div class="line-grey"></div>
           <div class="line-red short"></div>
         </div>
@@ -37,7 +41,9 @@
           <p class="time">10:53</p>
         </div>
         <div class="center">
-          <div class="circle"></div>
+          <div class="circle">
+            <img src="../assets/icon3.png">
+          </div>
           <div class="line-grey"></div>
           <div class="line-red hide"></div>
         </div>
@@ -53,7 +59,9 @@
           <p class="time">10:53</p>
         </div>
         <div class="center">
-          <div class="circle"></div>
+          <div class="circle">
+            <img src="../assets/icon4.png">
+          </div>
         </div>
         <div class="right">
           <h2>尚未发药</h2>
@@ -112,16 +120,22 @@
     font-size: .7rem;
   }
   .center{
-    width: 1rem;
+    width: 1.5rem;
     padding: 0 .5rem;
   }
   .center .circle{
     position: absolute;
     top: -3px;
     background: #b60005;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 1.5rem;
+  }
+  .center .circle img{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    z-index: 3;
   }
   .center .line-grey{
     position: absolute;

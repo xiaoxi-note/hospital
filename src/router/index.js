@@ -101,6 +101,14 @@ let router = new Router({
         nextPage('查看进度')
         require(['../components/ProgressDetail'], resolve)
       }
+    },
+    {
+      path: '/changedrug',
+      name: 'changedrug',
+      component: resolve => {
+        nextPage('我要转方')
+        require(['../components/ChangeDrug'], resolve)
+      }
     }
   ]
 })

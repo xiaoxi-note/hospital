@@ -5,7 +5,7 @@
         <span class="left">我要配方</span>
         <span class="right"></span>
       </li>
-      <li>
+      <li v-tap="{methods:changeDrug}">
         <span class="left">我要转方</span>
         <span class="right">已认证</span>
       </li>
@@ -47,6 +47,11 @@
       searchProgress () {
         this.$router.push({
           name: 'searchprogress'
+        })
+      },
+      changeDrug () {
+        this.$router.push({
+          name: 'changedrug'
         })
       }
     }
