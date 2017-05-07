@@ -13,7 +13,7 @@
         <span class="left">进度查询</span>
         <span class="right"></span>
       </li>
-      <li>
+      <li v-tap="{methods:searchProgress}">
         <span class="left">物流查询</span>
         <span class="right"></span>
       </li>

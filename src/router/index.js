@@ -31,6 +31,14 @@ let router = new Router({
       }
     },
     {
+      path: '/doctorFocus',
+      name: 'doctorFocus',
+      component: resolve => {
+        nextPage('名医关注')
+        require(['../components/DoctorFocus'], resolve)
+      }
+    },
+    {
       path: '/doctorInfo',
       name: 'doctorInfo',
       component: resolve => {

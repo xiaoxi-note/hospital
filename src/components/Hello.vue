@@ -9,6 +9,9 @@
     <div v-tap="{methods:goLogin}"
          class="to-login">登录
     </div>
+    <div v-tap="{methods:goDoctorFocus}"
+         class="to-login">名医关注
+    </div>
     <div v-tap="{methods:goDoctorInfo}"
          class="to-login">医生简介
     </div>
@@ -60,6 +63,11 @@
       goDoctorInfo () {
         this.$router.push({
           name: 'doctorInfo'
+        })
+      },
+      goDoctorFocus () {
+        this.$router.push({
+          name: 'doctorFocus'
         })
       },
       goRegister () {

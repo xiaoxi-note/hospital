@@ -1,0 +1,244 @@
+<template>
+  <div class="page-myorder">
+    <tab defaultColor="#fff" active-color="#fff" :line-width="5" bar-active-color="#ed8083">
+      <tab-item selected @on-item-click="onItemClickOne">关注医生</tab-item>
+      <tab-item @on-item-click="onItemClickTwo">就诊医生</tab-item>
+    </tab>
+    <ul class="doctor-focus" v-show="doctorFocusShow">
+      <li v-for="item in items">
+        <flexbox align="center" justify="space-between" :gutter="8">
+          <flexbox-item :span="1/4">
+            <div class="flex-item left">
+              <img src="../assets/doctor.png">
+            </div>
+          </flexbox-item>
+          <flexbox-item :span="1/4">
+            <div class="flex-item middle-left">
+              <h2>邓文卓</h2>
+              <p><span>主任医师</span><span>心内科</span></p>
+            </div>
+          </flexbox-item>
+          <flexbox-item :span="1/5">
+            <div class="flex-item middle-right">
+              <div>
+                <img src="../assets/icon.png">
+                <p>加关注</p>
+              </div>
+            </div>
+          </flexbox-item>
+          <flexbox-item :span="1/5">
+            <div class="flex-item right">
+              <a class="btn-order">预约</a>
+            </div>
+          </flexbox-item>
+        </flexbox>
+      </li>
+    </ul>
+    <ul class="doctor-see" v-show="!doctorFocusShow">
+      <li v-for="item in items">
+        <div class="doctor-info">
+          <flexbox align="center" justify="space-between" :gutter="8">
+            <flexbox-item :span="1/4">
+              <div class="flex-item left">
+              <img src="../assets/doctor.png">
+            </div>
+            </flexbox-item>
+            <flexbox-item>
+              <div class="flex-item middle">
+                <h2>邓文卓</h2>
+                <p><span>主任医师</span><span>心内科</span></p>
+              </div>
+            </flexbox-item>
+            <flexbox-item :span="1/4">
+              <div class="flex-item right">
+                <a class="btn-order">预约</a>
+              </div>
+            </flexbox-item>
+          </flexbox>
+        </div>
+        <div class="patient-info">
+          <p>上次就诊时间：<span>2017-02-12</span></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  import { Group, Cell, Alert, Tab, TabItem, Flexbox, FlexboxItem } from 'vux'
+
+  export default {
+    name: 'NAME',
+    data () {
+      return {
+        items: [
+          {},
+          {},
+          {}
+        ],
+        doctorFocusShow: true
+      }
+    },
+    components: {
+      Group,
+      Cell,
+      Alert,
+      Tab,
+      TabItem,
+      Flexbox,
+      FlexboxItem
+    },
+    ready () {
+    },
+    methods: {
+      onItemClickOne () {
+        this.doctorFocusShow = true;
+      },
+      onItemClickTwo () {
+        this.doctorFocusShow = false;
+      },
+      cancelOrder () {
+      },
+      goPay () {
+      }
+    }
+  }
+</script>
+
+<style scoped rel="stylesheet/stylus">
+  .page-myorder{
+  }
+  .vux-tab{
+  	background: #b60005;
+  }
+  .vux-tab .vux-tab-item{
+  	position: relative;
+  	background-color: #b60005;
+  }
+  .vux-tab .vux-tab-item.vux-tab-selected{
+  	background-color: #db0006;
+  }
+  .vux-tab-ink-bar{
+    position: relative;
+  }
+  .vux-tab-ink-bar:after{
+  	content: 'xxxxx';
+    position: absolute;
+    top: 0;
+    left: 50%;
+  	width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #fdd005;
+  }
+  ul{
+    position: relative;
+    background: #fff;
+  }
+  ul:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    transform: scaleY(.5); 
+  }
+  /*关注医生start*/
+  .doctor-focus li{
+	  position: relative;
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
+    padding: 1rem 0;
+  }
+  ul li:after{
+  	content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    transform: scaleY(.5); 
+  }
+  ul li:last-child:after{
+    content: '';
+    border: none;
+  }
+  ul li .left{
+    text-align: center;
+    width: 4rem;
+    height: 4rem;
+  }
+  ul li .left img{
+    display: block;
+    width: 100%;
+  }
+  ul li .left .date{
+    background: #ddd;
+    height: 1rem;
+    line-height: 1rem;
+  }
+  ul li .left .week{
+    line-height: 2rem;
+    font-size: .9rem;
+    font-weight: bold;
+  }
+  .doctor-focus li .middle-left h2{
+    font-size: .8rem;
+  }
+  .doctor-focus li .middle-right{
+    text-align: center;
+  }
+  .doctor-focus li .middle-right img{
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin: auto;
+  }
+  .doctor-focus li .middle-right p{
+    color: #f39700;
+  }
+  ul li .right .btn-order{
+    display: table;
+    width: 4rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background: #f39700;
+    text-align: center;
+    border-radius: 1.5rem;
+    color: #fff;
+    font-size: .8rem;
+  }
+  /*关注医生end*/
+  /*就诊医生start*/
+  .doctor-see li{
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
+  }
+  .doctor-see .doctor-info{
+    padding: 1rem 0;
+  }
+  .patient-info{
+    position: relative;
+    height: 3rem;
+    line-height: 3rem;
+    color: #333;
+  }
+  .patient-info:after{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border-bottom: 1px dashed #ccc;
+    transform: scaleY(.5); 
+  }
+  .patient-info p{
+    text-align: left;
+  }
+  /*就诊医生end*/
+</style>
