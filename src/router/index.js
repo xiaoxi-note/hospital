@@ -47,6 +47,14 @@ let router = new Router({
       }
     },
     {
+      path: '/doctorMsg',
+      name: 'doctorMsg',
+      component: resolve => {
+        nextPage('医生预约信息')
+        require(['../components/DoctorMsg'], resolve)
+      }
+    },
+    {
       path: '/order',
       name: 'order',
       component: resolve => {

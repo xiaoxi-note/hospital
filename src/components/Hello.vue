@@ -15,6 +15,9 @@
     <div v-tap="{methods:goDoctorInfo}"
          class="to-login">医生简介
     </div>
+    <div v-tap="{methods:goDoctorMsg}"
+         class="to-login">医生预约信息
+    </div>
     <div v-tap="{methods:goOrder}"
          class="to-login">预约
     </div>
@@ -63,6 +66,11 @@
       goDoctorInfo () {
         this.$router.push({
           name: 'doctorInfo'
+        })
+      },
+      goDoctorMsg () {
+        this.$router.push({
+          name: 'doctorMsg'
         })
       },
       goDoctorFocus () {
