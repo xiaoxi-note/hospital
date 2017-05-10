@@ -4,8 +4,8 @@
       <tab-item selected @on-item-click="onItemClickOne">关注医生</tab-item>
       <tab-item @on-item-click="onItemClickTwo">就诊医生</tab-item>
     </tab>
-    <ul class="doctor-focus" v-show="doctorFocusShow">
-      <li v-for="item in items">
+    <ul class="doctor-focus underline-thin" v-show="doctorFocusShow">
+      <li v-for="item in items" class="underline-thin">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/4">
             <div class="flex-item left">
@@ -34,8 +34,8 @@
         </flexbox>
       </li>
     </ul>
-    <ul class="doctor-see" v-show="!doctorFocusShow">
-      <li v-for="item in items">
+    <ul class="doctor-see underline-thin" v-show="!doctorFocusShow">
+      <li v-for="item in items" class="underline-thin">
         <div class="doctor-info">
           <flexbox align="center" justify="space-between" :gutter="8">
             <flexbox-item :span="1/4">
@@ -133,38 +133,18 @@
     border-bottom: 6px solid #fdd005;
   }
   ul{
-    position: relative;
     background: #fff;
-  }
-  ul:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
   }
   /*关注医生start*/
   .doctor-focus li{
-	  position: relative;
     overflow: hidden;
     width: 90%;
     margin: auto;
     padding: 1rem 0;
   }
-  ul li:after{
-  	content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
-  }
-  ul li:last-child:after{
+  ul li.underline-thin:last-child:after{
     content: '';
-    border: none;
+    height: 0;
   }
   ul li .left{
     text-align: center;

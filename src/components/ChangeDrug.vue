@@ -1,7 +1,7 @@
 <template>
   <div class="page-changedrug">
     <header>
-    	<div class="head">
+    	<div class="head underline-thin">
 	    	<div class="upload">
 	    		<div class="addimg">+</div>
 	    		<div class="intro">
@@ -64,19 +64,8 @@
   	background: #fff;
   }
   .head{
-  	position: relative;
   	padding: 1rem 2rem;
   	text-align: left;
-  }
-  .head:after{
-  	content: '';
-		position: absolute;
-		height: 1px;
-		width: 100%;
-		left: 0;
-		bottom: 0;
-		transform: scaleY(.5);
-		background: #ccc;
   }
   .upload{
   	/*display: none;*/

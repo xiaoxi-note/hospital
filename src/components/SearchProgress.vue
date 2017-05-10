@@ -1,11 +1,11 @@
 <template>
   <div class="page-progress">
     <div class="content hospital-drug">
-      <div class="title" v-tap="{methods:showHospitalList}">
+      <div class="title underline-thin" v-tap="{methods:showHospitalList}">
         <span>医馆处方</span>
       </div>
-      <ul v-show="hospitalDrugShow">
-        <li v-for="item in hospitalDrug">
+      <ul v-show="hospitalDrugShow" class="underline-thin">
+        <li v-for="item in hospitalDrug" class="underline-thin">
           <div class="intro">
             <p class="date">
               <span class="left">北京国医馆</span>
@@ -30,8 +30,8 @@
       <div class="title" v-tap="{methods:showOuterList}">
         <span>外来出发</span>
       </div>
-      <ul v-show="outerDrugShow">
-        <li v-for="item in outerDrug">
+      <ul v-show="outerDrugShow" class="underline-thin">
+        <li v-for="item in outerDrug" class="underline-thin">
           <div class="intro">
             <p class="date">
               <span class="left">北京国医馆</span>
@@ -108,19 +108,9 @@
     margin-bottom: 1rem;
   }
   .title{
-    position: relative;
     padding: 1rem 5%;
     text-align: left;
     box-sizing: border-box;
-  }
-  .title:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
   }
   .title:before{
     content: '';
@@ -139,32 +129,11 @@
     padding-left: 1.5rem;
   }
   .content ul{
-    position: relative;
     background: #fff;
   }
-  .content ul:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
-  }
   .content li{
-    position: relative;
     width: 90%;
     margin: auto;
-  }
-  .content li:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #ccc;
-    transform: scaleY(.5); 
   }
   .content li:last-child:after{
     content: '';

@@ -26,14 +26,14 @@
         </card>
       </div>
     </header>
-    <ul class="content">
-      <li>
+    <ul class="content underline-thin">
+      <li class="underline-thin">
         <div class="area">
           执业点
         </div>
         <p>天津国医馆--内科</p>
       </li>
-      <li>
+      <li class="underline-thin">
         <div class="skill">
           擅长
         </div>
@@ -169,19 +169,14 @@
   }
   .content{
     background: #fff;
-    border-bottom: 1px solid #ccc;
   }
   .content li{
     width: 90%;
     margin: auto;
     text-align: left;
-    border-bottom: 1px solid #ccc;
     font-size: 0.8rem;
     color: #666;
     padding: .5rem 0;
-  }
-  .content li:last-child{
-    border-bottom: none;
   }
   .content li .area,.content li .skill,.content li .intro{
     font-size: 1rem;

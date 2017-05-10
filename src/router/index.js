@@ -125,6 +125,38 @@ let router = new Router({
         nextPage('我要转方')
         require(['../components/ChangeDrug'], resolve)
       }
+    },
+    {
+      path: '/accountdoctor',
+      name: 'accountdoctor',
+      component: resolve => {
+        nextPage('我的账户')
+        require(['../components/AccountDoctor'], resolve)
+      }
+    },
+    {
+      path: '/tinysickroom',
+      name: 'tinysickroom',
+      component: resolve => {
+        nextPage('微病房')
+        require(['../components/TinySickRoom'], resolve)
+      }
+    },
+    {
+      path: '/sickcase',
+      name: 'sickcase',
+      component: resolve => {
+        nextPage('病案管理')
+        require(['../components/SickCase'], resolve)
+      }
+    },
+    {
+      path: '/completedrug',
+      name: 'completedrug',
+      component: resolve => {
+        nextPage('已开处方')
+        require(['../components/CompleteDrug'], resolve)
+      }
     }
   ]
 })

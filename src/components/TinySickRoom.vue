@@ -1,20 +1,12 @@
 <template>
-  <div class="page-tiny content underline-thin">
+  <div class="content underline-thin">
     <ul>
-      <li v-tap="{methods:takeDrug}" class="underline-thin">
-        <span class="left">我要配方</span>
+      <li v-tap="{methods:sickCase}" class="underline-thin">
+        <span class="left">病案管理</span>
         <span class="right"></span>
       </li>
-      <li v-tap="{methods:changeDrug}" class="underline-thin">
-        <span class="left">我要转方</span>
-        <span class="right">已认证</span>
-      </li>
-      <li v-tap="{methods:searchProgress}" class="underline-thin">
-        <span class="left">进度查询</span>
-        <span class="right"></span>
-      </li>
-      <li v-tap="{methods:searchProgress}">
-        <span class="left">物流查询</span>
+      <li v-tap="{methods:completeDrug}" class="underline-thin">
+        <span class="left">已开处方</span>
         <span class="right"></span>
       </li>
     </ul>
@@ -39,19 +31,14 @@
     ready () {
     },
     methods: {
-      takeDrug () {
+      sickCase () {
         this.$router.push({
-          name: 'takedrug'
+          name: 'sickcase'
         })
       },
-      searchProgress () {
+      completeDrug () {
         this.$router.push({
-          name: 'searchprogress'
-        })
-      },
-      changeDrug () {
-        this.$router.push({
-          name: 'changedrug'
+          name: 'completedrug'
         })
       }
     }
@@ -59,8 +46,6 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-tyny{   
-  }
   .content{
     background: #fff;
   }
@@ -70,6 +55,7 @@
     margin: auto;
     height: 3rem;
     line-height: 3rem;
+    font-size: .8rem;
   }
   .content li:before{
     content: '';

@@ -1,8 +1,8 @@
 <template>
   <div class="page-tiny">
-    <div class="content">
+    <div class="content underline-thin">
       <ul>
-        <li v-for="item in list">
+        <li v-for="item in list" class="underline-thin">
           <div class="intro">
             <p class="date">
               <span class="left">北京国医馆</span>
@@ -69,34 +69,13 @@
     /*position: relative; */
   }
   .content{
-    position: relative;
     background: #fff;
   }
-  .content:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
-  }
   .content li{
-    position: relative;
     width: 90%;
     margin: auto;
   }
-  .content li:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #ccc;
-    transform: scaleY(.5); 
-  }
-  .content li:last-child:after{
+  .content li.underline-thin:last-child:after{
     content: '';
     height: 0;
   }

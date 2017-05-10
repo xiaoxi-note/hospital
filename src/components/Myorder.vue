@@ -7,7 +7,7 @@
       <tab-item @on-item-click="onItemClick" class="wait">待处理</tab-item>
     </tab>
     <ul class="list">
-      <li v-for="item in items">
+      <li v-for="item in items" class="underline-thin">
         <div class="doctor-info">
           <flexbox align="center" justify="space-between" :gutter="8">
             <flexbox-item :span="1/5">
@@ -127,18 +127,8 @@
     left: 50%;
   }*/
   .list li{
-	  position: relative;
     background: #fff;
     overflow: hidden;
-  }
-  .list li:after{
-  	content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
   }
   .list .doctor-info{
     position: relative;

@@ -2,11 +2,11 @@
   <div class="page-login">
     <img src="../assets/logo.png" class="logo">
     <div class="box-input">
-      <div class="phone-number">
+      <div class="phone-number underline-thin">
         <label>手机号 ：</label>
         <input type="" name="" placeholder="请输入您的手机号">
       </div>
-      <div class="password">
+      <div class="password underline-thin">
         <label>密&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
         <input v-if="!isShow" type='password' name="" placeholder="请输入您的密码" v-model="value">
         <input v-else type='text' name="" placeholder="请输入您的密码" v-model="value">
@@ -76,9 +76,7 @@
   .box-input>div{
     height: 2.5rem;
     line-height: 2.5rem;
-    border-bottom: 1px solid #ccc;
     padding-left: 0.5rem;
-    position: relative;
   }
   .box-input .password{
     margin-top: .8rem;

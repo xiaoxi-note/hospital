@@ -6,8 +6,8 @@
       <p class="type">国医大师</p>
       <p class="room">产科 — 病房（产科）</p>
     </header>
-    <ul class="content">
-      <li>
+    <ul class="content underline-thin">
+      <li class="underline-thin">
         <div class="area">
           出诊时间
         </div>
@@ -48,13 +48,13 @@
           </tbody>
         </table>
       </li>
-      <li>
+      <li class="underline-thin">
         <div class="skill">
           擅长
         </div>
         <p>食管、胃疾病的中西医结合诊治</p>
       </li>
-      <li>
+      <li class="underline-thin">
         <div class="intro">
           <span>简介</span>
           <span v-if="isClose" v-tap="{methods:open}" class="drop">展开</span>
@@ -133,19 +133,18 @@
   }
   .content{
     background: #fff;
-    border-bottom: 1px solid #ccc;
   }
   .content li{
     width: 90%;
     margin: auto;
     text-align: left;
-    border-bottom: 1px solid #ccc;
     font-size: 0.8rem;
     color: #666;
     padding: .5rem 0;
   }
-  .content li:last-child{
-    border-bottom: none;
+  .content li.underline-thin:last-child:after{
+    content: '';
+    height: 0;
   }
   .content li .area,.content li .skill,.content li .intro{
     font-size: 1rem;

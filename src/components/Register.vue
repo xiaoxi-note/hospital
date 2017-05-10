@@ -1,17 +1,17 @@
 <template>
   <div class="page-register">
-    <div class="tab">
+    <div class="tab underline-thin">
       <tab defaultColor="#333333" active-color="#b60005" bar-active-color="#b60005">
         <tab-item selected @on-item-click="onPatientClick">患者</tab-item>
         <tab-item @on-item-click="onDoctorClick">医生</tab-item>
       </tab>
       <div class="box-input">
-        <div class="phone">
+        <div class="phone underline-thin">
           <label>手&nbsp;机&nbsp;号 ：</label>
           <input type="" name="" placeholder="请输入您的手机号">
           <span class="getCode">获取验证码</span>
         </div>
-        <div class="">
+        <div class="underline-thin">
           <label>验&nbsp;证&nbsp;码 ：</label>
           <div class="tip-box">
             <input type="" name="" placeholder="请输入您的验证码">
@@ -21,19 +21,19 @@
             </div>
           </div>
         </div>
-        <div class="">
+        <div class="underline-thin">
           <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
           <input type="" name="" placeholder="请输入您的密码">
         </div>
-        <div class="">
+        <div class="underline-thin">
           <label>重复密码 ：</label>
           <input type="" name="" placeholder="请再次输入您的密码">
         </div>
-        <div class="">
+        <div class="underline-thin">
           <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名 ：</label>
           <input type="" name="" placeholder="请输入您的真实姓名">
         </div>
-        <div class="sexSelect">
+        <div class="sexSelect underline-thin">
           <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别 ：</label>
           <select>
             <option value='' disabled selected style='display:none; color:#999;'>请选择</option>
@@ -41,7 +41,7 @@
             <option value="2">女</option>
           </select>
         </div>
-        <div class="">
+        <div class="underline-thin">
           <label>身份证号 ：</label>
           <input type="" name="" placeholder="请输入您的身份证号">
         </div>
@@ -86,8 +86,8 @@
 </script>
 <style scoped rel="stylesheet/stylus">
   .tab{
+    position: relative;
     background: #fff;
-    border-bottom: 1px solid #ccc;
   }
   .vux-tab .vux-tab-item{
     font-size: 1rem;
@@ -99,17 +99,16 @@
     text-align: left;
     width: 95%; 
   }
-  .box-input>div{
+  .box-input>div.underline-thin{
     height: 2.5rem;
     line-height: 2.5rem;
-    border-bottom: 1px solid #ccc;
     padding-left: 0.5rem;
     position: relative;
     margin-bottom: 0.5rem;
   }
-  .box-input>div:last-child{
-    border-bottom: none;
-    margin-bottom: 0;
+  .box-input>div.underline-thin:last-child:after{
+    content: '';
+    height: 0;
   }
   .box-input input{
     /*width: 60%;*/

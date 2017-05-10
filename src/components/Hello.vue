@@ -33,6 +33,12 @@
     <div v-tap="{methods:goTinyPharmacy}"
          class="to-login">微药房
     </div>
+    <div v-tap="{methods:goAccountDoctor}"
+         class="to-login">我的账户-医生
+    </div>
+    <div v-tap="{methods:goTinySickRoom}"
+         class="to-login">微病房
+    </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
     </div>
@@ -111,6 +117,16 @@
       goTinyPharmacy () {
         this.$router.push({
           name: 'tinypharmacy'
+        })
+      },
+      goAccountDoctor () {
+        this.$router.push({
+          name: 'accountdoctor'
+        })
+      },
+      goTinySickRoom () {
+        this.$router.push({
+          name: 'tinysickroom'
         })
       }
     },

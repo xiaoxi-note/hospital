@@ -17,16 +17,16 @@
       </div>
       <div class="option">
         <ul>
-          <li>xxxxx</li>
-          <li>妇科</li>
-          <li>肿瘤科</li>
+          <li>盛世国医</li>
+          <li>儿童医院</li>
+          <li>儿研所</li>
         </ul>
       </div>
       <div class="option">
         <ul>
-          <li>aaaaa</li>
-          <li>妇科</li>
-          <li>肿瘤科</li>
+          <li>3月29</li>
+          <li>3月30</li>
+          <li>4月01</li>
         </ul>
       </div>
     </header>
@@ -42,8 +42,8 @@
         </div>
       </div>
     </div>
-    <ul class="doctor-list">
-      <li v-for="item in doctorList">
+    <ul class="doctor-list underline-thin">
+      <li v-for="item in doctorList" class="underline-thin">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -231,37 +231,15 @@
     margin-left: 2rem;
   }
   .doctor-list{
-    position: relative;
     clear: both;
     background: #fff;
   }
-  .doctor-list:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #cacaca;
-    transform: scaleY(.5);
-  }
   .doctor-list li{
-    position: relative;
     width: 90%;
     margin: auto;
     padding: 1.5rem 0;
   }
-  .doctor-list li:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #cacaca;
-    transform: scaleY(.5);
-  }
-  .doctor-list li:last-child:after{
+  .doctor-list li.underline-thin:last-child:after{
     content: '';
     height: 0;
   }

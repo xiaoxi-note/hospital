@@ -1,6 +1,6 @@
 <template>
   <div class="page-myorderinfo">
-    <div class="search-box">
+    <div class="search-box underline-thin">
       <div class="inner">
         <select>
           <option>按时间</option>
@@ -12,8 +12,8 @@
         </div>
       </div>
     </div>
-    <ul class="order-list">
-      <li v-for="itme in orderList">
+    <ul class="order-list underline-thin">
+      <li v-for="itme in orderList" class="underline-thin">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -67,19 +67,8 @@
 <style scoped rel="stylesheet/stylus">
   /*搜索框start*/
   .search-box{
-    position: relative;
     width: 100%;
     background: #fff;
-  }
-  .search-box:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #cacaca;
-    transform: scaleY(.5);
   }
   .search-box .inner{
     width: 90%;
@@ -124,38 +113,16 @@
   /*搜索框end*/
   /*列表start*/
   .order-list{
-    position: relative;
     background: #fff;
   }
-  .order-list:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #cacaca;
-    transform: scaleY(.5);
-  }
   .order-list li{
-    position: relative;
     width: 90%;
     margin: auto;
     box-sizing: border-box;
     padding: 1rem 0;
     color: #666;
   }
-  .order-list li:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #cacaca;
-    transform: scaleY(.5);
-  }
-  .order-list li:last-child:after{
+  .order-list li.underline-thin:last-child:after{
     content: '';
     height: 0;
   }

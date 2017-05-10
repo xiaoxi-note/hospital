@@ -22,17 +22,17 @@
         </div>
       </div>
     </header>
-    <div class="content">
+    <div class="content underline-thin">
       <ul>
-        <li>
+        <li class="underline-thin">
           <span class="left">就诊人</span>
           <span class="right">王甜甜</span>
         </li>
-        <li>
+        <li class="underline-thin">
           <span class="left">初/复诊</span>
           <span class="right">初诊</span>
         </li>
-        <li>
+        <li class="underline-thin">
           <span class="left">疾病信息</span>
           <span class="right">尚未确诊</span>
         </li>
@@ -146,17 +146,7 @@
     width: 1rem;
   }
   .content{
-    position: relative;
     background: #fff;
-  }
-  .content:after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    border-bottom: 1px solid #ccc;
-    transform: scaleY(.5); 
   }
   .content li{
     position: relative;
@@ -165,19 +155,15 @@
     height: 3rem;
     line-height: 3rem;
   }
-  .content li:after{
+  .content li:before{
     content: '';
+    width: 1rem;
+    height: 3rem;
     position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: #ccc;
-    transform: scaleY(.5); 
-  }
-  .content li:last-child:after{
-    content: '';
-    height: 0;
+    right: 0;
+    background: url(../assets/down.png) no-repeat;
+    background-size: 1rem auto;
+    background-position: center;
   }
   .content li .left{
     float: left;
@@ -188,9 +174,6 @@
   }
   .content li .right{
     float: right;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center right;
     padding-right: 1.5rem;
   }
   .btn-submit{
