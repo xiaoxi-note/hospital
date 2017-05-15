@@ -3,26 +3,26 @@
     <header>
       <card>
         <div slot="content" class="card-demo-flex">
-          <div class="vux-1px-r" :class="{active : isActive}">全科</div>
-          <div class="vux-1px-r">盛实国医</div>
-          <div class="">3月28</div>
+          <div class="vux-1px-r" @click="tabToggle(1)">全科</div>
+          <div class="vux-1px-r" @click="tabToggle(2)">盛实国医</div>
+          <div class="" @click="tabToggle(3)">3月28</div>
         </div>
       </card>
-      <div class="option subject" :class="{active : isActive}">
+      <div class="option" v-show="isCurrentOne">
         <ul>
           <li>内科</li>
           <li>妇科</li>
           <li>肿瘤科</li>
         </ul>
       </div>
-      <div class="option">
+      <div class="option" v-show="isCurrentTwo">
         <ul>
           <li>盛世国医</li>
           <li>儿童医院</li>
           <li>儿研所</li>
         </ul>
       </div>
-      <div class="option">
+      <div class="option" v-show="isCurrentThree">
         <ul>
           <li>3月29</li>
           <li>3月30</li>
@@ -88,7 +88,10 @@
         doctorList: [
           { type: 1, backgroundColor: '#f39700', color: '#f39700' },
           { type: 0, backgroundColor: '#cccccc', color: '#666' }
-        ]
+        ],
+        isCurrentOne: false,
+        isCurrentTwo: false,
+        isCurrentThree: false
       }
     },
     computed: {
@@ -104,6 +107,25 @@
     ready () {
     },
     methods: {
+      tabToggle (index) {
+        switch(index){
+          case 1:
+            this.isCurrentOne = true
+            this.isCurrentTwo = false
+            this.isCurrentThree = false
+            break
+          case 2:
+            this.isCurrentOne = false
+            this.isCurrentTwo = true
+            this.isCurrentThree = false
+            break
+          case 3:
+            this.isCurrentOne = false
+            this.isCurrentTwo = false
+            this.isCurrentThree = true
+            break
+        }
+      }
     }
   }
 </script>
@@ -156,7 +178,7 @@
     transform: translateY(-50%);
   }
   .option{
-    display: none;
+    /*display: none;*/
     background: #fff;
     border-bottom: 1px solid #ccc;
     position: absolute;
