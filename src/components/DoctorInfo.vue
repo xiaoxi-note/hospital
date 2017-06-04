@@ -106,7 +106,7 @@
   header{
     position: relative;
     height: 12.5rem;
-    background: url('../assets/doctor-bg.png') 0 0 no-repeat;
+    background: #b60005 url('../assets/doctor-bg.png') 0 -7rem no-repeat;
     background-size: 100% auto;
   }
   header img.head{
@@ -163,9 +163,7 @@
     border-right: 1px solid #fff;
     -webkit-transform-origin: 100% 0;
     transform-origin: 100% 0;
-    -webkit-transform: scaleX(0.5);
-    transform: scaleX(0.5);
-    transform: translateY(-50%);
+    transform: translateY(-50%) scaleX(0.5);
   }
   .content{
     background: #fff;

@@ -90,10 +90,9 @@
     font-size: .8rem;
   }
   header .doc-info{
-    background: url(../assets/doctor-bg.png) 0 0 no-repeat;
+    background: #b60005 url(../assets/doctor-bg.png) left top no-repeat;
     background-size: 100% auto;
     /*background-position: -1px left;*/
-    background-color: #b60005;
   }
   header .doc-info>div{
     position: relative;

@@ -97,90 +97,97 @@
 
 <style scoped rel="stylesheet/stylus">
   .page-progress-detail{  
-    position: relative; 
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: #fff url(../assets/bg.png) left bottom no-repeat;
+    background-size: 29% auto;
   }
-  ul{
+  .page-progress-detail ul{
     margin-top: 2rem;
   }
-  li{
+  .page-progress-detail li{
     width: 90%;
     height: 7rem;
     margin: auto;
     position: relative;
   }
-  li>div{
+  .page-progress-detail li>div{
     float: left;
     text-align: left;
     height: 100%;
     position: relative;
   }
-  .left{
+  .page-progress-detail .left{
     width: 4rem;
     color: #333;
     font-size: .7rem;
   }
-  .center{
+  .page-progress-detail .center{
     width: 1.5rem;
     padding: 0 .5rem;
   }
-  .center .circle{
+  .page-progress-detail .center .circle{
     position: absolute;
     top: -3px;
     background: #b60005;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 1.5rem;
+    z-index: 3;
   }
-  .center .circle img{
+  .page-progress-detail .center .circle img{
     width: 100%;
     height: auto;
     position: absolute;
     z-index: 3;
   }
-  .center .line-grey{
+  .page-progress-detail .center .line-grey{
     position: absolute;
     height: 100%;
     width: 1px;
     background: #ccc;
     left: 50%;
     transform: translateX(-50%);
-    z-index: -1;
   }
-  .center .line-red{
+  .page-progress-detail .center .line-red{
     position: absolute;
     height: 100%;
     width: 1px;
     background: #b60005;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
   }
-  .center .line-red.short{
+  .page-progress-detail .center .line-red.short{
     height: 50%;
     top: .5rem;
   }
-  .right h2{
+  .page-progress-detail .right h2{
     font-size: .8rem;
     color: #333;
     margin-top: -3px;
   }
-  .right .intro{
+  .page-progress-detail .right .intro{
     font-size: .7rem;
     color: #999999;
     margin-top: .5rem;
   }
-  .hide{
+  .page-progress-detail .hide{
     display: none;
   }
-  .unfinished .circle{
+  .page-progress-detail .unfinished .circle{
     background: #ccc;
   }
-  .unfinished h2{
+  .page-progress-detail .unfinished h2{
     color: #999;
   }
-  .unfinished .left{
+  .page-progress-detail .unfinished .left{
     opacity: 0;
   }
-  .pay{
+  .page-progress-detail .pay{
     position: absolute;
     top: -3px;
     left: 4rem;

@@ -96,6 +96,13 @@
   }
   .vux-tab .vux-tab-item.vux-tab-selected{
   	background-color: #db0006;
+    z-index: 2;
+  }
+  .vux-tab .vux-tab-item.vux-tab-selected:after{
+    right: 0;
+  }
+  .vux-tab .vux-tab-item{
+    background: none;
   }
   .vux-tab-item:after{
   	content: "";
@@ -104,9 +111,10 @@
     background: #fff;
     transform: scaleX(.5);
     position: absolute;
-    right: 0;
+    right: -1px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: scaleX(.5) translateY(-50%);
+    z-index: 1;
   }
   .vux-tab-item.vux-tab-selected:after{
   	background: #db0006;
@@ -115,17 +123,6 @@
   	content: "";
   	width: 0;
   }
-  /*.vux-tab-ink-bar:after{
-  	content: 'xxxxx';
-  	width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid #fdd005;
-    position: absolute;
-    top: 0;
-    left: 50%;
-  }*/
   .list li{
     background: #fff;
     overflow: hidden;
@@ -206,5 +203,24 @@
     line-height: 1.5rem;
     color: #fff;
     transform: rotate(45deg);
+  }
+  .underline-thin:before{
+    content: '';
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    transform: scaleY(.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .underline-thin:first-child:before{
+    display: none;
+  }
+  .underline-thin:after{
+    display: none;
+  }
+  .underline-thin:last-child:after{
+    display: block;
   }
 </style>

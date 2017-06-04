@@ -112,7 +112,7 @@
   header{
     position: relative;
     height: 12.5rem;
-    background: url('../assets/doctor-bg.png') 0 0 no-repeat;
+    background: #b60005 url('../assets/doctor-bg.png') 0 -4rem no-repeat;
     background-size: 100% auto;
     color: #fff;
   }
@@ -197,6 +197,8 @@
     transform: scale(.5);
     top: -50%;
     left: -50%;
+    margin-top: -1px;
+    margin-left: -1px;
   }
   table td{
     position: relative;

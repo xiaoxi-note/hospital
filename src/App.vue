@@ -22,10 +22,11 @@
     list-style: none;
   }
   body{
-    /*background: #eff2f4;*/
     font-size: 62.5%;
-    background: url(./assets/bg.png) 0 0 no-repeat;
-    background-size: 100% auto;
+    height: 100%;
+    background: #eff2f4 url(./assets/bg.png) left bottom no-repeat;
+    background-size: 29% auto;
+    background-attachment:fixed;
   }
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;

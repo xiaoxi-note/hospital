@@ -174,6 +174,8 @@
     transform: scale(.5);
     top: -50%;
     left: -50%;
+    margin-top: -1px;
+    margin-left: -1px;
   }
   table th{
   	display: table-row;

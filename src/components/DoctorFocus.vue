@@ -1,5 +1,5 @@
 <template>
-  <div class="page-myorder">
+  <div class="page-doctor-focus">
     <tab defaultColor="#fff" active-color="#fff" :line-width="5" bar-active-color="#ed8083">
       <tab-item selected @on-item-click="onItemClickOne">关注医生</tab-item>
       <tab-item @on-item-click="onItemClickTwo">就诊医生</tab-item>
@@ -106,14 +106,13 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-myorder{
+  .page-doctor-focus{
   }
   .vux-tab{
   	background: #b60005;
   }
   .vux-tab .vux-tab-item{
-  	position: relative;
-  	background-color: #b60005;
+  	background: none;
   }
   .vux-tab .vux-tab-item.vux-tab-selected{
   	background-color: #db0006;
