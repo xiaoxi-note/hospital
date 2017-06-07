@@ -8,7 +8,7 @@
       <div class="box-input">
         <div class="phone underline-thin">
           <label>手&nbsp;机&nbsp;号 ：</label>
-          <input type="" name="" placeholder="请输入您的手机号">
+          <input type="" maxlength="11" name="" placeholder="请输入您的手机号">
           <span class="getCode">获取验证码</span>
         </div>
         <div class="underline-thin">
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <a class="register" href="">注&nbsp;&nbsp;册</a>
+    <a class="btn-red register" href="">注&nbsp;&nbsp;册</a>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -85,80 +85,64 @@
 
 </script>
 <style scoped rel="stylesheet/stylus">
+  .page-register{
+  	padding-bottom: 1rem;
+  }
   .tab{
     position: relative;
     background: #fff;
+    font-size: .54rem;
   }
   .vux-tab .vux-tab-item{
-    font-size: 1rem;
+    font-size: .54rem;
   }
   .box-input{
     margin: auto;
-    margin-top: 1rem;
-    font-size: 1rem;
+    margin-top: .62rem;
+    font-size: .54rem;
     text-align: left;
-    width: 95%; 
+    width: 91.5%; 
   }
   .box-input>div.underline-thin{
-    height: 2.5rem;
-    line-height: 2.5rem;
-    padding-left: 0.5rem;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    padding-left: 0.26rem;
     position: relative;
-    margin-bottom: 0.5rem;
+    margin-top: 0.24rem;
   }
   .box-input>div.underline-thin:last-child:after{
     content: '';
     height: 0;
-  }
-  .box-input input{
-    /*width: 60%;*/
-    background:none;  
-    outline:none;  
-    border:0px;
-    margin-left: -0.5rem;
-    font-size: 1rem;
   }
   .box-input .phone{
     position: relative;
   }
   .box-input .phone .getCode{
     /*display: inline-block;*/
-    width: 7rem;
-    height: 2rem;
-    line-height: 2rem;
+    width: 3.66rem;
+    height: 1.12rem;
+    line-height: 1.12rem;
     text-align: center;
     /*padding: .5rem;*/
     border: 1px solid #f18900;
-    border-radius: 2rem;
+    border-radius: 1.14rem;
     color: #f18900;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     right: 0;
+    box-sizing: border-box;
   }
   .box-input .sexSelect select{
-    font-size: 1rem;
+    font-size: .54rem;
   }
   .box-input .upload{
     height: 5rem;
+    padding: .38rem 0 0 .26rem;
   }
   .box-input .upload img{
     width: 4rem;
     vertical-align: top;
-  }
-  .register{
-    display: block;
-    margin-top: 1rem;
-    width: 95%;
-    margin: auto;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    height: 3rem;
-    line-height: 3rem;
-    border-radius: 3rem;
-    background: #b60005;
-    font-size: 1.2rem;
-    color: #fff;
   }
   .show{
     display: block;
@@ -172,8 +156,9 @@
   }
   .tip-box .tip{
     position: absolute;
-    margin-left: -1.5rem;
-    margin-top: -0.8rem;
+    margin-left: -1.3rem;
+    margin-top: -0.4rem;
+    z-index: 3;
   }
   .tip-box .tip .triangle{
     width: 0;
@@ -185,11 +170,14 @@
   }
   .tip-box .tip .content{
     background: #fdd005;
-    padding: 5px 8px;
+    padding: 0 .3rem;
     border-radius: 5px;
-    height: 1rem;
-    line-height: 1rem;
-    font-size: 0.9rem;
+    height: .94rem;
+    line-height: .94rem;
+    font-size: 0.46rem;
     color: #fff;
+  }
+  .register{
+  	margin-top: 1.2rem;
   }
 </style>

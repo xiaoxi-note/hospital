@@ -1,2 +1,2 @@
-let body = document.getElementsByTagName('body')[0];
-body.style.fontSize = '62.5%'
+let winW = document.documentElement.clientWidth;
+document.documentElement.style.fontSize = winW/15 + 'px';
