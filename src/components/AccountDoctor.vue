@@ -71,9 +71,8 @@
   .page-orderInfo{   
   }
   header{
-    background: url(../assets/doctor-bg.png) 0 0 no-repeat;
+    background: #b60005 url(../assets/doctor-bg2.png) left bottom no-repeat;
     background-size: 100% auto;
-    background-color: #b60005;
     padding-top: 1rem;
     padding-bottom: 2rem;
     text-align: left;

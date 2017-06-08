@@ -25,11 +25,17 @@
   ul, li {
     list-style: none;
   }
+<<<<<<< HEAD
 
   body {
+=======
+  body{
+>>>>>>> 88d58cbaeb6e80d9dd74ecf2d2fac8cc0c142599
     font-size: 62.5%;
-    background: url(./assets/bg.png) 0 0 no-repeat;
-    background-size: 100% auto;
+    height: 100%;
+    background: #eff2f4 url(./assets/bg.png) left bottom no-repeat;
+    background-size: 29% auto;
+    background-attachment:fixed;
   }
 
   #app {

@@ -3,10 +3,13 @@
     <header>
       <div class="doc-info">
         <div class="intro">
-          <img src="../assets/doctor-head.png">
-          <span class="name">王洪光</span>
-          <i></i>
-          <span class="type">国医大师</span>
+          <div class="headCont">
+	    	    <span class="imgBg"></span>
+	        <img src="../assets/doctor-head.png" class="head">
+	      </div>
+            <span class="name">王洪光</span>
+            <i></i>
+            <span class="type">国医大师</span>
         </div>
         <div class="message">
           <p>就诊医馆：北京国医馆</p>
@@ -24,19 +27,19 @@
     </header>
     <div class="content underline-thin">
       <ul>
-        <li class="underline-thin">
+        <li class="underline-thin people">
           <span class="left">就诊人</span>
           <span class="right">王甜甜</span>
         </li>
-        <li class="underline-thin">
+        <li class="underline-thin review">
           <span class="left">初/复诊</span>
           <span class="right">初诊</span>
         </li>
-        <li class="underline-thin">
+        <li class="underline-thin info">
           <span class="left">疾病信息</span>
           <span class="right">尚未确诊</span>
         </li>
-        <li>
+        <li class="pay-method">
           <span class="left">支付方式</span>
           <span class="right">会员卡</span>
         </li>
@@ -81,26 +84,47 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-orderInfo{   
+  .page-orderInfo{
+  	padding-bottom: 1rem;
   }
   header{
     /*background-color: #b60005;*/
     text-align: left;
     color: #fff;
-    font-size: .8rem;
+    font-size: .56rem;
+    height: 10.44rem;
+  }
+  .doc-info-cont{
+  	
   }
   header .doc-info{
-    background: url(../assets/doctor-bg.png) 0 0 no-repeat;
+    background: #b60005 url(../assets/doctor-bg.png) left top no-repeat;
     background-size: 100% auto;
     /*background-position: -1px left;*/
-    background-color: #b60005;
+  }
+  .headCont{
+  	height: 2.44rem;
+  	width: 2.44rem;
+  	margin: 0;
+  }
+  header span.imgBg{
+  	width: 2.44rem;
+  	height: 2.44rem;
+  	top: 0;
+  }
+  header img.head{
+  	width: 2.08rem;
+  	height: 2.08rem;
+  	top: .2rem;
+  	left: 1.2rem;
   }
   header .doc-info>div{
     position: relative;
-    width: 90%;
+    width: 90.6%;
     margin: auto;
-    padding: .7rem;
+    padding: .44rem 0;
     box-sizing: border-box;
+    line-height: .96rem;
   }
   header .doc-info>div:after{
     content: '';
@@ -114,25 +138,22 @@
   header .doc-info>div:last-child:after{
     border-bottom: none;
   }
-  .intro{
+  header .doc-info div.intro{
     display: flex;
     align-items: center;
-  }
-  .intro img{
-    width: 3.5rem;
-    margin-right: .5rem;
-    padding: .3rem 0;
+    padding: .72rem 0;
   }
   .intro .name{
     font-weight: bold;
-    font-size: .9rem;
+    /*font-size: .9rem;*/
+    padding: 0 0 0 .5rem;
   }
   .intro i{
     width: 1px;
-    height: 1rem;
+    height: .7rem;
     background: #fff;
-    margin: 0 1rem;
-    transform: scaleX(.5);
+    margin: 0 .4rem;
+    /*transform: scaleX(.5);*/
   }
   .rule p{
     color: #fdd005;
@@ -143,7 +164,7 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    width: 1rem;
+    width: .58rem;
   }
   .content{
     background: #fff;
@@ -152,40 +173,48 @@
     position: relative;
     width: 90%;
     margin: auto;
-    height: 3rem;
-    line-height: 3rem;
+    height: 1rem;
+    line-height: 1rem;
   }
   .content li:before{
     content: '';
-    width: 1rem;
-    height: 3rem;
+    width: .76rem;
+    height: 1rem;
     position: absolute;
     right: 0;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center;
+    background: url(../assets/allIcon.png) no-repeat;
+    background-size: .76rem auto;
+    background-position: left -4rem;
   }
   .content li .left{
     float: left;
-    background: url(../assets/icon.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
+    background: url(../assets/allIcon.png) left top no-repeat;
+    background-size: .76rem auto;
+    padding-left: 1.3rem;
+  }
+  .content li.review  .left{
+  	background-position: left -1rem
+  }
+  .content li.info  .left{
+  	background-position: left -2rem
+  }
+  .content li.pay-method  .left{
+  	background-position: left -3rem
   }
   .content li .right{
     float: right;
-    padding-right: 1.5rem;
+    padding-right: 1rem;
   }
   .btn-submit{
     display: block;
     margin: auto;
     margin-top: 1.5rem;
-    width: 90%;
-    height: 2rem;
-    line-height: 2rem;
-    border-radius: 2rem;
+    width: 92.5%;
+    height: 1.6rem;
+    line-height: 1.6rem;
+    border-radius: 1.8rem;
     background: #b60005;
-    font-size: .9rem;
+    font-size: .64rem;
     color: #fff;
   }
 </style>
