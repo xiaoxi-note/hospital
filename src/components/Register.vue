@@ -84,7 +84,7 @@
   }
 
 </script>
-<style scoped rel="stylesheet/stylus">
+<style rel="stylesheet/stylus">
   .page-register{
   	padding-bottom: 1rem;
   }
@@ -102,6 +102,9 @@
     font-size: .54rem;
     text-align: left;
     width: 91.5%; 
+  }
+  .vux-tab .vux-tab-ink-bar{
+  	bottom: 1px;
   }
   .box-input>div.underline-thin{
     height: 1.6rem;

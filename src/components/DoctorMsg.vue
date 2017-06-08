@@ -1,7 +1,10 @@
 <template>
   <div class="page-doctor">
     <header>
-      <img src="../assets/doctor-head.png" class="head">
+      <div class="headCont">
+    	    <span class="imgBg"></span>
+        <img src="../assets/doctor-head.png" class="head">
+      </div>
       <p class="name">王洪刚</p>
       <p class="type">国医大师</p>
       <p class="room">产科 — 病房（产科）</p>
@@ -23,7 +26,7 @@
             </tr>
             <tr>
               <td>上</td>
-              <td :class="isFull ? canNotChois : ''">约满</td>
+              <td :class="isFull ? canNotChois : 'canNotChois'">约满</td>
               <td></td>
               <td></td>
               <td></td>
@@ -109,77 +112,8 @@
 <style scoped rel="stylesheet/stylus">
   .page-doctor{   
   }
-  header{
-    position: relative;
-    height: 12.5rem;
-    background: #b60005 url('../assets/doctor-bg.png') 0 -4rem no-repeat;
-    background-size: 100% auto;
-    color: #fff;
-  }
-  header img.head{
-    width: 4rem;
-    margin-top: 1rem;
-  }
-  header .name{
-    font-size: 1rem;
-  }
-  header .type{
-    font-size: 0.7rem;
-    color: 
-  }
-  header .room{
-    font-size: 0.8rem;
-    margin-top: .5rem;
-  }
   .content{
     background: #fff;
-  }
-  .content li{
-    width: 90%;
-    margin: auto;
-    text-align: left;
-    font-size: 0.8rem;
-    color: #666;
-    padding: .5rem 0;
-  }
-  .content li.underline-thin:last-child:after{
-    content: '';
-    height: 0;
-  }
-  .content li .area,.content li .skill,.content li .intro{
-    font-size: 1rem;
-    color: #333;
-    padding-left: 1.5rem;
-    position: relative;
-  }
-  .content li .area{
-    background: url('../assets/icon.png') 0 0 no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-  }
-  .content li .skill{
-    background: url('../assets/icon.png') 0 0 no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-  }
-  .content li .intro{
-    background: url('../assets/icon.png') 0 0 no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-  }
-  .content li .intro .drop{
-    position: absolute;
-    right: 0;
-    background: url('../assets/icon.png') 0 0 no-repeat;
-    background-size: .8rem auto;
-    background-position: center right;
-    padding-right: 1rem;
-    color: #b60005;
-    font-size: 0.8rem;
-  }
-  .content li p{
-    margin-top: .5rem;
-    margin-left: 1.5rem;
   }
   table{
     position: relative;
@@ -202,8 +136,9 @@
   }
   table td{
     position: relative;
-    height: 2.5rem;
+    height: 1.6rem;
     text-align: center;
+    font-size: .52rem;
   }
   table td:before{
     content: '';
@@ -215,6 +150,8 @@
     transform: scale(.5);
     top: -50%;
     left: -50%;
+    margin-left: -1px;
+    margin-top: -1px;
   }
   table tr:first-child td:fitst-child{
     color: #222;
@@ -223,7 +160,7 @@
     font-size: .8rem;
   }
   table tr:first-child td span:last-child{
-    font-size: .7rem;
+    font-size: .38rem;
     color: #999;
   }
   table tr:last-child td:before{
@@ -235,7 +172,9 @@
     border-right: none;
   }
   table tr td:first-child{
-    width: 2.5rem;
+    width: 1.66rem;
+    color: #222;
+    font-size: .44rem;
   }
   td.canNotChois{
     background: #eee;
@@ -246,9 +185,9 @@
     color: #fff;
   }
   td.canChois span:first-child{
-    font-size: .9rem;
+    font-size: .56rem;
   }
   td.canChois span:last-child{
-    font-size: .7rem;
+    font-size: .4rem;
   }
 </style>
