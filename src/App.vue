@@ -13,6 +13,8 @@
 </script>
 
 <style>
+
+  @import "./stylus/common.css";
   * {
     margin: 0;
     padding: 0;
@@ -25,12 +27,7 @@
   ul, li {
     list-style: none;
   }
-<<<<<<< HEAD
-
   body {
-=======
-  body{
->>>>>>> 88d58cbaeb6e80d9dd74ecf2d2fac8cc0c142599
     font-size: 62.5%;
     height: 100%;
     background: #eff2f4 url(./assets/bg.png) left bottom no-repeat;

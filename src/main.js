@@ -9,7 +9,8 @@ import vueTap from 'v-tap'
 import store from './store'
 
 import mixin from './util'
-import './stylus/common.css'
+// import './stylus/common.css'
+// require('./stylus/common.css')
 Vue.use(vueTap)
 
 Vue.use(AlertPlugin)
