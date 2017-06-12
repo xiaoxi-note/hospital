@@ -18,7 +18,7 @@
           <p class="intro">您已成功提交药方，请耐心等待</p>
         </div>
       </li>
-      <li>
+      <li class="active">
         <div class="left">
           <p class="date">2017-04-15</p>
           <p class="time">10:53</p>
@@ -109,8 +109,8 @@
     margin-top: 2rem;
   }
   .page-progress-detail li{
-    width: 90%;
-    height: 7rem;
+    width: 92.5%;
+    height: 4.96rem;
     margin: auto;
     position: relative;
   }
@@ -120,22 +120,25 @@
     height: 100%;
     position: relative;
   }
+  .page-progress-detail li.active>div{
+  	color: #00a0e9;
+  }
   .page-progress-detail .left{
-    width: 4rem;
+    width: 2.66rem;
     color: #333;
-    font-size: .7rem;
+    font-size: .48rem;
   }
   .page-progress-detail .center{
-    width: 1.5rem;
+    width: .96rem;
     padding: 0 .5rem;
   }
   .page-progress-detail .center .circle{
     position: absolute;
     top: -3px;
     background: #b60005;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 1.5rem;
+    width: .96rem;
+    height: .96rem;
+    border-radius: .96rem;
     z-index: 3;
   }
   .page-progress-detail .center .circle img{
@@ -166,14 +169,21 @@
     top: .5rem;
   }
   .page-progress-detail .right h2{
-    font-size: .8rem;
+    font-size: .6rem;
     color: #333;
+    line-height: 1.08rem;
     margin-top: -3px;
   }
+  .page-progress-detail li.active .right h2{
+  	color: #00a0e9;
+  }
   .page-progress-detail .right .intro{
-    font-size: .7rem;
-    color: #999999;
-    margin-top: .5rem;
+    font-size: .48rem;
+    line-height: .96rem;
+    color: #999;
+  }
+  .page-progress-detail li.active .intro{
+  	color: #00a0e9;
   }
   .page-progress-detail .hide{
     display: none;
@@ -189,14 +199,15 @@
   }
   .page-progress-detail .pay{
     position: absolute;
-    top: -3px;
-    left: 4rem;
-    width: 3.5rem;
-    height: 1.3rem;
-    border-radius: 1.3rem;
+    top: -2px;
+    left: 3.16rem;
+    width: 2.6rem;
+    height: 1rem;
+    line-height: 1rem;
+    border-radius: 1rem;
     background: #f39700;
     color: #fff;
-    font-size: .8rem;
+    font-size: .56rem;
     text-align: center;
     display: table;
     vertical-align: middle;

@@ -183,23 +183,23 @@
     position: absolute;
     right: 0;
     background: url(../assets/allIcon.png) no-repeat;
-    background-size: .76rem auto;
+    background-size: .8rem auto;
     background-position: left -4rem;
   }
   .content li .left{
     float: left;
     background: url(../assets/allIcon.png) left top no-repeat;
-    background-size: .76rem auto;
+    background-size: .8rem auto;
     padding-left: 1.3rem;
   }
   .content li.review  .left{
-  	background-position: left -1rem
+  	background-position: left -1.12rem
   }
   .content li.info  .left{
-  	background-position: left -2rem
+  	background-position: left -2.2rem
   }
   .content li.pay-method  .left{
-  	background-position: left -3rem
+  	background-position: left -3.2rem
   }
   .content li .right{
     float: right;

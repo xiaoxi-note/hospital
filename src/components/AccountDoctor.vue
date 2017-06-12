@@ -9,23 +9,23 @@
     <div class="content underline-thin">
       <ul>
         <li class="underline-thin">
-          <span class="left">实名认证</span>
+          <span class="name left">实名认证</span>
           <span class="right">已认证</span>
         </li>
         <li class="underline-thin">
-          <span class="left">医生资质审核</span>
+          <span class="audit left">医生资质审核</span>
           <span class="right"></span>
         </li>
         <li class="underline-thin">
-          <span class="left">修改密码</span>
+          <span class="change_pwd left">修改密码</span>
           <span class="right"></span>
         </li>
         <li class="underline-thin">
-          <span class="left">手机绑定</span>
+          <span class="bind_tel left">手机绑定</span>
           <span class="right"></span>
         </li>
         <li>
-          <span class="left">收货地址</span>
+          <span class="address left">收货地址</span>
           <span class="right">上海市青浦区徐泾东盈港东...</span>
         </li>
       </ul>
@@ -71,10 +71,11 @@
   .page-orderInfo{   
   }
   header{
+  	height: 4.38rem;
     background: #b60005 url(../assets/doctor-bg2.png) left bottom no-repeat;
     background-size: 100% auto;
-    padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding-top: .9rem;
+    /*padding-bottom: 2rem;*/
     text-align: left;
   }
   header .intro{
@@ -88,11 +89,11 @@
     align-items: center;
   }
   .intro img{
-    width: 4rem;
+    width: 2.6rem;
     margin-right: .5rem;
   }
   .intro span{
-    font-size: 1.2rem;
+    font-size: .68rem;
     color: #fff;
   }
   .content{
@@ -100,33 +101,47 @@
   }
   .content li{
     position: relative;
-    width: 90%;
+    width: 92.5%;
     margin: auto;
-    height: 3rem;
-    line-height: 3rem;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: .56rem;
+    padding: .5rem 0;
   }
   .content li:before{
     content: '';
     width: 1rem;
-    height: 3rem;
+    height: 1rem;
     position: absolute;
-    right: 0;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center;
+    top: .4rem;
+    right: -.4rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -4rem;
+    background-size: .8rem auto;
   }
   .content li .left{
     float: left;
-    background: url(../assets/icon.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
-    color: #333;
-    font-size: .8rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -4.95rem;
+    background-size: .8rem auto;
+    padding-left: 1.36rem;
+  }
+  .content li .name{
+  	background-position: 0 -3.24rem;
+  }
+  .content li .audit{
+  	background-position: 0 -7.09rem;
+  }
+  .content li .change_pwd{
+  	background-position: 0 -8.1rem;
+  }
+  .content li .bind_tel{
+  	background-position: 0 -9.1rem;
+  }
+  .content li .address{
+  	background-position: 0 -10.1rem;
   }
   .content li .right{
     float: right;
-    padding-right: 1.5rem;
+    padding-right: .76rem;
     color: #666;
   }
 </style>

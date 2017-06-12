@@ -49,33 +49,50 @@
   .content{
     background: #fff;
   }
+  ul{
+  	position: relative;
+  }
+  ul:after{
+  	content: '';
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    transform: scaleY(.5);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
   .content li{
     position: relative;
-    width: 90%;
+    width: 92.5%;
     margin: auto;
-    height: 3rem;
-    line-height: 3rem;
-    font-size: .8rem;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: .56rem;
+    padding: .5rem 0;
   }
   .content li:before{
     content: '';
     width: 1rem;
-    height: 3rem;
+    height: 1rem;
     position: absolute;
-    right: 0;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center;
+    top: .4rem;
+    right: -.4rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -4rem;
+    background-size: .8rem auto;
   }
   .content li .left{
     float: left;
-    background: url(../assets/icon.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -4.95rem;
+    background-size: .8rem auto;
+    padding-left: 1.36rem;
+  }
+  .content li:last-child .left{
+  	background-position: 0 -6.1rem;
   }
   .content li .right{
     float: right;
-    padding-right: 1.5rem;
+    padding-right: 1.36rem;
+    font-size: .48rem;
   }
 </style>
