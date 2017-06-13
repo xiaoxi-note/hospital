@@ -4,7 +4,7 @@
 
 简介
     - 活动平台  API 文档
-    - 所有请求 都 必须带 token （登录除外）
+    - 所有请求 都 必须带 token （登录、注册除外）
 
 
 
@@ -191,5 +191,161 @@
 				}]
         }
     ```
-    
- 
+9. ##### 获取省市县信息 #####
+   ###### 获取省市县信息
+    ``` url
+    /api/getCityInfo
+    ```
+          
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: [{
+           	id	:'',//	cityID				name	:'',//	省名称
+				child:[{
+	           	id	:'',//	cityID					name	:'',//	市名称		
+					child:[{
+		           	id	:'',//	cityID						name	:'',//	县名称
+					}]
+				}]			}]
+        }
+    ```
+10. ##### 关注医生 #####
+   ###### 获取省市县信息
+    ``` url
+    /api/follow
+    ```
+	#### param ####
+    ``` request
+    * docId: '' // 医生id
+    ```
+
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: {
+           	status: true // 操作是否成功
+           }
+        }
+    ```
+11. ##### 取消关注医生 #####
+   ###### 获取省市县信息
+    ``` url
+    /api/unFollow
+    ```
+	#### param ####
+    ``` request
+    * docId: '' // 医生id
+    ```
+
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: {
+           	status: true // 操作是否成功
+           }
+        }
+    ```
+12. ##### 获取关注医生list #####
+   ###### 获取省市县信息
+    ``` url
+    /api/getFollowList
+    ```
+
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: [
+           	... //医生详细信息 参考  之前接口 
+           ]
+        }
+    ```
+
+13. ##### 添加常用联系人 #####
+   ###### 添加常用联系人
+    ``` url
+    /api/addCommonContacts
+    ```
+	#### param ####
+    ``` request
+    * phone:''
+    * name:''
+    * birthday:''
+    * city:'' //1,12,22
+    * address:''//详细地址
+    * msgCode:''
+    ```
+
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: {
+           	status: true // 操作是否成功
+           }
+        }
+    ```
+14. ##### 删除常用联系人 #####
+   ###### 删除常用联系人
+    ``` url
+    /api/deleteCommonContacts
+    ```
+	#### param ####
+    ``` request
+    * id:'' // 
+    ```
+
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: {
+           	status: true // 操作是否成功
+           }
+        }
+    ```
+15. ##### 获取常用联系人列表 #####
+   ###### 获取常用联系人列表
+    ``` url
+    /api/getCommonContacts
+    ```
+
+    #### response ####
+    ```
+        {
+           errno:0,
+           errmsg:'',
+           data: [{
+           	name:'',//姓名
+   				phone:'',//  手机号加密
+	      		address:'',// 详细地址
+           	city:{
+           			id:'',
+           			name:'',
+           			child:{
+           				id:'',
+           				name:'',
+	           			child:{
+           					id:'',
+	           				name:'',
+	           			}
+           			}
+           		},
+           }]
+        }
+    ```
