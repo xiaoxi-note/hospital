@@ -14,6 +14,9 @@ body{
     bottom: 0;
     left: 0;
 }
+.underline-thin:last-child:after{
+	display: none;
+}
 .vux-tab{
 	height: 1.72rem;
 }
@@ -129,15 +132,15 @@ header{
   }
   .content li .area{
     background: url('../assets/address.png') left center no-repeat;
-    background-size: .76rem auto;
+    background-size: .8rem auto;
   }
   .content li .skill{
     background: url('../assets/heart1.png') left center no-repeat;
-    background-size: .76rem auto;
+    background-size: .8rem auto;
   }
   .content li .intro{
     background: url('../assets/icon.png') left center no-repeat;
-    background-size: .76rem auto;
+    background-size: .8rem auto;
   }
   .content li .intro .drop{
     position: absolute;

@@ -2,19 +2,19 @@
   <div class="page-tiny content underline-thin">
     <ul>
       <li v-tap="{methods:takeDrug}" class="underline-thin">
-        <span class="left">我要配方</span>
+        <span class="formula left">我要配方</span>
         <span class="right"></span>
       </li>
       <li v-tap="{methods:changeDrug}" class="underline-thin">
-        <span class="left">我要转方</span>
+        <span class="turn left">我要转方</span>
         <span class="right">已认证</span>
       </li>
       <li v-tap="{methods:searchProgress}" class="underline-thin">
-        <span class="left">进度查询</span>
+        <span class="query_pro left">进度查询</span>
         <span class="right"></span>
       </li>
       <li v-tap="{methods:searchProgress}">
-        <span class="left">物流查询</span>
+        <span class="query_logistics left">物流查询</span>
         <span class="right"></span>
       </li>
     </ul>
@@ -66,30 +66,41 @@
   }
   .content li{
     position: relative;
-    width: 90%;
+    width: 92.5%;
     margin: auto;
-    height: 3rem;
-    line-height: 3rem;
+    height: 1rem;
+    line-height: 1rem;
+    font-size: .56rem;
+    padding: .5rem 0;
   }
   .content li:before{
     content: '';
     width: 1rem;
-    height: 3rem;
+    height: 1rem;
     position: absolute;
-    right: 0;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center;
+    top: .4rem;
+    right: -.4rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -4rem;
+    background-size: .8rem auto;
   }
   .content li .left{
     float: left;
-    background: url(../assets/icon.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -12.6rem;
+    background-size: .8rem auto;
+    padding-left: 1.36rem;
+  }
+  .content li .turn{
+    background-position: 0 -13.6rem;
+  }
+  .content li .query_pro{
+    background-position: 0 -14.55rem;
+  }
+  .content li .query_logistics{
+  	background-position: 0 -15.5rem;
   }
   .content li .right{
     float: right;
-    padding-right: 1.5rem;
+    padding-right: 1rem;
+    font-size: .48rem;
   }
 </style>

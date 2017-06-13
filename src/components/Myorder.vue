@@ -86,6 +86,7 @@
 
 <style scoped rel="stylesheet/stylus">
   .page-myorder{
+  	font-size: .5rem;
   }
   .vux-tab{
   	background: #b60005;
@@ -129,10 +130,10 @@
   }
   .list .doctor-info{
     position: relative;
-    width: 90%;
+    width: 92.5%;
     margin: auto;
     box-sizing: border-box;
-    padding: 1rem 0;
+    padding: .6rem 0;
     color: #666;
   }
   .list .doctor-info:after{
@@ -147,38 +148,37 @@
   .doctor-info .left{
     background: #eee;
     text-align: center;
-    width: 3rem;
-    height: 3rem;
+    width: 2.36rem;
+    height: 2.36rem;
   }
   .doctor-info .left .date{
     background: #ddd;
-    height: 1rem;
-    line-height: 1rem;
+    height: .8rem;
+    line-height: .8rem;
   }
   .doctor-info .left .week{
-    line-height: 2rem;
-    font-size: .9rem;
+    line-height: 1.56rem;
+    font-size: .56rem;
     font-weight: bold;
   }
   .doctor-info .middle h2{
-    font-size: .8rem;
+    font-size: .56rem;
   }
   .doctor-info .right .btn-pay{
-    width: 3.6rem;
-    height: 1.3rem;
-    line-height: 1.3rem;
+    width: 2.6rem;
+    height: 1rem;
+    line-height: 1rem;
     background: #f39700;
     text-align: center;
-    border-radius: 1.3rem;
+    border-radius: 1rem;
     color: #fff;
-    font-size: .8rem;
   }
   .patient-info{
-    width: 90%;
+    width: 92.5%;
     margin: auto;
     position: relative;
-    height: 3rem;
-    line-height: 3rem;
+    height: 1.52rem;
+    line-height: 1.52rem;
     color: #333;
   }
   .patient-info .left{
@@ -188,19 +188,18 @@
   .patient-info .right{
     position: absolute;
     right: 0;
-    background: url(../assets/icon.png) 0 0 no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -10.99rem;
+    background-size: .8rem auto;
+    padding-left: 0.9rem;
     color: #029fc6;
   }
   .status{
     position: absolute;
-    top: 0.5rem;
-    right: -1.5rem;
+    top: 0.3rem;
+    right: -2rem;
     width: 6rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
+    height: 1rem;
+    line-height: 1rem;
     color: #fff;
     transform: rotate(45deg);
   }

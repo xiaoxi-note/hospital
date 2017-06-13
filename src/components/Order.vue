@@ -136,6 +136,7 @@
   }
   header{
     position: relative;
+    height: auto;
   }
   .card-demo-flex {
     display: flex;
@@ -149,9 +150,9 @@
   .card-demo-flex > div {
     flex: 1;
     text-align: center;
-    font-size: 1rem;
-    height: 3rem;
-    line-height: 3rem;
+    font-size: .56rem;
+    height: 1.76rem;
+    line-height: 1.76rem;
   }
   .card-demo-flex>div>span {
     font-size: 1.1rem;
@@ -165,7 +166,7 @@
   }
   .vux-1px-r:after {
     content: " ";
-    height: 1rem;
+    height: .64rem;
     position: absolute;
     right: 0;
     top: 50%;
@@ -186,13 +187,14 @@
     z-index: 2;
   }
   .option li{
-    width: 90%;
-    height: 3rem;
-    line-height: 3rem;
+    width: 85.33%;
+    line-height: 1.72rem;
     margin: auto;
     border-bottom: 1px solid #ccc;
-    font-size: .9rem;
+    font-size: .48rem;
+    text-align: left;
     color: #666;
+    padding-left: .92rem;
   }
   .option li:last-child{
     border: none;
@@ -221,9 +223,18 @@
   }
   .search-box select{
     position: absolute;
+    width: 1.8rem;
     left: 0;
     top: 50%;
+    font-size: .56rem;
+    appearance:none;
+	-moz-appearance:none;
+	-webkit-appearance:none;
     transform: translateY(-50%);
+    outline: none;
+    border: none;
+    background: url(../assets/downMis.png) no-repeat right center;
+    background-size: .4rem auto;
   }
   .search-box .search-input{
     position: absolute;
@@ -231,19 +242,21 @@
     top: 50%;
     transform: translateY(-50%);
     background-color: #f7f7f7;
-    width: 13rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    border-radius: 1.5rem;
+    width: 11rem;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    border-radius: 1.2rem;
     text-align: left;
+    margin-left: .4rem;
   }
   .search-box .search-input i{
     position: absolute;
-    left: .5rem;
-    width: 1rem;
-    height: 1.5rem;
-    background: url(../assets/icon.png) no-repeat; 
-    background-size: 1rem auto;
+    left: .44rem;
+    width: .68rem;
+    height: .68rem;
+    top: .28rem;
+    background: url(../assets/searchBtn.png) no-repeat; 
+    background-size: .68rem auto;
     background-position: center;
   }
   .search-box .search-input input{
@@ -257,9 +270,9 @@
     background: #fff;
   }
   .doctor-list li{
-    width: 90%;
+    width: 92.5%;
     margin: auto;
-    padding: 1.5rem 0;
+    padding: .5rem 0 .7rem;
   }
   .doctor-list li.underline-thin:last-child:after{
     content: '';
@@ -274,27 +287,28 @@
   }
   .doctor-list .flex-item h2{
     color: #333;
-    font-size: .8rem;
-    line-height: 1.8;
+    font-size: .56rem;
+    line-height: .88rem;
   }
   .doctor-list .flex-item>p{
     color: #666;
-    line-height: 1.8;
+    line-height: .8rem;
+    font-size: .48rem;
   }
   .doctor-list .flex-item .btn-order{
-    width: 4rem;
-    height: 1.5rem;
-    line-height: 1.5rem;
+    width: 2.6rem;
+    height: 1rem;
+    line-height: 1rem;
     color: #fff;
-    font-size: .9rem;
-    border-radius: 1.5rem;
+    font-size: .56rem;
+    border-radius: 1rem;
     float: right;
   }
   .doctor-list .flex-item.left img{
-    width: 3rem;
+    width: 2.2rem;
     float: left;
   }
   .doctor-list .flex-item .rest-order{
-    padding-right: .5rem;
+    padding-right: .2rem;
   }
 </style>
