@@ -34,9 +34,12 @@
     background-size: 29% auto;
     background-attachment:fixed;
   }
-
+  @font-face{
+    font-family: 'MicrosoftYaHeiUiLight';
+    src: url(./fonts/MicrosoftYaHeiUILight.ttf);
+  }
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'MicrosoftYaHeiUiLight', 'Microsoft YaHei', 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

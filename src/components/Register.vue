@@ -140,11 +140,13 @@
     font-size: .54rem;
   }
   .box-input .upload{
-    height: 5rem;
-    padding: .38rem 0 0 .26rem;
+    padding: .38rem 0 .6rem .26rem;
+  }
+  .box-input .upload label{
+    line-height: 1.28rem;
   }
   .box-input .upload img{
-    width: 4rem;
+    width: 2.2rem;
     vertical-align: top;
   }
   .show{
@@ -154,8 +156,12 @@
     display: none;
   }
   .tip-box{
+    width: 60%;
     display: inline-block;
     position: relative;
+  }
+  .tip-box input{
+    width: 100%;
   }
   .tip-box .tip{
     position: absolute;

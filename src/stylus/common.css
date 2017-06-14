@@ -1,6 +1,9 @@
 body{
 	font-size: .54rem;
 }
+label{
+  color: #333;
+}
 .underline-thin {
 	position: relative;
 }
