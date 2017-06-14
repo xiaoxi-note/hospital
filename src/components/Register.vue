@@ -84,7 +84,7 @@
   }
 
 </script>
-<style rel="stylesheet/stylus">
+<style scoped rel="stylesheet/stylus">
   .page-register{
   	padding-bottom: 1rem;
   }
@@ -94,7 +94,7 @@
     font-size: .54rem;
   }
   .vux-tab .vux-tab-item{
-    font-size: .54rem;
+    font-size: .57rem;
   }
   .box-input{
     margin: auto;
@@ -121,10 +121,10 @@
     position: relative;
   }
   .box-input .phone .getCode{
-    /*display: inline-block;*/
+    display: inline-block;
     width: 3.66rem;
     height: 1.12rem;
-    line-height: 1.12rem;
+    line-height: 1rem;
     text-align: center;
     /*padding: .5rem;*/
     border: 1px solid #f18900;

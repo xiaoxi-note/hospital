@@ -99,6 +99,7 @@ header{
     font-size: .76rem;
     line-height: 1.04rem;
     padding-top: .36rem;
+    font-weight: 700;
   }
   header .type{
     color: #fff;
