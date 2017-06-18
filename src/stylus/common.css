@@ -9,13 +9,13 @@ label{
 }
 .underline-thin:after{
 	content: '';
-    width: 100%;
-    height: 1px;
-    background: #ccc;
-    transform: scaleY(.5);
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  width: 100%;
+  height: 1px;
+  background: #ccc;
+  transform: scaleY(.5);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 .underline-thin:last-child:after{
 	display: none;
@@ -24,142 +24,156 @@ label{
 	height: 1.72rem;
 }
 .vux-tab .vux-tab-ink-bar{
-    z-index: 4;
-    /*bottom: 1px;*/
+  z-index: 4;
+  /*bottom: 1px;*/
 }
 .page-myorder .vux-tab-ink-bar:after,.page-doctor-focus .vux-tab-ink-bar:after{
-    content: "";
-    width: 0;
-    height: 0;
-    position: absolute;
-    left: 50%;
-    top: -5px;
-    border-right: 5px solid transparent;
-    border-left: 5px solid transparent;
-    margin-left: -2.5px;
-    border-bottom: 5px solid #ed8083;
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  margin-left: -2.5px;
+  border-bottom: 5px solid #ed8083;
+}
+.btn{
+  display: block;
+  margin-top: 1rem;
+  width: 91.5%;
+  margin: auto;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  border-radius: 1.8rem;
+  background: #b60005;
+  font-size: .6rem;
+  color: #fff;
 }
 .btn-red{
-	display: block;
-    margin-top: 1rem;
-    width: 91.5%;
-    margin: auto;
-    height: 1.6rem;
-    line-height: 1.6rem;
-    border-radius: 1.8rem;
-    background: #b60005;
-    font-size: .6rem;
-    color: #fff;
+  background: #b60005;
+  color: #fff;
+}
+.btn-grey{
+  background: #ccc;
+  color: #fff;
 }
 .box-input input{
 	width: 60%;
-    background: none;
-    outline: none;
-    border: 0px;
-    margin-left: -0.2rem;
-    font-size: .56rem;
+  background: none;
+  outline: none;
+  border: 0px;
+  margin-left: -0.2rem;
+  font-size: .56rem;
 }
 header{
-    position: relative;
-    height: 8.8rem;
-    background: #b60005 url('../assets/doctor-bg.png') 0 -3.7rem no-repeat;
-    background-size: 100% auto;
-    color: #fff;
-  }
-  .headCont{
-  	position: relative;
-  	width: 3.2rem;
-  	height: 3.84rem;
-  	margin: 0 auto;
-  }
-  header span.imgBg{
-  	position: absolute;
-  	width: 3.2rem;
-  	height: 3.2rem;
-  	top: .64rem;
-  	left: 50%;
-  	display: block;
-  	transform: translateX(-50%);
-  	background: #fff;
-  	opacity: .5;
-  	filter: alpha(opacity=50);
-  	border-radius: 100%;
-  	z-index: 1;
-  }
-  header img.head{
-  	position: absolute;
-    width: 2.8rem;
-    height: 2.8rem;
-    top: .84rem;
-    transform: translateX(-50%);
-    z-index: 2;
-  }
-  header .name{
-    color: #fff;
-    font-size: .76rem;
-    line-height: 1.04rem;
-    padding-top: .36rem;
-    font-weight: 700;
-  }
-  header .type{
-    color: #fff;
-    font-size: 0.54rem;
-  }
-  header .info{
-    width: 100%;
-    background: #990005;
-    position: absolute;
-    bottom: 0;
-  }
-  header .room{
-    font-size: 0.56rem;
-    margin-top: .4rem;
-    font-weight: 500;
-  }
-  /*医生信息style*/
- .content{
-    background: #fff;
-  }
-  .content li{
-    width: 92.5%;
-    margin: auto;
-    text-align: left;
-    font-size: 0.56rem;
-    color: #666;
-    padding: .34rem 0 .4rem;
-  }
-  .content li .area,.content li .skill,.content li .intro{
-    font-size: .56rem;
-    color: #333;
-    padding-left: 1.3rem;
-    position: relative;
-  }
-  .content li .area{
-    background: url('../assets/address.png') left center no-repeat;
-    background-size: .8rem auto;
-  }
-  .content li .skill{
-    background: url('../assets/heart1.png') left center no-repeat;
-    background-size: .8rem auto;
-  }
-  .content li .intro{
-    background: url('../assets/icon.png') left center no-repeat;
-    background-size: .8rem auto;
-  }
-  .content li .intro .drop{
-    position: absolute;
-    right: 0;
-    background: url('../assets/redDown.png') 0 0 no-repeat;
-    background-size: .48rem auto;
-    background-position: center right;
-    padding-right: .6rem;
-    color: #b60005;
-    font-size: 0.48rem;
-  }
-  .content li p{
-  	line-height: 1.02rem;
-  }
-  .content li p:last-child{
-    font-size: .52rem;
-    margin-left: 1.3rem;
-  }
+  position: relative;
+  height: 8.8rem;
+  background: #b60005 url('../assets/doctor-bg.png') 0 -3.7rem no-repeat;
+  background-size: 100% auto;
+  color: #fff;
+}
+.headCont{
+	position: relative;
+	width: 3.2rem;
+	height: 3.84rem;
+	margin: 0 auto;
+}
+header span.imgBg{
+	position: absolute;
+	width: 3.2rem;
+	height: 3.2rem;
+	top: .64rem;
+	left: 50%;
+	display: block;
+	transform: translateX(-50%);
+	background: #fff;
+	opacity: .5;
+	filter: alpha(opacity=50);
+	border-radius: 100%;
+	z-index: 1;
+}
+header img.head{
+	position: absolute;
+  width: 2.8rem;
+  height: 2.8rem;
+  top: .84rem;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+header .name{
+  color: #fff;
+  font-size: .76rem;
+  line-height: 1.04rem;
+  padding-top: .36rem;
+  font-weight: 700;
+}
+header .type{
+  color: #fff;
+  font-size: 0.54rem;
+}
+header .info{
+  width: 100%;
+  background: #990005;
+  position: absolute;
+  bottom: 0;
+}
+header .room{
+  font-size: 0.56rem;
+  margin-top: .4rem;
+  font-weight: 500;
+}
+/*医生信息style*/
+.content{
+  background: #fff;
+}
+.content li{
+  width: 92.5%;
+  margin: auto;
+  text-align: left;
+  font-size: 0.56rem;
+  color: #666;
+  padding: .34rem 0 .4rem;
+}
+.content li .area,.content li .skill,.content li .intro{
+  font-size: .56rem;
+  color: #333;
+  padding-left: 1.3rem;
+  position: relative;
+}
+.content li .area{
+  background: url('../assets/address.png') left center no-repeat;
+  background-size: .8rem auto;
+}
+.content li .skill{
+  background: url('../assets/heart1.png') left center no-repeat;
+  background-size: .8rem auto;
+}
+.content li .intro{
+  background: url('../assets/icon.png') left center no-repeat;
+  background-size: .8rem auto;
+}
+.content li .intro .drop{
+  position: absolute;
+  right: 0;
+  background: url('../assets/redDown.png') 0 0 no-repeat;
+  background-size: .48rem auto;
+  background-position: center right;
+  padding-right: .6rem;
+  color: #b60005;
+  font-size: 0.48rem;
+}
+.content li p{
+	line-height: 1.02rem;
+}
+.content li p:last-child{
+  font-size: .52rem;
+  margin-left: 1.3rem;
+}
+.show{
+  display: block;
+}
+.hide{
+  display: none;
+}

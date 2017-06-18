@@ -3,30 +3,24 @@
     <header>
       <card>
         <div slot="content" class="card-demo-flex">
-          <div class="vux-1px-r" @click="tabToggle(1)">全科</div>
-          <div class="vux-1px-r" @click="tabToggle(2)">盛实国医</div>
-          <div class="" @click="tabToggle(3)">3月28</div>
+          <div class="vux-1px-r" @click="tabToggle(1)">{{deptDefault}}</div>
+          <div class="vux-1px-r" @click="tabToggle(2)">{{clinicDefault}}</div>
+          <div class="" @click="tabToggle(3)">{{dateDefault}}</div>
         </div>
       </card>
       <div class="option" v-show="isCurrentOne">
         <ul>
-          <li>内科</li>
-          <li>妇科</li>
-          <li>肿瘤科</li>
+          <li v-for="item in deptList" @click.stop="checkItem(1, $event)">{{item}}</li>
         </ul>
       </div>
       <div class="option" v-show="isCurrentTwo">
         <ul>
-          <li>盛世国医</li>
-          <li>儿童医院</li>
-          <li>儿研所</li>
+          <li v-for="item in clinicList" @click.stop="checkItem(2, $event)">{{item}}</li>
         </ul>
       </div>
       <div class="option" v-show="isCurrentThree">
         <ul>
-          <li>3月29</li>
-          <li>3月30</li>
-          <li>4月01</li>
+          <li v-for="item in dateList" @click.stop="checkItem(3, $event)">{{item}}</li>
         </ul>
       </div>
     </header>
@@ -43,7 +37,7 @@
       </div>
     </div>
     <ul class="doctor-list underline-thin">
-      <li v-for="item in doctorList" class="underline-thin">
+      <li v-for="item in doctorInfoList" class="underline-thin">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -52,23 +46,23 @@
           </flexbox-item>
           <flexbox-item>
             <div class="flex-item middle">
-              <h2>邓文卓</h2>
+              <h2>{{item.name}}</h2>
               <p>
-                <span>主任医师</span>
-                <span>心内科</span>
+                <span>{{item.title}}</span>
+                <span>{{item.dept}}</span>
               </p>
-              <p>首都医科大学附属医院</p>
+              <p>{{item.clinicName}}</p>
               <p>
                 <span>剩余费：</span>
-                <span class="rest-order" :style="{ color: item.color }">2</span>
+                <span class="rest-order" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww}}</span>
                 <span>挂号费：</span>
-                <span class="" :style="{ color: item.color }">￥126</span>
+                <span class="" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">￥{{item.fees}}</span>
               </p>
             </div>
           </flexbox-item>
           <flexbox-item :span="1/5">
             <div class="flex-item right">
-              <div class="btn-order" :style="{ background: item.backgroundColor }">预约</div>
+              <div class="btn-order" :style="{'background': item.limitWww != 0 ? '#f39700' : '#cccccc'}">预约</div>
             </div>
           </flexbox-item>
         </flexbox>
@@ -78,23 +72,35 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { mapGetters } from 'vuex'
+  import { GET_ORDERINFOLIST } from '../store/type'
   import { Group, Cell, Alert, Card, Flexbox, FlexboxItem } from 'vux'
 
   export default {
-    name: 'NAME',
+    name: 'order',
     data () {
       return {
         isActive: false,
-        doctorList: [
-          { type: 1, backgroundColor: '#f39700', color: '#f39700' },
-          { type: 0, backgroundColor: '#cccccc', color: '#666' }
-        ],
+        doctorInfoList: [],
         isCurrentOne: false,
         isCurrentTwo: false,
-        isCurrentThree: false
+        isCurrentThree: false,
+        deptDefault: '全科',
+        clinicDefault: '盛实国医',
+        dateDefault: '3月28',
+        deptList: ['内科', '妇科', '肿瘤科'],
+        clinicList: ['盛世国医', '儿童医院', '儿研所'],
+        dateList: ['3月29', '3月30', '4月01'],
+        parme: {
+          date: '',
+          searchKey:''
+        }
       }
     },
     computed: {
+      ...mapGetters([
+        'getOrderInfoList'
+      ])
     },
     components: {
       Group,
@@ -124,6 +130,49 @@
             this.isCurrentTwo = false
             this.isCurrentThree = true
             break
+        }
+      },
+      checkItem (index, event) {
+        switch(index){
+          case 1:
+              this.deptDefault = event.currentTarget.innerHTML
+              this.isCurrentOne = false
+            break
+          case 2:
+              this.clinicDefault = event.currentTarget.innerHTML
+              this.isCurrentTwo = false
+            break
+          case 3:
+              this.dateDefault = event.currentTarget.innerHTML
+              this.isCurrentThree = false
+            break
+        }
+        this.parme = {
+          date: '',
+          searchKey: event.currentTarget.innerHTML
+        }
+        this.$store.dispatch(GET_ORDERINFOLIST, this.parme)
+      }
+    },
+    created () {
+      this.parme = {
+        date: '',
+        searchKey:''
+      }
+      this.$store.dispatch(GET_ORDERINFOLIST, this.parme)
+    },
+    watch: {
+      getOrderInfoList (newValue, oldVaue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload
+          if (respose.errno === 0) {
+            this.doctorInfoList = respose.data
+          } else {
+            this.$vux.alert.show({
+              title: '',
+              content: respose.errmsg,
+            })
+          }
         }
       }
     }

@@ -8,13 +8,24 @@
       <div class="box-input">
         <div class="phone underline-thin">
           <label>手&nbsp;机&nbsp;号 ：</label>
-          <input type="" maxlength="11" name="" placeholder="请输入您的手机号">
+          <input 
+            type="" 
+            maxlength="11" 
+            name="" 
+            placeholder="请输入您的手机号" 
+            v-model="phone"
+          >
           <span class="getCode">获取验证码</span>
         </div>
         <div class="underline-thin">
           <label>验&nbsp;证&nbsp;码 ：</label>
           <div class="tip-box">
-            <input type="" name="" placeholder="请输入您的验证码">
+            <input 
+              type="" 
+              name="" 
+              placeholder="请输入您的验证码"
+              v-model="checkCode"
+            >
             <div class="tip">
               <div class="triangle"></div>
               <div class="content">您输入的验证码有误</div>
@@ -23,27 +34,50 @@
         </div>
         <div class="underline-thin">
           <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
-          <input type="" name="" placeholder="请输入您的密码">
+          <input 
+            type="" 
+            name="" 
+            placeholder="请输入您的密码"
+            v-model="pwd"
+          >
         </div>
         <div class="underline-thin">
           <label>重复密码 ：</label>
-          <input type="" name="" placeholder="请再次输入您的密码">
+          <input 
+            type="" 
+            name="" 
+            placeholder="请再次输入您的密码"
+            v-model="pwdAgain"
+          >
         </div>
         <div class="underline-thin">
           <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名 ：</label>
-          <input type="" name="" placeholder="请输入您的真实姓名">
+          <input 
+            type="" 
+            name="" 
+            placeholder="请输入您的真实姓名"
+            v-model="name"
+          >
         </div>
-        <div class="sexSelect underline-thin">
+        <div class="underline-thin">
           <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别 ：</label>
-          <select>
+          <!-- <select v-model="sex">
             <option value='' disabled selected style='display:none; color:#999;'>请选择</option>
             <option value="1">男</option>
             <option value="2">女</option>
-          </select>
+          </select> -->
+          <group class="sexSelect">
+            <selector placeholder="请选择" v-model="sex" :options="sexList"></selector>
+          </group>
         </div>
         <div class="underline-thin">
           <label>身份证号 ：</label>
-          <input type="" name="" placeholder="请输入您的身份证号">
+          <input 
+            type="" 
+            name="" 
+            placeholder="请输入您的身份证号"
+            v-model="idCard"
+          >
         </div>
         <div class="upload" v-if="isDoctor">
           <label>资质上传 ：</label>
@@ -51,27 +85,46 @@
         </div>
       </div>
     </div>
-    <a class="btn-red register" href="">注&nbsp;&nbsp;册</a>
+    <a 
+      :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
+      v-tap.prevent="{methods:getApiRegister}"
+    >注&nbsp;&nbsp;册</a>
   </div>
 </template>
 <script type="text/ecmascript-6">
-
-  import { Tab, TabItem, Group, Popover } from 'vux'
+  import { mapGetters } from 'vuex'
+  import { Tab, TabItem, Group, Popover, Alert, Selector } from 'vux'
+  import { GET_REGISTER } from '../store/type'
 
   export default {
     name: 'register',
-    data () {
-      return {
-        value: '',
-        isDoctor: false,
-        xx: true
-      }
-    },
     components: {
       Tab,
       TabItem,
       Group,
-      Popover
+      Popover,
+      Alert,
+      Selector
+    },
+    data () {
+      return {
+        disable: true, // 按钮是否可点击
+        isDoctor: false, // 医生还是患者
+        sex: '',
+        sexList: [{key: '1', value: '男'}, {key: '2', value: '女'}],
+        phone: '',
+        checkCode: '',
+        pwd: '',
+        pwdAgain: '',
+        name: '',
+        idCard: '',
+        imgId: ''
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'getRegister'
+      ])
     },
     methods: {
       onPatientClick () {
@@ -79,12 +132,46 @@
       },
       onDoctorClick () {
         this.isDoctor = true
+      },
+      getApiRegister (event) {
+        // event.preventDefault()
+        if (this.disable === false) {
+          return
+        }
+        const params = {
+          phone: this.phone,
+          checkCode: this.checkCode,
+          pwd: this.pwd,
+          pwdAgain: this.pwdAgain,
+          name: this.name,
+          sex: this.sex,
+          idCard: this.idCard,
+          imgId: this.imgId
+        }
+        this.$store.dispatch(GET_REGISTER, params)
+      }
+    },
+    watch: {
+      getRegister (newValue, oldVaue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload
+          if (respose.errno === 0) {
+            // this.$router.push({
+            //   name: 'login'
+            // })
+          } else {
+            this.$vux.alert.show({
+              title: '',
+              content: respose.errmsg,
+            })
+          }
+        }
       }
     }
   }
 
 </script>
-<style scoped rel="stylesheet/stylus">
+<style rel="stylesheet/stylus">
   .page-register{
   	padding-bottom: 1rem;
   }
@@ -136,8 +223,29 @@
     right: 0;
     box-sizing: border-box;
   }
-  .box-input .sexSelect select{
+/*  .box-input .sexSelect select{
     font-size: .54rem;
+  }*/
+  .sexSelect{
+    display: inline-block;
+    position: absolute;
+    width: 30%;
+    height: 1.6rem;
+    line-height: 1.6rem;
+  }
+  .sexSelect .weui-cells, .sexSelect .vux-no-group-title{
+    margin-top: 0;
+    line-height: 1.6rem;
+  }
+  .sexSelect .weui-cells:before{
+    content: '';
+    height: 0;
+    border-top: none;
+  }
+  .sexSelect .weui-cells:after{
+    content: '';
+    height: 0;
+    border-bottom: none;
   }
   .box-input .upload{
     padding: .38rem 0 .6rem .26rem;

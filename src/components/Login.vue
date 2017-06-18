@@ -4,17 +4,40 @@
     <div class="box-input">
       <div class="phone-number underline-thin">
         <label>手机号 ：</label>
-        <input type="" name="" maxlength="11" placeholder="请输入您的手机号">
+        <input
+          type="" 
+          name="" 
+          maxlength="11" 
+          placeholder="请输入您的手机号"
+          v-model="phone"
+        >
       </div>
       <div class="password underline-thin">
         <label>密&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
-        <input v-if="!isShow" type='password' name="" placeholder="请输入您的密码" v-model="value">
-        <input v-else type='text' name="" placeholder="请输入您的密码" v-model="value">
+        <input
+          v-if="!showPwd" 
+          type='password' 
+          name="" 
+          placeholder="请输入您的密码" 
+          v-model="pwd" 
+          @input="onChange"
+        >
+        <input 
+          v-else 
+          type='text' 
+          name="" 
+          placeholder="请输入您的密码" 
+          v-model="pwd" 
+          @input="onChange"
+        >
         <img src="../assets/password.png" v-tap="{methods:passwords}">
       </div>
-      <p class="password-err">您输入的密码有误</p>
+      <p :class="[showPwdErr ? '' : 'hide', 'password-err']">您输入的密码有误</p>
     </div>
-    <a class="btn-red login" href="">登&nbsp;&nbsp;录</a>
+    <a
+      :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'login']"
+      v-tap.prevent="{methods:getApiLogin}"
+    >登&nbsp;&nbsp;录</a>
     <div class="reminder">
       <a href="">忘记密码？</a> 
       <a href="" v-tap="{methods:goRegister}"><span>还没账号？</span>去注册</a>
@@ -24,15 +47,25 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import { mapGetters } from 'vuex'
   import { Group, Cell, Alert } from 'vux'
+  import { GET_LOGIN } from '../store/type'
 
   export default {
     name: 'NAME',
     data () {
       return {
-        value: '',
-        isShow: false// 是否显示密码
+        showPwdErr: false, // 显示密码错误提示
+        disable: false, // 按钮是否可点击
+        showPwd: false, // 是否显示密码
+        phone: '',
+        pwd: ''
       }
+    },
+    computed: {
+      ...mapGetters([
+        'getLogin'
+      ])
     },
     components: {
       Group,
@@ -43,16 +76,55 @@
     },
     methods: {
       passwords () {
-        if (this.isShow) {
-          this.isShow = false
+        if (this.showPwd) {
+          this.showPwd = false
           return
         }
-        this.isShow = true
+        this.showPwd = true
+      },
+      onChange () {
+        if (this.pwd.length > 0 && this.phone.length > 0) {
+          this.disable = true
+        } else {
+          this.disable = false
+        }
       },
       goRegister () {
         this.$router.push({
-          name: 'login'
+          name: 'register'
         })
+      },
+      getApiLogin (event) {
+        // event.preventDefault()
+        if (this.disable === false) {
+          return
+        }
+        const params = {
+          phone: this.phone,
+          pwd: this.pwd
+        }
+        this.$store.dispatch(GET_LOGIN, params)
+      }
+    },
+    watch: {
+      getLogin (newValue, oldVaue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload // 返回值
+          if (respose.errno === 0) {
+            // this.$router.push({
+            //   name: 'order'
+            // })
+          } else if (respose.errno === 101) { // 密码错误（错误码随便写的）
+            this.showPwdErr = true
+          }
+          else {
+            this.showPwdErr = false
+            this.$vux.alert.show({
+              title: '',
+              content: respose.errmsg,
+            })
+          }
+        }
       }
     }
   }

@@ -65,3 +65,6 @@ export const post = (url) => {
 }
 
 export const getInfo = get('/api/getInfo.json')
+export const getLogin = get('/api/login.json')
+export const getRegister = get('/api/registerPatient.json')
+export const getOrderInfoList = get('/api/getOrderInfoList.json')
