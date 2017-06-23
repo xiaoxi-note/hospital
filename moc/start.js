@@ -10,5 +10,4 @@ var server = app.listen(3033, function () {
   var port = server.address().port;
 
   console.log('moc start ...');
-  return true
-});
+  return true});

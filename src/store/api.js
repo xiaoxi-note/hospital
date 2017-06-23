@@ -1,16 +1,15 @@
-
 import Vue from 'vue'
 
 const TIMEOUT_MS = 10000
 const TIMEOUT_TEXT = '请求超时'
 
-function delayPromise (ms) {
+function delayPromise(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms)
   })
 }
 
-export function timeoutPromise (promise, ms) {
+export function timeoutPromise(promise, ms) {
   const timeout = delayPromise(ms).then(() => {
     const e = new Error(TIMEOUT_TEXT)
     e.originArgs = 'timeout'
@@ -19,8 +18,12 @@ export function timeoutPromise (promise, ms) {
   return Promise.race([promise, timeout])
 }
 
-function parseJSON (response) {
+function parseJSON(response) {
   return response.json()
+}
+
+function getCommParams() {
+
 }
 
 export const get = (url) => {
@@ -42,6 +45,7 @@ export const get = (url) => {
 }
 
 export const post = (url) => {
+  return get(url);
   return (body = {}, params = {}, timeout = TIMEOUT_MS) => {
     if (Array.isArray(body)) {
       [body, params, timeout] = body

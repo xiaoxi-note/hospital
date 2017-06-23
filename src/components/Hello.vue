@@ -67,7 +67,7 @@
         })
       },
       getApiInfo () {
-        this.$store.dispatch(GET_INFO)
+        this.$store.dispatch(GET_INFO,{a:'sdfsdfsdf'})
       },
       goDoctorInfo () {
         this.$router.push({
