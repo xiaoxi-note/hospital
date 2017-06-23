@@ -28,7 +28,7 @@
 	      <input type="checkbox" name="">
 	      <span>我已阅读并同意该协议</span> 
 	    </div>
-	    <a class="btn-submit">提&nbsp;交</a>
+	    <a class="btn btn-submit">提&nbsp;交</a>
     </footer>
   </div>
 </template>
@@ -64,7 +64,7 @@
   	background: #fff;
   }
   .head{
-  	padding: 1rem 2rem;
+  	padding: .5rem 1.28rem;
   	text-align: left;
   }
   .upload{
@@ -73,12 +73,12 @@
   .upload .addimg{
   	display: inline-block;
   	vertical-align: middle;
-  	width: 4rem;
-  	height: 4rem;
-  	line-height: 4rem;
+  	width: 2.58rem;
+  	height: 2.58rem;
+  	line-height: 2.4rem;
   	border: 1px dashed #ccc;
   	border-radius: 3px;
-  	font-size: 2rem;
+  	font-size: 1.5rem;
   	font-weight: bold;
   	color: #ccc;
   	text-align: center;
@@ -86,15 +86,17 @@
   .upload .intro{
   	display: inline-block;
   	vertical-align: middle;
-  	margin-left: 1rem;
+  	margin-left: .5rem;
   }
   .upload .intro h2{
-		color: #333;
-		font-size: .9rem;
+	color: #333;
+	font-size: .6rem;
+	line-height: .88rem;
   }
   .upload .intro p{
   	color: #999;
-  	font-size: .7rem;
+  	font-size: .48rem;
+  	line-height: .72rem;
   }
   .check{
   	display: none;
@@ -121,8 +123,8 @@
   	padding: 1.5rem 2rem;
   }
   .content .sample-box{
-  	width: 13rem;
-  	height: 14rem;
+  	width: 8.52rem;
+  	height: 8.52rem;
   	background: #ccc;
   	border-radius: 3px;
   	margin: auto;
@@ -133,14 +135,14 @@
   }
   .content .p-tip{
   	color: #999;
-  	font-size: .8rem;
-  	margin-top: .5rem;
+  	font-size: .48rem;
+  	line-height: 1.6rem;
   }
   .content .status{
   	position: absolute;
-  	left: 2rem;
-  	top: 1.5rem;
-  	font-size: 1rem;
+  	left: 1.26rem;
+  	top: .9rem;
+  	font-size: .6rem;
   	color: #999;
   }
   footer{
@@ -159,17 +161,7 @@
   }
   footer .agreement span{
     padding-left: 1rem;
-  }
-  footer .btn-submit{
-    display: block;
-    margin: auto;
-    margin-top: .8rem;
-    width: 90%;
-    height: 2rem;
-    line-height: 2rem;
-    border-radius: 2rem;
-    background: #b60005;
-    font-size: .9rem;
-    color: #fff;
+    line-height: 1.88rem;
+    font-size: .56rem;
   }
 </style>

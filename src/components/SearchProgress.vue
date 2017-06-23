@@ -98,6 +98,10 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
+  .content li .intro{
+	background: none;
+	padding: .48rem 0 .24rem;
+  }
   .page-progress{  
     position: relative; 
   }
@@ -105,10 +109,10 @@
     background: #fff;
   }
   .hospital-drug{
-    margin-bottom: 1rem;
+    margin-bottom: .56rem;
   }
   .title{
-    padding: 1rem 5%;
+    padding: .64rem 5%;
     text-align: left;
     box-sizing: border-box;
   }
@@ -118,22 +122,24 @@
     height: 1rem;
     position: absolute;
     right: 5%;
-    background: url(../assets/down.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center;
+    background: url(../assets/allIcon.png) no-repeat left -4.2rem;
+    background-size: .8rem auto;
+    transform: rotate(90deg);
+    /*background-position: center;*/
   }
   .title span{
-    background: url(../assets/icon.png) no-repeat;
-    background-size: 1rem auto;
-    background-position: center left;
-    padding-left: 1.5rem;
+    background: url(../assets/allIcon.png) no-repeat left -12.72rem;
+    background-size: .8rem auto;
+    padding-left: 1.4rem;
+    font-size: .6rem;
   }
   .content ul{
     background: #fff;
   }
   .content li{
-    width: 90%;
+    width: 92.5%;
     margin: auto;
+    padding: 0;
   }
   .content li:last-child:after{
     content: '';
@@ -156,12 +162,10 @@
     border-bottom: 1px dashed #ccc;
     transform: scaleY(.5); 
   }
-  .intro>p{
-    margin-top: .5rem;
-  }
   .intro .date span.left{
-    font-size: .8rem;
+    font-size: .56rem;
     color: #333;
+    line-height: 1.08rem;
   }
   .intro .date span.right{
     color: #333;
@@ -174,8 +178,15 @@
   }
   .detail a{
     color: #00a0e9;
-    font-size: .8rem;
-    margin-right: 1rem;
+    font-size: .6rem;
+    margin-right: .7rem;
+  }
+  .content li p{
+  	line-height: .92rem;
+  }
+  .content li p span{
+  	font-size: .48rem;
+  	color: #666;
   }
   .left{
     float: left;

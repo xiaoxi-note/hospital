@@ -28,7 +28,7 @@
         <input type="checkbox" name="">
         <span>我已阅读并同意该协议</span> 
       </div>
-      <a class="btn-submit">提&nbsp;交</a>
+      <a class="btn btn-submit">提&nbsp;交</a>
     </footer>
   </div>
 </template>
@@ -72,7 +72,8 @@
     background: #fff;
   }
   .content li{
-    width: 90%;
+    width: 92.5%;
+    padding: 0;
     margin: auto;
   }
   .content li.underline-thin:last-child:after{
@@ -82,10 +83,11 @@
   .content .intro{
     position: relative;
     width: 100%;
-    padding: .5rem 0;
+    padding: .48rem 0 .24rem;
     margin: auto;
     color: #666;
-    font-size: .7rem;
+    font-size: .48rem;
+    background: none;
   }
   .content .intro:after{
     content: '';
@@ -97,19 +99,22 @@
     transform: scaleY(.5); 
   }
   .content .intro>p{
-    margin-top: .5rem;
+    /*margin-top: .5rem;*/
+    font-size: .48rem;
+    line-height: .92rem;
   }
   .content .intro .date span.left{
-    font-size: .8rem;
+    font-size: .56rem;
     color: #333;
+    line-height: 1.08rem;
   }
   .content .intro .date span.right{
-    color: #333;
+    color: #222;
   }
   .content .detail{
     position: relative;
-    padding: .5rem 0;
-    font-size: .8rem;
+    padding: .34rem 0;
+    font-size: .56rem;
     color: #222;
   }
   .content .detail a{
@@ -118,30 +123,33 @@
     left: 0;
     transform: translateY(-50%);
     color: #00a0e9;
-    font-size: .9rem;
+    font-size: .56rem;
+    line-height: 1.08rem;
   }
   .content .detail .remove,.content .detail .add{
-    font-size: 1.2rem;
+    font-size: .48rem;
     font-weight: bold;
     color: #666;
+    vertical-align: top;
   }
   .content .detail .number{
     position: relative;
     display: inline-block;
-    padding: .2rem .5rem;
+    padding: 0 .1rem;
     margin: 0 .5rem;
     color: #00a0e9;
+    line-height: .7rem;
   }
   .content .detail .number:after{
     content: '';
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     border: 1px solid #ccc;
     border-radius: 6px;
     transform: scale(.5);
     position: absolute;
-    top: -0.8rem;
-    left: -0.8rem;
+    top: -.74rem;
+    left: -.8rem;
   }
   footer{
     width: 100%;
@@ -158,9 +166,10 @@
     transform: translateY(-50%);
   }
   footer .agreement span{
-    padding-left: 1rem;
+    padding-left: .56rem;
+    line-height: 1.88rem;
   }
-  footer .btn-submit{
+  /*footer .btn-submit{
     display: block;
     margin: auto;
     margin-top: .8rem;
@@ -171,7 +180,7 @@
     background: #b60005;
     font-size: .9rem;
     color: #fff;
-  }
+  }*/
   .left{
     float: left;
   }
