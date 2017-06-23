@@ -188,7 +188,7 @@
   .patient-info .right{
     position: absolute;
     right: 0;
-    background: url(../assets/allIcon.png) no-repeat 0 -10.99rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -11.18rem;
     background-size: .8rem auto;
     padding-left: 0.9rem;
     color: #029fc6;

@@ -34,9 +34,12 @@
     background-size: 29% auto;
     background-attachment:fixed;
   }
-
+  @font-face{
+    font-family: 'MicrosoftYaHeiUiLight';
+    src: url(./fonts/hos.ttf);
+  }
   #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    font-family: 'MicrosoftYaHeiUiLight';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
@@ -47,5 +50,8 @@
   .weui-toast {
     width: 120px !important;
     height: 120px;
+  }
+  .vux-tab .vux-tab-item{
+	font-size: .64rem;
   }
 </style>

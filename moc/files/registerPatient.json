@@ -1,0 +1,8 @@
+{
+	"errno": 0,
+    "errmsg": "hahha",
+    "data": 
+	   	{
+	   		"status": "" //注册是否成功
+	   	}
+}

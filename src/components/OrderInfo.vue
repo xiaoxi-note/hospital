@@ -173,8 +173,8 @@
     position: relative;
     width: 90%;
     margin: auto;
-    height: 1rem;
-    line-height: 1rem;
+    height: .8rem;
+    line-height: .8rem;
   }
   .content li:before{
     content: '';
@@ -184,7 +184,7 @@
     right: 0;
     background: url(../assets/allIcon.png) no-repeat;
     background-size: .8rem auto;
-    background-position: left -4rem;
+    background-position: left -4.2rem;
   }
   .content li .left{
     float: left;

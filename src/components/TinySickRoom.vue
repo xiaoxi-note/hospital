@@ -83,12 +83,12 @@
   }
   .content li .left{
     float: left;
-    background: url(../assets/allIcon.png) no-repeat 0 -4.95rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -5.1rem;
     background-size: .8rem auto;
     padding-left: 1.36rem;
   }
   .content li:last-child .left{
-  	background-position: 0 -6.1rem;
+  	background-position: 0 -6.3rem;
   }
   .content li .right{
     float: right;

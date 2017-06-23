@@ -85,18 +85,18 @@
   }
   .content li .left{
     float: left;
-    background: url(../assets/allIcon.png) no-repeat 0 -12.6rem;
+    background: url(../assets/allIcon.png) no-repeat 0 -12.7rem;
     background-size: .8rem auto;
     padding-left: 1.36rem;
   }
   .content li .turn{
-    background-position: 0 -13.6rem;
+    background-position: 0 -13.72rem;
   }
   .content li .query_pro{
-    background-position: 0 -14.55rem;
+    background-position: 0 -14.7rem;
   }
   .content li .query_logistics{
-  	background-position: 0 -15.5rem;
+  	background-position: 0 -15.6rem;
   }
   .content li .right{
     float: right;

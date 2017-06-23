@@ -128,16 +128,16 @@
   	background-position: 0 -3.24rem;
   }
   .content li .audit{
-  	background-position: 0 -7.09rem;
+  	background-position: 0 -7.3rem;
   }
   .content li .change_pwd{
-  	background-position: 0 -8.1rem;
+  	background-position: 0 -8.3rem;
   }
   .content li .bind_tel{
-  	background-position: 0 -9.1rem;
+  	background-position: 0 -9.2rem;
   }
   .content li .address{
-  	background-position: 0 -10.1rem;
+  	background-position: 0 -10.3rem;
   }
   .content li .right{
     float: right;

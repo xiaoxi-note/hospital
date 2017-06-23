@@ -12,6 +12,9 @@ Vue.use(Vuex)
 
 const state = {
   getInfo: {payload: {}},
+  getLogin: {payload: {}},
+  getRegister: {payload: {}},
+  getOrderInfoList: {payload: {}},
   loginState: 'valid'
 }
 
@@ -20,6 +23,15 @@ const store = new Vuex.Store({
   getters: {
     getInfo (state) {
       return state.getInfo
+    },
+    getLogin (state) {
+      return state.getLogin
+    },
+    getRegister (state) {
+      return state.getRegister
+    },
+    getOrderInfoList (state) {
+      return state.getOrderInfoList
     }
   },
   mutations: mutations,

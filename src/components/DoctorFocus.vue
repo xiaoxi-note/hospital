@@ -116,6 +116,7 @@
   	background: none;
   	height: 1.76rem;
   	line-height: 1.76rem;
+	font-size:.57rem  	
   }
   .vux-tab .vux-tab-ink-bar{
   	bottom: 0;

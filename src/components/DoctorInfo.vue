@@ -117,7 +117,7 @@
   }
   .card-demo-flex>div>span {
     font-size: .7rem;
-    font-weight: 600;
+    font-weight: 800;
   }
   .weui-panel:before{
     border: none;
