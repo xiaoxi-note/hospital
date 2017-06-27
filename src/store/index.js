@@ -15,7 +15,8 @@ const state = {
   getLogin: {payload: {}},
   getRegister: {payload: {}},
   getOrderInfoList: {payload: {}},
-  loginState: 'valid'
+  loginState: 'valid',
+  sendMsgCode: {payload: {}}
 }
 
 const store = new Vuex.Store({
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     },
     getOrderInfoList (state) {
       return state.getOrderInfoList
+    },
+    sendMsgCode () {
+      return state.sendMsgCode
     }
   },
   mutations: mutations,

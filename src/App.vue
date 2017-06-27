@@ -12,7 +12,7 @@
   }
 </script>
 
-<style>
+<style type="text/stylus" lang="stylus">
 
   @import "./stylus/common.css";
   * {
@@ -27,17 +27,20 @@
   ul, li {
     list-style: none;
   }
+
   body {
     font-size: 62.5%;
     height: 100%;
     background: #eff2f4 url(./assets/bg.png) left bottom no-repeat;
     background-size: 29% auto;
-    background-attachment:fixed;
+    background-attachment: fixed;
   }
-  @font-face{
+
+  @font-face {
     font-family: 'MicrosoftYaHeiUiLight';
     src: url(./fonts/hos.ttf);
   }
+
   #app {
     font-family: 'MicrosoftYaHeiUiLight';
     -webkit-font-smoothing: antialiased;
@@ -46,12 +49,15 @@
     color: #2c3e50;
   }
 
-  /* 重写vux dialog width & height */
   .weui-toast {
     width: 120px !important;
     height: 120px;
   }
-  .vux-tab .vux-tab-item{
-	font-size: .64rem;
+
+  .vux-tab .vux-tab-item {
+    font-size: .64rem;
   }
+
+  .block
+    display block
 </style>

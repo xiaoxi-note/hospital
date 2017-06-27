@@ -19,9 +19,14 @@ export const getOrderInfoList = createAction({
   type: types.GET_ORDERINFOLIST,
   payloadCreator: api.getOrderInfoList
 })
+export const sendMsgCode = createAction({
+  type: types.GET_SENDMSGCODE,
+  payloadCreator: api.sendMsgCode
+})
 export default {
   [getInfo]: getInfo,
   [getLogin]: getLogin,
   [getRegister]: getRegister,
-  [getOrderInfoList]: getOrderInfoList
+  [getOrderInfoList]: getOrderInfoList,
+  [sendMsgCode]: sendMsgCode
 }
