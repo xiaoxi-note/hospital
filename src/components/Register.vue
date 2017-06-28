@@ -103,13 +103,17 @@
             <div class="content">请输入正确身份证号</div>
           </div>
         </div>
-        <div class="upload" v-if="isDoctor">
-          <label>资质上传 ：</label>
-          <img src="../assets/upload.png">
+        <div class="underline-thin">
+          <label>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日 ：</label>
+          <group class="date-birthday">
+            <Datetime v-model="sendData.birthDay" title=""></Datetime>
+          </group>
         </div>
         <vue-core-image-upload
+          v-if="isDoctor"
           :class="['upload']"
           :crop="false"
+          :text="uploadText"
           @imageuploaded="loadImg"
           :max-file-size="5242880"
           url="//192.168.99.115:9999/upload">
@@ -124,7 +128,7 @@
 </template>
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
-  import {Tab, TabItem, Group, Popover, Alert, Selector} from 'vux'
+  import {Tab, TabItem, Group, Popover, Alert, Selector, Datetime} from 'vux'
   import {GET_REGISTER, GET_SENDMSGCODE} from '../store/type'
   import VueCoreImageUpload  from 'vue-core-image-upload';
 
@@ -139,6 +143,7 @@
       Popover,
       Alert,
       Selector,
+      Datetime,
       'vue-core-image-upload': VueCoreImageUpload
     },
     data () {
@@ -157,8 +162,10 @@
           pwdAgain: '',
           name: '',
           idCard: '',
+          birthDay: ''
         },
-        imgId: ''
+        imgId: '',
+        uploadText: '上传身份证'
       }
     },
     computed: {
@@ -180,14 +187,15 @@
           return
         }
         const params = {
-          phone: this.phone,
-          checkCode: this.checkCode,
-          pwd: this.pwd,
-          pwdAgain: this.pwdAgain,
-          name: this.name,
-          sex: this.sex,
-          idCard: this.idCard,
-          imgId: this.imgId
+          phone: this.sendData.phone,
+          checkCode: this.sendData.checkCode,
+          pwd: this.sendData.pwd,
+          pwdAgain: this.sendData.pwdAgain,
+          name: this.sendData.name,
+          sex: this.sendData.sex,
+          idCard: this.sendData.idCard,
+          birthDay: (new Date(this.sendData.birthDay)).getTime(),
+          birthDayStr: this.sendData.birthDay
         }
         this.$store.dispatch(GET_REGISTER, params)
       },
@@ -221,9 +229,16 @@
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
-            // this.$router.push({
-            //   name: 'login'
-            // })
+            var that = this;
+            this.$vux.alert.show({
+              title: '',
+              content: '注册成功',
+              onHide () {
+                that.$router.push({
+                  name: 'login'
+                })
+              }
+            })
           } else {
             this.$vux.alert.show({
               title: '',
@@ -233,6 +248,7 @@
         }
       },
       sendMsgCode(newValue){
+        debugger;
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
@@ -244,13 +260,13 @@
       sendData: {
         deep: true,
         handler(){
-          console.log(JSON.stringify(this.sendData))
           if (this.checkPhone()
             && this.checkIdCard()
             && this.sendData.checkCode
             && this.sendData.pwd
             && this.sendData.name
             && this.sendData.idCard
+            && this.sendData.birthDay
           ) {
             this.disable = true
           } else {
@@ -338,8 +354,9 @@
     .box-input .upload {
       padding: .38rem 0 .6rem .26rem;
       background url('../assets/upload.png')
-      width 60px
+      width 78px
       height 60px
+      display inline-block
       background-size cover
     }
 
@@ -396,9 +413,21 @@
       margin-top: 1.2rem;
     }
 
-    .sexSelect
-      .weui-cells
-        margin-top 0 !important
-        padding-top 0 !important
+  .weui-cells
+    margin-top 0 !important
+    padding-top 0 !important
 
+  .date-birthday
+    flex 1
+    margin-top -.24rem
+    .vux-no-group-title
+      a
+        height 1.8rem
+        padding-top 0
+        padding-bottom 0
+      .vux-datetime-value
+        text-align left
+        height 1.8rem
+        line-height 1.8rem
+        font-size .6rem
 </style>

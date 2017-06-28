@@ -5,9 +5,9 @@
       <div class="phone-number underline-thin">
         <label>手机号 ：</label>
         <input
-          type="" 
-          name="" 
-          maxlength="11" 
+          type=""
+          name=""
+          maxlength="11"
           placeholder="请输入您的手机号"
           v-model="phone"
         >
@@ -15,19 +15,19 @@
       <div class="password underline-thin">
         <label>密&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
         <input
-          v-if="!showPwd" 
-          type='password' 
-          name="" 
-          placeholder="请输入您的密码" 
-          v-model="pwd" 
+          v-if="!showPwd"
+          type='password'
+          name=""
+          placeholder="请输入您的密码"
+          v-model="pwd"
           @input="onChange"
         >
-        <input 
-          v-else 
-          type='text' 
-          name="" 
-          placeholder="请输入您的密码" 
-          v-model="pwd" 
+        <input
+          v-else
+          type='text'
+          name=""
+          placeholder="请输入您的密码"
+          v-model="pwd"
           @input="onChange"
         >
         <img src="../assets/password.png" v-tap="{methods:passwords}">
@@ -39,7 +39,7 @@
       v-tap.prevent="{methods:getApiLogin}"
     >登&nbsp;&nbsp;录</a>
     <div class="reminder">
-      <a href="">忘记密码？</a> 
+      <a href="">忘记密码？</a>
       <a href="" v-tap="{methods:goRegister}"><span>还没账号？</span>去注册</a>
     </div>
     <img class="slogan" src="../assets/slogan.png">
@@ -47,9 +47,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { mapGetters } from 'vuex'
-  import { Group, Cell, Alert } from 'vux'
-  import { GET_LOGIN } from '../store/type'
+  import {mapGetters} from 'vuex'
+  import {Group, Cell, Alert} from 'vux'
+  import {GET_LOGIN} from '../store/type'
 
   export default {
     name: 'NAME',
@@ -94,8 +94,7 @@
           name: 'register'
         })
       },
-      getApiLogin (event) {
-        // event.preventDefault()
+      getApiLogin () {
         if (this.disable === false) {
           return
         }
@@ -111,13 +110,11 @@
         if (newValue.status === 'success') {
           const respose = newValue.payload // 返回值
           if (respose.errno === 0) {
-            // this.$router.push({
-            //   name: 'order'
-            // })
-          } else if (respose.errno === 101) { // 密码错误（错误码随便写的）
-            this.showPwdErr = true
-          }
-          else {
+            this.$localStorage.set('token', respose.data.token)
+            this.$router.push({
+              name: 'order'
+            })
+          } else {
             this.showPwdErr = false
             this.$vux.alert.show({
               title: '',
@@ -131,64 +128,77 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-login{
+  .page-login {
     width: 91.5%;
     text-align: center;
     margin: auto;
-    margin-top: 1.32rem;   
+    margin-top: 1.32rem;
   }
-  .logo{
+
+  .logo {
     width: 9.56rem;
   }
-  .box-input{
+
+  .box-input {
     margin-top: 1.66rem;
     font-size: .56rem;
     text-align: left;
   }
-  .box-input>div{
+
+  .box-input > div {
     height: 1.6rem;
     line-height: 1.6rem;
     padding-left: 0.28rem;
   }
-  .box-input .password{
+
+  .box-input .password {
     margin-top: .52rem;
   }
-  .password img{
+
+  .password img {
     width: .8rem;
     position: absolute;
     right: 0;
     top: 50%;
     transform: translateY(-50%);
   }
-  .password-err{
+
+  .password-err {
     color: #ff0000;
     font-size: 0.46rem;
     margin-left: 2.6rem;
     line-height: 1.22rem;
   }
-  .login{
-  	margin-top: .6rem;
+
+  .login {
+    margin-top: .6rem;
   }
-  .reminder{
+
+  .reminder {
     font-size: 0.56rem;
     line-height: 1.6rem;
     margin-top: .3rem;
     position: relative;
   }
-  .reminder a{
+
+  .reminder a {
     color: #f18900;
     position: absolute;
   }
-  .reminder a:first-child{
+
+  .reminder a:first-child {
     left: 0;
   }
-  .reminder a:last-child{
+
+  .reminder a:last-child {
     right: 0;
   }
-  .reminder span{
+
+  .reminder span {
     color: #999999;
   }
-  .slogan{
+
+  .slogan {
     display: block;
     width: 11.7rem;
     position: absolute;

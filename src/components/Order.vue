@@ -54,7 +54,8 @@
               <p>{{item.clinicName}}</p>
               <p>
                 <span>剩余费：</span>
-                <span class="rest-order" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww}}</span>
+                <span class="rest-order"
+                      :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww}}</span>
                 <span>挂号费：</span>
                 <span class="" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">￥{{item.fees}}</span>
               </p>
@@ -72,9 +73,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { mapGetters } from 'vuex'
-  import { GET_ORDERINFOLIST } from '../store/type'
-  import { Group, Cell, Alert, Card, Flexbox, FlexboxItem } from 'vux'
+  import {mapGetters} from 'vuex'
+  import {GET_ORDERINFOLIST} from '../store/type'
+  import {Group, Cell, Alert, Card, Flexbox, FlexboxItem} from 'vux'
 
   export default {
     name: 'order',
@@ -93,7 +94,7 @@
         dateList: ['3月29', '3月30', '4月01'],
         parme: {
           date: '',
-          searchKey:''
+          searchKey: ''
         }
       }
     },
@@ -114,13 +115,15 @@
     },
     methods: {
       tabToggle (index) {
-        switch(index){
+        switch (index) {
           case 1:
+            return;
             this.isCurrentOne = true
             this.isCurrentTwo = false
             this.isCurrentThree = false
             break
           case 2:
+            return;
             this.isCurrentOne = false
             this.isCurrentTwo = true
             this.isCurrentThree = false
@@ -133,18 +136,18 @@
         }
       },
       checkItem (index, event) {
-        switch(index){
+        switch (index) {
           case 1:
-              this.deptDefault = event.currentTarget.innerHTML
-              this.isCurrentOne = false
+            this.deptDefault = event.currentTarget.innerHTML
+            this.isCurrentOne = false
             break
           case 2:
-              this.clinicDefault = event.currentTarget.innerHTML
-              this.isCurrentTwo = false
+            this.clinicDefault = event.currentTarget.innerHTML
+            this.isCurrentTwo = false
             break
           case 3:
-              this.dateDefault = event.currentTarget.innerHTML
-              this.isCurrentThree = false
+            this.dateDefault = event.currentTarget.innerHTML
+            this.isCurrentThree = false
             break
         }
         this.parme = {
@@ -157,7 +160,7 @@
     created () {
       this.parme = {
         date: '',
-        searchKey:''
+        searchKey: ''
       }
       this.$store.dispatch(GET_ORDERINFOLIST, this.parme)
     },
@@ -180,22 +183,26 @@
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-order{
+  .page-order {
     height: 100%;
   }
-  header{
+
+  header {
     position: relative;
     height: auto;
   }
+
   .card-demo-flex {
     display: flex;
     color: #fff;
     background: #990005;
     padding: 0 .5rem;
   }
+
   .card-padding {
     padding: 15px;
   }
+
   .card-demo-flex > div {
     flex: 1;
     text-align: center;
@@ -203,16 +210,20 @@
     height: 1.76rem;
     line-height: 1.76rem;
   }
-  .card-demo-flex>div>span {
+
+  .card-demo-flex > div > span {
     font-size: 1.1rem;
     font-weight: bold;
   }
-  .weui-panel:before{
+
+  .weui-panel:before {
     border: none;
   }
-  .vux-1px-r{
+
+  .vux-1px-r {
     position: relative;
   }
+
   .vux-1px-r:after {
     content: " ";
     height: .64rem;
@@ -227,7 +238,8 @@
     transform: scaleX(0.5);
     transform: translateY(-50%);
   }
-  .option{
+
+  .option {
     /*display: none;*/
     background: #fff;
     border-bottom: 1px solid #ccc;
@@ -235,7 +247,8 @@
     width: 100%;
     z-index: 2;
   }
-  .option li{
+
+  .option li {
     width: 85.33%;
     line-height: 1.72rem;
     margin: auto;
@@ -245,15 +258,18 @@
     color: #666;
     padding-left: .92rem;
   }
-  .option li:last-child{
+
+  .option li:last-child {
     border: none;
   }
-  .search-box{
+
+  .search-box {
     position: relative;
     width: 100%;
     background: #fff;
   }
-  .search-box:after{
+
+  .search-box:after {
     content: '';
     position: absolute;
     left: 0;
@@ -263,29 +279,32 @@
     background: #cacaca;
     transform: scaleY(.5);
   }
-  .search-box .inner{
+
+  .search-box .inner {
     width: 90%;
     height: 2rem;
     line-height: 2rem;
     margin: auto;
     position: relative;
   }
-  .search-box select{
+
+  .search-box select {
     position: absolute;
     width: 1.8rem;
     left: 0;
     top: 50%;
     font-size: .56rem;
-    appearance:none;
-	-moz-appearance:none;
-	-webkit-appearance:none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     transform: translateY(-50%);
     outline: none;
     border: none;
     background: url(../assets/downMis.png) no-repeat right center;
     background-size: .4rem auto;
   }
-  .search-box .search-input{
+
+  .search-box .search-input {
     position: absolute;
     right: 0;
     top: 50%;
@@ -298,53 +317,63 @@
     text-align: left;
     margin-left: .4rem;
   }
-  .search-box .search-input i{
+
+  .search-box .search-input i {
     position: absolute;
     left: .44rem;
     width: .68rem;
     height: .68rem;
     top: .28rem;
-    background: url(../assets/searchBtn.png) no-repeat; 
+    background: url(../assets/searchBtn.png) no-repeat;
     background-size: .68rem auto;
     background-position: center;
   }
-  .search-box .search-input input{
-    background:none;  
-    outline:none;  
-    border:0px;
+
+  .search-box .search-input input {
+    background: none;
+    outline: none;
+    border: 0px;
     margin-left: 2rem;
   }
-  .doctor-list{
+
+  .doctor-list {
     clear: both;
     background: #fff;
   }
-  .doctor-list li{
+
+  .doctor-list li {
     width: 92.5%;
     margin: auto;
     padding: .5rem 0 .7rem;
   }
-  .doctor-list li.underline-thin:last-child:after{
+
+  .doctor-list li.underline-thin:last-child:after {
     content: '';
     height: 0;
   }
+
   .doctor-list .flex-item {
     text-align: center;
     color: #fff;
   }
+
   .doctor-list .flex-item.middle {
     text-align: left;
   }
-  .doctor-list .flex-item h2{
+
+  .doctor-list .flex-item h2 {
     color: #333;
     font-size: .56rem;
     line-height: .88rem;
   }
-  .doctor-list .flex-item>p{
+
+  .doctor-list .flex-item > p {
     color: #666;
     line-height: .8rem;
     font-size: .48rem;
   }
-  .doctor-list .flex-item .btn-order{
+
+  .doctor-list .flex-item .btn-order {
     width: 2.6rem;
     height: 1rem;
     line-height: 1rem;
@@ -353,11 +382,13 @@
     border-radius: 1rem;
     float: right;
   }
-  .doctor-list .flex-item.left img{
+
+  .doctor-list .flex-item.left img {
     width: 2.2rem;
     float: left;
   }
-  .doctor-list .flex-item .rest-order{
+
+  .doctor-list .flex-item .rest-order {
     padding-right: .2rem;
   }
 </style>

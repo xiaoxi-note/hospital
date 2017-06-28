@@ -23,7 +23,9 @@ function parseJSON(response) {
 }
 
 function getCommParams() {
-
+  return {
+    token:Vue.localStorage.get('token')
+  }
 }
 
 export const get = (url) => {
@@ -31,10 +33,11 @@ export const get = (url) => {
     if (Array.isArray(params)) {
       [params, timeout] = params
     }
+    params = Object.assign(getCommParams(),params)
     if (typeof timeout !== 'number') {
       timeout = TIMEOUT_MS
     }
-    const req = Vue.http.get(url, {
+    const req = Vue.http.get(urlBase + url, {
       timeout,
       params,
       emulateJSON: true
@@ -43,9 +46,8 @@ export const get = (url) => {
       .then(parseJSON)
   }
 }
-
+const urlBase = '//127.0.0.1:9999'
 export const post = (url) => {
-  return get(url);
   return (body = {}, params = {}, timeout = TIMEOUT_MS) => {
     if (Array.isArray(body)) {
       [body, params, timeout] = body
@@ -54,11 +56,12 @@ export const post = (url) => {
       timeout = params
       params = {}
     }
+    params = Object.assign(getCommParams(),params)
     if (typeof timeout !== 'number') {
       timeout = TIMEOUT_MS
     }
 
-    const req = Vue.http.post(url, body, {
+    const req = Vue.http.post(urlBase + url, body, {
       timeout,
       params,
       emulateJSON: true
@@ -69,7 +72,7 @@ export const post = (url) => {
 }
 
 export const getInfo = get('/api/getInfo.json')
-export const getLogin = get('/api/login.json')
-export const getRegister = get('/api/registerPatient.json')
-export const getOrderInfoList = get('/api/getOrderInfoList.json')
-export const sendMsgCode = post('/api/sendMsgCode.json')
+export const getLogin = post('/api/login')
+export const getRegister = post('/api/registerPatient')
+export const getOrderInfoList = post('/api/getOrderInfoList')
+export const sendMsgCode = post('/api/sendMsgCode')
