@@ -4,7 +4,7 @@
       <tab-item selected @on-item-click="onItemClick" class="all">全部</tab-item>
       <tab-item @on-item-click="onItemClick" class="ordered">已预约</tab-item>
       <tab-item @on-item-click="onItemClick" class="past">已过期</tab-item>
-      <tab-item @on-item-click="onItemClick" class="wait">待处理</tab-item>
+      <!-- <tab-item @on-item-click="onItemClick" class="wait">待处理</tab-item> -->
     </tab>
     <ul class="list">
       <li v-for="item in items" class="underline-thin">
@@ -40,7 +40,7 @@
         </div>
         <div class="patient-info">
           <p class="left">就诊人：<span>万甜甜</span></p>
-          <p class="right">修改</p>
+          <!-- <p class="right">修改</p> -->
         </div>
         <div class="status" :style="{ background: item.backgroudColor }">{{item.type}}</div>
       </li>
@@ -58,7 +58,7 @@
         items: [
           { type: '已预约', backgroudColor: '#63c602' },
           { type: '已过期', backgroudColor: '#cccccc' },
-          { type: '待支付', backgroudColor: '#ff6600' }
+          // { type: '待支付', backgroudColor: '#ff6600' }
         ]
       }
     },
@@ -71,10 +71,14 @@
       Flexbox,
       FlexboxItem
     },
+    computed () {
+
+    },
     ready () {
     },
     methods: {
-      onItemClick () {
+      onItemClick (index) {
+
       },
       cancelOrder () {
       },

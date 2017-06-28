@@ -3,26 +3,13 @@
     <header>
       <card>
         <div slot="content" class="card-demo-flex">
-          <div class="vux-1px-r" @click="tabToggle(1)">{{deptDefault}}</div>
-          <div class="vux-1px-r" @click="tabToggle(2)">{{clinicDefault}}</div>
-          <div class="" @click="tabToggle(3)">{{dateDefault}}</div>
+          <div class="vux-1px-r">全科</div>
+          <div class="vux-1px-r">盛世国医</div>
+          <div class="">
+            <x-button type="primary" plain @click.native="showPlugin">{{ dateDefault }}</x-button>
+          </div>
         </div>
       </card>
-      <div class="option" v-show="isCurrentOne">
-        <ul>
-          <li v-for="item in deptList" @click.stop="checkItem(1, $event)">{{item}}</li>
-        </ul>
-      </div>
-      <div class="option" v-show="isCurrentTwo">
-        <ul>
-          <li v-for="item in clinicList" @click.stop="checkItem(2, $event)">{{item}}</li>
-        </ul>
-      </div>
-      <div class="option" v-show="isCurrentThree">
-        <ul>
-          <li v-for="item in dateList" @click.stop="checkItem(3, $event)">{{item}}</li>
-        </ul>
-      </div>
     </header>
     <div class="search-box">
       <div class="inner">
@@ -74,7 +61,7 @@
 <script type="text/ecmascript-6">
   import { mapGetters } from 'vuex'
   import { GET_ORDERINFOLIST } from '../store/type'
-  import { Group, Cell, Alert, Card, Flexbox, FlexboxItem } from 'vux'
+  import { Group, Cell, Alert, Card, Flexbox, FlexboxItem, Datetime, XButton } from 'vux'
 
   export default {
     name: 'order',
@@ -82,14 +69,7 @@
       return {
         isActive: false,
         doctorInfoList: [],
-        isCurrentOne: false,
-        isCurrentTwo: false,
-        isCurrentThree: false,
-        deptDefault: '全科',
-        clinicDefault: '盛实国医',
         dateDefault: '3月28',
-        deptList: ['内科', '妇科', '肿瘤科'],
-        clinicList: ['盛世国医', '儿童医院', '儿研所'],
         dateList: ['3月29', '3月30', '4月01'],
         parme: {
           date: '',
@@ -108,50 +88,30 @@
       Alert,
       Card,
       Flexbox,
-      FlexboxItem
+      FlexboxItem,
+      Datetime,
+      XButton
     },
     ready () {
     },
     methods: {
-      tabToggle (index) {
-        switch(index){
-          case 1:
-            this.isCurrentOne = true
-            this.isCurrentTwo = false
-            this.isCurrentThree = false
-            break
-          case 2:
-            this.isCurrentOne = false
-            this.isCurrentTwo = true
-            this.isCurrentThree = false
-            break
-          case 3:
-            this.isCurrentOne = false
-            this.isCurrentTwo = false
-            this.isCurrentThree = true
-            break
-        }
-      },
-      checkItem (index, event) {
-        switch(index){
-          case 1:
-              this.deptDefault = event.currentTarget.innerHTML
-              this.isCurrentOne = false
-            break
-          case 2:
-              this.clinicDefault = event.currentTarget.innerHTML
-              this.isCurrentTwo = false
-            break
-          case 3:
-              this.dateDefault = event.currentTarget.innerHTML
-              this.isCurrentThree = false
-            break
-        }
-        this.parme = {
-          date: '',
-          searchKey: event.currentTarget.innerHTML
-        }
-        this.$store.dispatch(GET_ORDERINFOLIST, this.parme)
+      showPlugin () {
+        console.log(this)
+        this.$vux.datetime.show({
+          cancelText: '取消',
+          confirmText: '确定',
+          format: 'YYYY-MM-DD HH',
+          value: '2017-05-20 18',
+          onConfirm (val) {
+            console.log('plugin confirm', val)
+          },
+          onShow () {
+            console.log('plugin show')
+          },
+          onHide () {
+            console.log('plugin hide')
+          }
+        })
       }
     },
     created () {
