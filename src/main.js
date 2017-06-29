@@ -8,6 +8,8 @@ import {AlertPlugin, ToastPlugin, LoadingPlugin} from 'vux'
 import vueTap from 'v-tap'
 import store from './store'
 import VueLocalStorage from 'vue-localstorage'
+import base from './base'
+base();
 Vue.use(VueLocalStorage)
 import mixin from './util'
 // import './stylus/common.css'

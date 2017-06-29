@@ -1,75 +1,80 @@
 <template>
   <div class="page-doctor">
-    <header>
-      <div class="headCont">
-    	    <span class="imgBg"></span>
-        <img src="../assets/doctor-head.png" class="head">
-      </div>
-      <p class="name">王洪刚</p>
-      <p class="type">国医大师</p>
-      <div class="info">
+    <div v-if="dataDetail">
+      <header>
+        <div class="headCont">
+      	    <span class="imgBg"></span>
+          <img :src="dataDetail.photoSUrl" class="head">
+        </div>
+        <p class="name">{{dataDetail.name}}</p>
+        <p class="type">{{dataDetail.title}}</p>
+        <div class="info">
+          <card>
+            <div slot="content" class="card-demo-flex card-demo-content01">
+              <div class="vux-1px-l vux-1px-r">
+                <span>234</span>
+                <p>剩余号</p>
+              </div>
+              <div class="vux-1px-r">
+                <span>500</span>
+                <p>问诊量</p>
+              </div>
+              <div>
+                <span>213</span>
+                <p>关注</p>
+              </div>
+            </div>
+          </card>
+        </div>
+      </header>
+      <ul class="content underline-thin">
+        <li class="underline-thin">
+          <p class="area">执业点</p>
+          <p>北京盛实国医馆--{{dataDetail.dept}}</p>
+        </li>
+        <li class="underline-thin">
+          <p class="skill">擅长</p>
+          <p v-for="text in dataDetail.experts">{{text}}</p>
+        </li>
+        <li>
+          <p class="intro">
+            <span>简介</span>
+            <span v-if="isClose" v-tap="{methods:open}" class="drop">展开</span>
+            <span v-else v-tap="{methods:close}" class="drop">收起</span>
+          </p>
+          <p v-if="isClose" class="over-white-space">{{dataDetail.intro}}</p>
+          <p v-else>{{dataDetail.intro}}</p>
+        </li>
+      </ul>
+      <footer>
         <card>
-          <div slot="content" class="card-demo-flex card-demo-content01">
-            <div class="vux-1px-l vux-1px-r">
-              <span>234</span>
-              <p>剩余号</p>
+            <div slot="content" class="card-demo-flex card-demo-content01">
+              <div class="vux-1px-r">
+                <img src="../assets/heart2.png">
+                <span>关注</span>
+              </div>
+              <div v-tap="{methods:goOrder}">
+                <img src="../assets/yellowClock.png">
+                <span>预约挂号</span>
+              </div>
             </div>
-            <div class="vux-1px-r">
-              <span>500</span>
-              <p>问诊量</p>
-            </div>
-            <div>
-              <span>213</span>
-              <p>关注</p>
-            </div>
-          </div>
-        </card>
-      </div>
-    </header>
-    <ul class="content underline-thin">
-      <li class="underline-thin">
-        <p class="area">执业点</p>
-        <p>天津国医馆--内科</p>
-      </li>
-      <li class="underline-thin">
-        <p class="skill">擅长</p>
-        <p>食管、胃疾病的中西医结合诊治</p>
-      </li>
-      <li>
-        <p class="intro">
-          <span>简介</span>
-          <span v-if="isClose" v-tap="{methods:open}" class="drop">展开</span>
-          <span v-else v-tap="{methods:close}" class="drop">收起</span>
-        </p>
-        <p v-if="isClose">毕业于天津医科大学，师从著名医生著名解...</p>
-        <p v-else>毕业于天津医科大学，师从著名医生著名解,毕业于天津医科大学，师从著名医生著名解,毕业于天津医科大学，师从著名医生著名解</p>
-      </li>
-    </ul>
-    <footer>
-      <card>
-          <div slot="content" class="card-demo-flex card-demo-content01">
-            <div class="vux-1px-r">
-              <img src="../assets/heart2.png">
-              <span>关注</span>
-            </div>
-            <div v-tap="{methods:goOrder}">
-              <img src="../assets/yellowClock.png">
-              <span>预约挂号</span>
-            </div>
-          </div>
-        </card>
-    </footer>
+          </card>
+      </footer>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapGetters} from 'vuex'
+  import {GET_DOCTINFOBYID} from '../store/type'
   import { Group, Cell, Alert, Card } from 'vux'
 
   export default {
     name: 'NAME',
     data () {
       return {
-        isClose: true
+        isClose: true,
+        dataDetail: null
       }
     },
     components: {
@@ -77,8 +82,13 @@
       Cell,
       Alert,
       Card
+    },computed: {
+      ...mapGetters([
+        'getDoctInfoById'
+      ])
     },
-    ready () {
+    created () {
+      this.$store.dispatch(GET_DOCTINFOBYID, {docId:this.$route.query.doctId})
     },
     methods: {
       open () {
@@ -89,14 +99,29 @@
       },
       goOrder () {
         this.$router.push({
-          name: 'order'
+          name: 'doctorMsg',query: this.$route.query
         })
+      }
+    },
+    watch:{
+      getDoctInfoById (newValue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload
+          if (respose.errno === 0) {
+            this.dataDetail = respose.data
+          } else {
+            this.$vux.alert.show({
+              title: '',
+              content: respose.errmsg,
+            })
+          }
+        }
       }
     }
   }
 </script>
 
-<style scoped rel="stylesheet/stylus">
+<style scoped type="text/stylus" lang="stylus">
   .page-doctor{   
   }
   .card-demo-flex {
@@ -165,4 +190,9 @@
   footer .card-demo-content01{
   	padding: .5rem 0;
   }
+  .over-white-space 
+    overflow hidden
+    text-overflow ellipsis
+    white-space nowrap
+    width 13rem
 </style>

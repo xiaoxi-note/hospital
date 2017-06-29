@@ -23,10 +23,15 @@ export const sendMsgCode = createAction({
   type: types.GET_SENDMSGCODE,
   payloadCreator: api.sendMsgCode
 })
+export const getDoctInfoById = createAction({
+  type: types.GET_DOCTINFOBYID,
+  payloadCreator: api.getDoctInfoById
+})
 export default {
   [getInfo]: getInfo,
   [getLogin]: getLogin,
   [getRegister]: getRegister,
   [getOrderInfoList]: getOrderInfoList,
-  [sendMsgCode]: sendMsgCode
+  [sendMsgCode]: sendMsgCode,
+  [getDoctInfoById]: getDoctInfoById
 }

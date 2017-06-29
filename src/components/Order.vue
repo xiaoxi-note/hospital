@@ -5,8 +5,12 @@
         <div slot="content" class="card-demo-flex">
           <div class="vux-1px-r">全科</div>
           <div class="vux-1px-r">盛世国医</div>
-          <div class="">
-            <x-button type="primary" plain @click.native="showPlugin">{{ dateDefault }}</x-button>
+          <div class="vux-1px-r down">
+            <span v-tap="{methods:showDataPicker}">{{ getMounth() }}</span>
+            <popup-picker :data="dateList" 
+                  v-model="dateDefault"
+                  ref='dataPicker'
+                  v-if="isShowDatePicker"></popup-picker>
           </div>
         </div>
       </card>
@@ -19,12 +23,12 @@
         </select>
         <div class="search-input">
           <i></i>
-          <input type="" name="" placeholder="搜索医生姓名">
+          <input type="text" v-model='param.name' placeholder="搜索医生姓名">
         </div>
       </div>
     </div>
     <ul class="doctor-list underline-thin">
-      <li v-for="item in doctorInfoList" class="underline-thin">
+      <li v-for="item in doctorInfoList" class="underline-thin" @click="goDoctDetail(item.id)">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -40,10 +44,10 @@
               </p>
               <p>{{item.clinicName}}</p>
               <p>
-                <span>剩余费：</span>
+                <span>剩余号:</span>
                 <span class="rest-order"
                       :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww}}</span>
-                <span>挂号费：</span>
+                <span>挂号费:</span>
                 <span class="" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">￥{{item.fees}}</span>
               </p>
             </div>
@@ -61,23 +65,31 @@
 
 <script type="text/ecmascript-6">
 
-  import { mapGetters } from 'vuex'
-  import { GET_ORDERINFOLIST } from '../store/type'
-  import { Group, Cell, Alert, Card, Flexbox, FlexboxItem, Datetime, XButton } from 'vux'
+  import {mapGetters} from 'vuex'
+  import {GET_ORDERINFOLIST} from '../store/type'
+  import {Group, Cell, Alert, Card, Flexbox, FlexboxItem, Datetime, XButton, PopupPicker} from 'vux'
 
 
   export default {
     name: 'order',
     data () {
+       var today = Date.now();
+        var dateListArray = []
+
+        var dateDefault = [(new Date(today+86400000)).format('yyyy年MM月dd')];
+        for(var i = 1; i < 6; i++) {
+          dateListArray.push((new Date(today + 86400000 * i)).format('yyyy年MM月dd'));
+        }
       return {
         isActive: false,
         doctorInfoList: [],
-        dateDefault: '3月28',
-        dateList: ['3月29', '3月30', '4月01'],
-        parme: {
+        dateDefault: dateDefault,
+        dateList: [dateListArray],
+        param: {
           date: '',
-          searchKey: ''
-        }
+          name: ''
+        },
+        isShowDatePicker: true
       }
     },
     computed: {
@@ -93,9 +105,8 @@
       Flexbox,
       FlexboxItem,
       Datetime,
-      XButton
-    },
-    ready () {
+      XButton,
+      PopupPicker
     },
     methods: {
       showPlugin () {
@@ -115,14 +126,21 @@
             console.log('plugin hide')
           }
         })
+      },
+      showDataPicker () {
+        this.$refs.dataPicker.onClick();
+      },
+      getMounth(){
+        return this.dateDefault[0].split('年')[1]
+      },
+      goDoctDetail (id){
+        this.$router.push({name:"doctorInfo",query:{
+          doctId: id
+        }});
       }
     },
     created () {
-      this.parme = {
-        date: '',
-        searchKey: ''
-      }
-      this.$store.dispatch(GET_ORDERINFOLIST, this.parme)
+      this.$store.dispatch(GET_ORDERINFOLIST, this.param)
     },
     watch: {
       getOrderInfoList (newValue, oldVaue) {
@@ -137,12 +155,21 @@
             })
           }
         }
+      },
+      dateDefault:{
+        deep:true,
+        handler () {
+          var dateTimeStr = this.dateDefault[0].replace('年','-').replace('月','-')
+          console.log(dateTimeStr)
+          this.param.date = (new Date(dateTimeStr)).getTime();
+          this.$store.dispatch(GET_ORDERINFOLIST, this.param)
+        }
       }
     }
   }
 </script>
 
-<style scoped rel="stylesheet/stylus">
+<style scoped type="text/stylus" lang="stylus">
   .page-order {
     height: 100%;
   }
@@ -182,22 +209,40 @@
 
   .vux-1px-r {
     position: relative;
+    &:after {
+      content: " ";
+      height: .64rem;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      width: 1px;
+      border-right: 1px solid #fff;
+      -webkit-transform-origin: 100% 0;
+      transform-origin: 100% 0;
+      -webkit-transform: scaleX(0.5);
+      transform: scaleX(0.5);
+      transform: translateY(-50%);
+    }
+    &:nth-child(3):after{
+      display none
+    }
   }
 
-  .vux-1px-r:after {
-    content: " ";
-    height: .64rem;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    width: 1px;
-    border-right: 1px solid #fff;
-    -webkit-transform-origin: 100% 0;
-    transform-origin: 100% 0;
-    -webkit-transform: scaleX(0.5);
-    transform: scaleX(0.5);
-    transform: translateY(-50%);
-  }
+  .down 
+    position relative
+    span
+      font-size:.7rem !important;
+      &:after 
+        display block
+        content ''
+        width 0
+        height 0
+        border-left 5px solid transparent
+        border-right 5px solid transparent
+        border-top 8px solid #fff
+        position absolute
+        top .7rem
+        right .5rem
 
   .option {
     /*display: none;*/
@@ -349,6 +394,8 @@
   }
 
   .doctor-list .flex-item .rest-order {
-    padding-right: .2rem;
+    width: .9rem;
+    display: inline-block;
   }
+
 </style>
