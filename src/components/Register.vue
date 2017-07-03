@@ -109,21 +109,31 @@
             <Datetime v-model="sendData.birthDay" title=""></Datetime>
           </group>
         </div>
+        <ul class="img-lib"
+            :class="{'upload-unable':uploadIndex >= aptitudeArray.length}"
+            v-if="isDoctor">
+          <li v-for="(item,index) in aptitudeArray" v-if="item.src" @click="edit(index)">
+            <div class="lib-title">{{item.text}}</div>
+            <img :src="item.src" alt="">
+          </li>
+        </ul>
         <vue-core-image-upload
-          v-if="isDoctor"
+          v-if="uploadIndex < aptitudeArray.length && isDoctor"
           :class="['upload']"
           :crop="false"
-          :text="uploadText"
+          :text="aptitudeArray[uploadIndex].text"
           @imageuploaded="loadImg"
           :max-file-size="5242880"
-          url="//192.168.99.115:9999/upload">
+          url="/upload">
         </vue-core-image-upload>
       </div>
     </div>
-    <a
-      :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
-      v-tap.prevent="{methods:getApiRegister}"
-    >注&nbsp;&nbsp;册</a>
+    <div class="add-button">
+      <a
+        :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
+        v-tap.prevent="{methods:getApiRegister}"
+      >注&nbsp;&nbsp;册</a>
+    </div>
   </div>
 </template>
 <script type="text/ecmascript-6">
@@ -133,9 +143,22 @@
   import VueCoreImageUpload  from 'vue-core-image-upload';
 
   var sexData = [{key: '1', value: '男'}, {key: '2', value: '女'}]
+  var aptitudeArray = [{
+    key : 'idCard',
+    text: '身份证',
+    src : ''
+  }, {
+    key : 'aptitude',
+    text: '从业资格证',
+    src : ''
+  }, {
+    key : 'biyezheng',
+    text: '毕业证',
+    src : ''
+  }]
 
   export default {
-    name: 'register',
+    name      : 'register',
     components: {
       Tab,
       TabItem,
@@ -148,33 +171,36 @@
     },
     data () {
       return {
-        disable: false, // 按钮是否可点击
-        isDoctor: false, // 医生还是患者
-        clickButton: false,
-        sexList: sexData,
-        isSendCode: false,
+        disable             : false, // 按钮是否可点击
+        isDoctor            : false, // 医生还是患者
+        clickButton         : false,
+        sexList             : sexData,
+        isSendCode          : false,
         waitCheckCodeTimeEnd: 0,
-        sendData: {
-          sex: sexData[0].key,
-          phone: '',
+        sendData            : {
+          sex      : sexData[0].key,
+          phone    : '',
           checkCode: '',
-          pwd: '',
-          pwdAgain: '',
-          name: '',
-          idCard: '',
-          birthDay: ''
+          pwd      : '',
+          pwdAgain : '',
+          name     : '',
+          idCard   : '',
+          birthDay : ''
         },
-        imgId: '',
-        uploadText: '上传身份证'
+        imgId               : '',
+        uploadText          : '上传身份证',
+        aptitudeArray       : aptitudeArray,
+        uploadIndex         : 0,
+        imgUploadEnd        : false
       }
     },
-    computed: {
+    computed  : {
       ...mapGetters([
         'getRegister',
         'sendMsgCode'
       ])
     },
-    methods: {
+    methods   : {
       onPatientClick () {
         this.isDoctor = false
       },
@@ -187,15 +213,19 @@
           return
         }
         const params = {
-          phone: this.sendData.phone,
-          checkCode: this.sendData.checkCode,
-          pwd: this.sendData.pwd,
-          pwdAgain: this.sendData.pwdAgain,
-          name: this.sendData.name,
-          sex: this.sendData.sex,
-          idCard: this.sendData.idCard,
-          birthDay: (new Date(this.sendData.birthDay)).getTime(),
+          phone      : this.sendData.phone,
+          checkCode  : this.sendData.checkCode,
+          pwd        : this.sendData.pwd,
+          pwdAgain   : this.sendData.pwdAgain,
+          name       : this.sendData.name,
+          sex        : this.sendData.sex,
+          idCard     : this.sendData.idCard,
+          birthDay   : (new Date(this.sendData.birthDay)).getTime(),
           birthDayStr: this.sendData.birthDay
+        }
+
+        if (this.isDoctor) {
+          params.imgInfo = encodeURIComponent(JSON.stringify(this.aptitudeArray))
         }
         this.$store.dispatch(GET_REGISTER, params)
       },
@@ -221,17 +251,55 @@
         }
       },
       loadImg(data){
-        console.log(data)
+
+        this.aptitudeArray[this.uploadIndex].src = '/img/' + data.data.uuid;
+        this.aptitudeArray[this.uploadIndex].uri = data.data.uuid;
+
+        var isEnd = false,
+            index = this.aptitudeArray.length;
+        [].forEach.call(this.aptitudeArray, (item, _index) => {
+
+          if (!isEnd && !item.src) {
+            isEnd = true;
+            index = _index;
+          }
+        })
+        this.imgUploadEnd = index == this.aptitudeArray.length
+        this.uploadIndex  = index;
+      },
+      edit(index){
+        this.uploadIndex = index;
+      },
+      checkPrams(){
+        if (this.checkPhone()
+          && this.checkIdCard()
+          && this.sendData.checkCode
+          && this.sendData.pwd
+          && this.sendData.name
+          && this.sendData.birthDay
+        ) {
+          this.disable = true
+        } else {
+          this.disable = false
+        }
+
+        if (this.isDoctor) {
+          if (this.imgUploadEnd) {
+            this.disable = true
+          } else {
+            this.disable = false
+          }
+        }
       }
     },
-    watch: {
+    watch     : {
       getRegister (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
             var that = this;
             this.$vux.alert.show({
-              title: '',
+              title  : '',
               content: '注册成功',
               onHide () {
                 that.$router.push({
@@ -241,7 +309,7 @@
             })
           } else {
             this.$vux.alert.show({
-              title: '',
+              title  : '',
               content: respose.errmsg,
             })
           }
@@ -260,19 +328,14 @@
       sendData: {
         deep: true,
         handler(){
-          if (this.checkPhone()
-            && this.checkIdCard()
-            && this.sendData.checkCode
-            && this.sendData.pwd
-            && this.sendData.name
-            && this.sendData.idCard
-            && this.sendData.birthDay
-          ) {
-            this.disable = true
-          } else {
-            this.disable = false
-          }
+          this.checkPrams();
         }
+      },
+      isDoctor(newValue){
+        this.checkPrams();
+      },
+      imgUploadEnd(){
+        this.checkPrams();
       }
     }
   }
@@ -299,6 +362,7 @@
       font-size: .54rem;
       text-align: left;
       width: 91.5%;
+      padding-bottom 1rem
     }
 
     .vux-tab .vux-tab-ink-bar {
@@ -352,12 +416,13 @@
     }
 
     .box-input .upload {
-      padding: .38rem 0 .6rem .26rem;
+      /*padding: .38rem 0 .6rem .26rem;*/
       background url('../assets/upload.png')
-      width 78px
-      height 60px
+      width 3.6rem
+      height: 3.6rem;
       display inline-block
       background-size cover
+      text-align center
     }
 
     .box-input .upload label {
@@ -430,4 +495,26 @@
         height 1.8rem
         line-height 1.8rem
         font-size .6rem
+
+  .add-button
+    position fixed
+    bottom 1rem
+    width 100%
+
+  .img-lib
+    padding-left 1rem
+    padding-right 1rem
+    padding-top .5rem
+    li
+      text-align center
+      width 33%
+      float left
+      img
+        height 2rem
+
+  .upload-unable
+    &:after
+      content: ''
+      display block
+      clear both
 </style>

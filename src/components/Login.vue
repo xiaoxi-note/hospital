@@ -52,17 +52,17 @@
   import {GET_LOGIN} from '../store/type'
 
   export default {
-    name: 'NAME',
+    name      : 'NAME',
     data () {
       return {
         showPwdErr: false, // 显示密码错误提示
-        disable: false, // 按钮是否可点击
-        showPwd: false, // 是否显示密码
-        phone: '',
-        pwd: ''
+        disable   : false, // 按钮是否可点击
+        showPwd   : false, // 是否显示密码
+        phone     : '',
+        pwd       : ''
       }
     },
-    computed: {
+    computed  : {
       ...mapGetters([
         'getLogin'
       ])
@@ -74,7 +74,7 @@
     },
     ready () {
     },
-    methods: {
+    methods   : {
       passwords () {
         if (this.showPwd) {
           this.showPwd = false
@@ -100,24 +100,23 @@
         }
         const params = {
           phone: this.phone,
-          pwd: this.pwd
+          pwd  : this.pwd
         }
         this.$store.dispatch(GET_LOGIN, params)
       }
     },
-    watch: {
+    watch     : {
       getLogin (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload // 返回值
           if (respose.errno === 0) {
             this.$localStorage.set('token', respose.data.token)
-            this.$router.push({
-              name: 'order'
-            })
+            var preLoginName = this.$localStorage.get('before_login')
+            this.$router.replace({name: preLoginName});
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({
-              title: '',
+              title  : '',
               content: respose.errmsg,
             })
           }

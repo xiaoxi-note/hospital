@@ -28,12 +28,14 @@
                   class="btn-order"
                   v-if='item.type=="已预约"'
                   v-tap="{ methods: cancelOrder }"
-                >取消预约</div>
+                >取消预约
+                </div>
                 <div
                   class="btn-pay"
                   v-if='item.type=="待支付"'
                   v-tap="{ methods: goPay }"
-                >支付</div>
+                >支付
+                </div>
               </div>
             </flexbox-item>
           </flexbox>
@@ -49,15 +51,18 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Group, Cell, Alert, Tab, TabItem, Flexbox, FlexboxItem } from 'vux'
+
+  import {mapGetters} from 'vuex'
+  import {GETORDERHISTORY} from '../store/type'
+  import {Group, Cell, Alert, Tab, TabItem, Flexbox, FlexboxItem} from 'vux'
 
   export default {
-    name: 'NAME',
+    name      : 'NAME',
     data () {
       return {
         items: [
-          { type: '已预约', backgroudColor: '#63c602' },
-          { type: '已过期', backgroudColor: '#cccccc' },
+//          {type: '已预约', backgroudColor: '#63c602'},
+//          {type: '已过期', backgroudColor: '#cccccc'},
           // { type: '待支付', backgroudColor: '#ff6600' }
         ]
       }
@@ -74,44 +79,66 @@
     computed () {
 
     },
-    ready () {
+    created () {
+
+      this.$store.dispatch(GETORDERHISTORY)
     },
-    methods: {
-      onItemClick (index) {
+    methods   : {
+      onItemClick(){
 
       },
-      cancelOrder () {
-      },
-      goPay () {
+      cancelOrder(){
+      }
+    },
+    watch     : {
+      getOrderHistory (newValue, oldVaue) {
+        if (newValue.status === 'success') {
+          const response = newValue.payload // 返回值
+          if (response.errno === 0) {
+
+          } else {
+            this.showPwdErr = false
+            this.$vux.alert.show({
+              title  : '',
+              content: response.errmsg,
+            })
+          }
+        }
       }
     }
   }
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-myorder{
-  	font-size: .5rem;
+  .page-myorder {
+    font-size: .5rem;
   }
-  .vux-tab{
-  	background: #b60005;
+
+  .vux-tab {
+    background: #b60005;
   }
-  .vux-tab .vux-tab-item{
-  	position: relative;
-  	background-color: #b60005;
+
+  .vux-tab .vux-tab-item {
+    position: relative;
+    background-color: #b60005;
   }
-  .vux-tab .vux-tab-item.vux-tab-selected{
-  	background-color: #db0006;
+
+  .vux-tab .vux-tab-item.vux-tab-selected {
+    background-color: #db0006;
     z-index: 2;
   }
-  .vux-tab .vux-tab-item.vux-tab-selected:after{
+
+  .vux-tab .vux-tab-item.vux-tab-selected:after {
     right: 0;
   }
-  .vux-tab .vux-tab-item{
+
+  .vux-tab .vux-tab-item {
     background: none;
   }
-  .vux-tab-item:after{
-  	content: "";
-  	width: 1px;
+
+  .vux-tab-item:after {
+    content: "";
+    width: 1px;
     height: 1rem;
     background: #fff;
     transform: scaleX(.5);
@@ -121,18 +148,22 @@
     transform: scaleX(.5) translateY(-50%);
     z-index: 1;
   }
-  .vux-tab-item.vux-tab-selected:after{
-  	background: #db0006;
+
+  .vux-tab-item.vux-tab-selected:after {
+    background: #db0006;
   }
-  .vux-tab-item.item-last:after{
-  	content: "";
-  	width: 0;
+
+  .vux-tab-item.item-last:after {
+    content: "";
+    width: 0;
   }
-  .list li{
+
+  .list li {
     background: #fff;
     overflow: hidden;
   }
-  .list .doctor-info{
+
+  .list .doctor-info {
     position: relative;
     width: 92.5%;
     margin: auto;
@@ -140,7 +171,8 @@
     padding: .6rem 0;
     color: #666;
   }
-  .list .doctor-info:after{
+
+  .list .doctor-info:after {
     content: '';
     position: absolute;
     left: 0;
@@ -149,26 +181,31 @@
     border-bottom: 1px dashed #ccc;
     transform: scaleY(.5);
   }
-  .doctor-info .left{
+
+  .doctor-info .left {
     background: #eee;
     text-align: center;
     width: 2.36rem;
     height: 2.36rem;
   }
-  .doctor-info .left .date{
+
+  .doctor-info .left .date {
     background: #ddd;
     height: .8rem;
     line-height: .8rem;
   }
-  .doctor-info .left .week{
+
+  .doctor-info .left .week {
     line-height: 1.56rem;
     font-size: .56rem;
     font-weight: bold;
   }
-  .doctor-info .middle h2{
+
+  .doctor-info .middle h2 {
     font-size: .56rem;
   }
-  .doctor-info .right .btn-pay{
+
+  .doctor-info .right .btn-pay {
     width: 2.6rem;
     height: 1rem;
     line-height: 1rem;
@@ -177,7 +214,8 @@
     border-radius: 1rem;
     color: #fff;
   }
-  .patient-info{
+
+  .patient-info {
     width: 92.5%;
     margin: auto;
     position: relative;
@@ -185,11 +223,13 @@
     line-height: 1.52rem;
     color: #333;
   }
-  .patient-info .left{
+
+  .patient-info .left {
     position: absolute;
     left: 0;
   }
-  .patient-info .right{
+
+  .patient-info .right {
     position: absolute;
     right: 0;
     background: url(../assets/allIcon.png) no-repeat 0 -11.18rem;
@@ -197,7 +237,8 @@
     padding-left: 0.9rem;
     color: #029fc6;
   }
-  .status{
+
+  .status {
     position: absolute;
     top: 0.3rem;
     right: -2rem;
@@ -207,7 +248,8 @@
     color: #fff;
     transform: rotate(45deg);
   }
-  .underline-thin:before{
+
+  .underline-thin:before {
     content: '';
     width: 100%;
     height: 1px;
@@ -217,13 +259,16 @@
     top: 0;
     left: 0;
   }
-  .underline-thin:first-child:before{
+
+  .underline-thin:first-child:before {
     display: none;
   }
-  .underline-thin:after{
+
+  .underline-thin:after {
     display: none;
   }
-  .underline-thin:last-child:after{
+
+  .underline-thin:last-child:after {
     display: block;
   }
 </style>

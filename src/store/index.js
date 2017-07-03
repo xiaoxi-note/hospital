@@ -11,18 +11,28 @@ Vue.use(Vuex)
 // const isProductionEnv = process.env.NODE_ENV === 'production'
 
 const state = {
-  getInfo: {payload: {}},
-  getLogin: {payload: {}},
-  getRegister: {payload: {}},
-  getOrderInfoList: {payload: {}},
-  loginState: 'valid',
-  sendMsgCode: {payload: {}},
-  getDoctInfoById: {payload:{}}
+  getInfo                   : {payload: {}},
+  getLogin                  : {payload: {}},
+  getRegister               : {payload: {}},
+  getOrderInfoList          : {payload: {}},
+  loginState                : 'valid',
+  sendMsgCode               : {payload: {}},
+  getDoctInfoById           : {payload: {}},
+  orderInfoByStartDate      : {payload: {}},
+  getContacts               : {payload: {}},
+  getCity                   : {payload: {}},
+  addContact                : {payload: {}},
+  orderInfoWidthDateByDoctId: {payload: {}},
+  createOrder               : {payload: {}},
+  getOrderHistory           : {payload: {}},
+  getUserInfo               : {payload: {}},
+  getContact                : {payload: {}},
+  updateContactById                : {payload: {}}
 }
 
 const store = new Vuex.Store({
   state,
-  getters: {
+  getters  : {
     getInfo (state) {
       return state.getInfo
     },
@@ -40,10 +50,40 @@ const store = new Vuex.Store({
     },
     getDoctInfoById(){
       return state.getDoctInfoById
+    },
+    orderInfoByStartDate(){
+      return state.orderInfoByStartDate
+    },
+    getContacts(){
+      return state.getContacts
+    },
+    getCity(){
+      return state.getCity
+    },
+    addContact(){
+      return state.addContact
+    },
+    orderInfoWidthDateByDoctId(){
+      return state.orderInfoWidthDateByDoctId
+    },
+    createOrder(){
+      return state.createOrder
+    },
+    getOrderHistory(){
+      return state.getOrderHistory
+    },
+    getUserInfo(){
+      return state.getUserInfo
+    },
+    getContact(){
+      return state.getContact
+    },
+    updateContactById(){
+      return state.updateContactById
     }
   },
   mutations: mutations,
-  actions: actions
+  actions  : actions
 })
 
 export default store

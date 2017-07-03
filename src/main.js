@@ -10,8 +10,9 @@ import store from './store'
 import VueLocalStorage from 'vue-localstorage'
 import base from './base'
 base();
+const sexData = [{key: '0', value: '男'}, {key: '1', value: '女'}];
 Vue.use(VueLocalStorage)
-import mixin from './util'
+
 // import './stylus/common.css'
 // require('./stylus/common.css')
 Vue.use(vueTap)
@@ -24,7 +25,60 @@ Vue.config.productionTip = false
 
 Vue.use(resource)
 
-Vue.mixin(mixin)
+Vue.mixin({
+  methods: {
+    post (opt) {
+      this.$http.get(opt.url).then(response => {
+        opt.success(response.body)
+      }, response => {
+        opt.err && opt.err('')
+      })
+    },
+    get (opt) {
+      this.$http.get(opt.url).then(response => {
+        opt.success(response.body)
+      }, response => {
+        // opt.error('')
+      })
+    },
+    getSex (value) {
+      var result = null;
+      [].forEach.call(sexData, (item) => {
+        if (item.key == value) {
+          result = item
+        }
+      })
+      return result.value;
+    },
+    getAge(birthday){
+      var birthDate = new Date(birthday);
+      var yearNum   = (new Date()).getFullYear();
+      return yearNum - birthDate.getFullYear() + 1;
+    },
+    getPhone (yearStr) {
+      var result     = [];
+      var phoneArray = yearStr.split('');
+      [].forEach.call(phoneArray, (item, index) => {
+        if (index > 2 && index < 7) {
+          result.push('*')
+        } else {
+          result.push(item)
+        }
+      })
+      return result.join('');
+    }
+  },
+  data(){
+    return {
+      sexList: sexData
+    }
+  },
+  created () {
+    if (!this.$localStorage.get('token')) {
+      this.$router.replace({name: 'login'})
+    }
+  }
+})
 
 // TODO VUEX DEMO
 
@@ -34,9 +88,9 @@ Vue.mixin(mixin)
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
+  el        : '#app',
   router,
-  template: '<App/>',
+  template  : '<App/>',
   components: {App},
-  store: store
+  store     : store
 })

@@ -36,11 +36,6 @@
     background-attachment: fixed;
   }
 
-  @font-face {
-    font-family: 'MicrosoftYaHeiUiLight';
-    src: url(./fonts/hos.ttf);
-  }
-
   #app {
     font-family: 'MicrosoftYaHeiUiLight';
     -webkit-font-smoothing: antialiased;

@@ -1,32 +1,35 @@
 <template>
   <div class="page-orderInfo">
-    <header>
+    <header v-if="userInfo">
       <div class="intro">
         <img src="../assets/doctor-head.png">
-        <span>13366246300</span>
+        <div>
+          <div>{{userInfo.name}}</div>
+          <div>{{getPhone(userInfo.phone)}}</div>
+        </div>
       </div>
     </header>
     <div class="content underline-thin">
       <ul>
-        <li class="underline-thin">
+        <li class="underline-thin" v-if="userInfo && userInfo.role == 1">
           <span class="name left">实名认证</span>
-          <span class="right">已认证</span>
+          <span class="right"></span>
         </li>
-        <li class="underline-thin">
-          <span class="audit left">医生资质审核</span>
+        <li class="underline-thin" @click="goOrderHistory">
+          <span class="audit left">预约记录</span>
           <span class="right"></span>
         </li>
         <li class="underline-thin">
           <span class="change_pwd left">修改密码</span>
           <span class="right"></span>
         </li>
-        <li class="underline-thin">
+        <li class="underline-thin" style="display: none;">
           <span class="bind_tel left">手机绑定</span>
           <span class="right"></span>
         </li>
-        <li>
-          <span class="address left">收货地址</span>
-          <span class="right">上海市青浦区徐泾东盈港东...</span>
+        <li @click="goContacts">
+          <span class="address left">常用联系人</span>
+          <span class="right"></span>
         </li>
       </ul>
     </div>
@@ -34,14 +37,22 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import { Group, Cell, Alert, Card } from 'vux'
+  import {mapGetters} from 'vuex'
+  import {GETUSERINFO} from '../store/type'
+  import {Group, Cell, Alert, Card} from 'vux'
 
   export default {
-    name: 'NAME',
+    name      : 'NAME',
     data () {
       return {
-        isClose: true
+        isClose : true,
+        userInfo: null
       }
+    },
+    computed  : {
+      ...mapGetters([
+        'getUserInfo'
+      ])
     },
     components: {
       Group,
@@ -49,57 +60,75 @@
       Alert,
       Card
     },
-    ready () {
+    created () {
+      this.$store.dispatch(GETUSERINFO)
     },
-    methods: {
-      open () {
-        this.isClose = false
+    methods   : {
+      goOrderHistory(){
+        this.$router.push({name: 'myorder'})
       },
-      close () {
-        this.isClose = true
-      },
-      goOrder () {
-        this.$router.push({
-          name: 'order'
-        })
+      goContacts(){
+        this.$router.push({name: 'Contacts', query: {isShow: 1}})
+      }
+    }, watch  : {
+      getUserInfo (newValue, oldVaue) {
+        if (newValue.status === 'success') {
+          const response = newValue.payload // 返回值
+          if (response.errno === 0) {
+            this.userInfo = response.data
+          } else {
+            this.showPwdErr = false
+            this.$vux.alert.show({
+              title  : '',
+              content: response.errmsg,
+            })
+          }
+        }
       }
     }
   }
 </script>
 
 <style scoped rel="stylesheet/stylus">
-  .page-orderInfo{   
+  .page-orderInfo {
   }
-  header{
-  	height: 4.38rem;
+
+  header {
+    height: 4.38rem;
     background: #b60005 url(../assets/doctor-bg2.png) left bottom no-repeat;
     background-size: 100% auto;
     padding-top: .9rem;
     /*padding-bottom: 2rem;*/
     text-align: left;
   }
-  header .intro{
+
+  header .intro {
     position: relative;
     width: 90%;
     margin: auto;
     box-sizing: border-box;
   }
-  .intro{
+
+  .intro {
     display: flex;
     align-items: center;
   }
-  .intro img{
+
+  .intro img {
     width: 2.6rem;
     margin-right: .5rem;
   }
-  .intro span{
+
+  .intro span {
     font-size: .68rem;
     color: #fff;
   }
-  .content{
+
+  .content {
     background: #fff;
   }
-  .content li{
+
+  .content li {
     position: relative;
     width: 92.5%;
     margin: auto;
@@ -108,7 +137,8 @@
     font-size: .56rem;
     padding: .5rem 0;
   }
-  .content li:before{
+
+  .content li:before {
     content: '';
     width: 1rem;
     height: 1rem;
@@ -118,28 +148,35 @@
     background: url(../assets/allIcon.png) no-repeat 0 -4rem;
     background-size: .8rem auto;
   }
-  .content li .left{
+
+  .content li .left {
     float: left;
     background: url(../assets/allIcon.png) no-repeat 0 -4.95rem;
     background-size: .8rem auto;
     padding-left: 1.36rem;
   }
-  .content li .name{
-  	background-position: 0 -3.24rem;
+
+  .content li .name {
+    background-position: 0 -3.24rem;
   }
-  .content li .audit{
-  	background-position: 0 -7.3rem;
+
+  .content li .audit {
+    background-position: 0 -7.3rem;
   }
-  .content li .change_pwd{
-  	background-position: 0 -8.3rem;
+
+  .content li .change_pwd {
+    background-position: 0 -8.3rem;
   }
-  .content li .bind_tel{
-  	background-position: 0 -9.2rem;
+
+  .content li .bind_tel {
+    background-position: 0 -9.2rem;
   }
-  .content li .address{
-  	background-position: 0 -10.3rem;
+
+  .content li .address {
+    background-position: 0 -10.3rem;
   }
-  .content li .right{
+
+  .content li .right {
     float: right;
     padding-right: .76rem;
     color: #666;

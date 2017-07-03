@@ -7,155 +7,187 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {
-      path: '/',
-      name: 'hello',
+      path     : '/',
+      name     : 'hello',
       component: resolve => {
         nextPage('Hello Word')
         require(['../components/Hello'], resolve)
       }
     },
     {
-      path: '/login',
-      name: 'login',
+      path     : '/login',
+      name     : 'login',
       component: resolve => {
         nextPage('登录')
         require(['../components/Login'], resolve)
       }
     },
     {
-      path: '/register',
-      name: 'register',
+      path     : '/register',
+      name     : 'register',
       component: resolve => {
         nextPage('注册')
         require(['../components/Register'], resolve)
       }
     },
     {
-      path: '/doctorFocus',
-      name: 'doctorFocus',
+      path     : '/doctorFocus',
+      name     : 'doctorFocus',
       component: resolve => {
         nextPage('名医关注')
         require(['../components/DoctorFocus'], resolve)
       }
     },
     {
-      path: '/doctorInfo',
-      name: 'doctorInfo',
+      path     : '/doctorInfo',
+      name     : 'doctorInfo',
       component: resolve => {
         nextPage('医生简介')
         require(['../components/DoctorInfo'], resolve)
       }
     },
     {
-      path: '/doctorMsg',
-      name: 'doctorMsg',
+      path     : '/doctorMsg',
+      name     : 'doctorMsg',
       component: resolve => {
         nextPage('医生预约信息')
         require(['../components/DoctorMsg'], resolve)
       }
     },
     {
-      path: '/order',
-      name: 'order',
+      path     : '/order',
+      name     : 'order',
       component: resolve => {
         nextPage('预约挂号')
         require(['../components/Order'], resolve)
       }
     },
     {
-      path: '/orderInfo',
-      name: 'orderInfo',
+      path     : '/orderInfo',
+      name     : 'orderInfo',
       component: resolve => {
         nextPage('预约信息')
         require(['../components/OrderInfo'], resolve)
       }
     },
     {
-      path: '/myorder',
-      name: 'myorder',
+      path     : '/myorder',
+      name     : 'myorder',
       component: resolve => {
         nextPage('我的预约')
         require(['../components/Myorder'], resolve)
       }
     },
     {
-      path: '/myorderinfo',
-      name: 'myorderinfo',
+      path     : '/myorderinfo',
+      name     : 'myorderinfo',
       component: resolve => {
         nextPage('我的预约情况')
         require(['../components/MyorderInfo'], resolve)
       }
     },
     {
-      path: '/tinypharmacy',
-      name: 'tinypharmacy',
+      path     : '/tinypharmacy',
+      name     : 'tinypharmacy',
       component: resolve => {
         nextPage('微药房')
         require(['../components/TinyPharmacy'], resolve)
       }
     },
     {
-      path: '/takedrug',
-      name: 'takedrug',
+      path     : '/takedrug',
+      name     : 'takedrug',
       component: resolve => {
         nextPage('我要抓药')
         require(['../components/Takedrug'], resolve)
       }
     },
     {
-      path: '/searchprogress',
-      name: 'searchprogress',
+      path     : '/searchprogress',
+      name     : 'searchprogress',
       component: resolve => {
         nextPage('查看进度')
         require(['../components/SearchProgress'], resolve)
       }
     },
     {
-      path: '/progressDetail',
-      name: 'progressDetail',
+      path     : '/progressDetail',
+      name     : 'progressDetail',
       component: resolve => {
         nextPage('查看进度')
         require(['../components/ProgressDetail'], resolve)
       }
     },
     {
-      path: '/changedrug',
-      name: 'changedrug',
+      path     : '/changedrug',
+      name     : 'changedrug',
       component: resolve => {
         nextPage('我要转方')
         require(['../components/ChangeDrug'], resolve)
       }
     },
     {
-      path: '/accountdoctor',
-      name: 'accountdoctor',
+      path     : '/accountdoctor',
+      name     : 'accountdoctor',
       component: resolve => {
         nextPage('我的账户')
         require(['../components/AccountDoctor'], resolve)
       }
     },
     {
-      path: '/tinysickroom',
-      name: 'tinysickroom',
+      path     : '/tinysickroom',
+      name     : 'tinysickroom',
       component: resolve => {
         nextPage('微病房')
         require(['../components/TinySickRoom'], resolve)
       }
     },
     {
-      path: '/sickcase',
-      name: 'sickcase',
+      path     : '/sickcase',
+      name     : 'sickcase',
       component: resolve => {
         nextPage('病案管理')
         require(['../components/SickCase'], resolve)
       }
     },
     {
-      path: '/completedrug',
-      name: 'completedrug',
+      path     : '/completedrug',
+      name     : 'completedrug',
       component: resolve => {
         nextPage('已开处方')
         require(['../components/CompleteDrug'], resolve)
+      }
+    },
+    {
+      path     : '/Contacts',
+      name     : 'Contacts',
+      component: resolve => {
+        nextPage('常用联系人')
+        require(['../components/Contacts'], resolve)
+      }
+    },
+    {
+      path     : '/ContactsAdd',
+      name     : 'ContactAdd',
+      component: resolve => {
+        nextPage('增加常用联系人')
+        require(['../components/ContactAdd'], resolve)
+      }
+    },
+    {
+      path     : '/ContactEdit',
+      name     : 'ContactEdit',
+      component: resolve => {
+        nextPage('增加常用联系人')
+        require(['../components/ContactAdd'], resolve)
+      }
+    },
+    {
+      path     : '/patientPrivateMsg',
+      name     : 'patientPrivateMsg',
+      component: resolve => {
+        nextPage('输入疾病信息')
+        require(['../components/patientPrivateMsg'], resolve)
       }
     }
   ]
@@ -166,7 +198,12 @@ let nextPage = function (titleStr) {
 }
 
 router.beforeEach((to, from, next) => {
-  console.log(this)
+  if (to.name == 'login') {
+    localStorage.setItem('before_login', from.name)
+  }
+  else {
+    localStorage.setItem('before_login', '')
+  }
   Vue.$vux.loading.show({text: 'Loading'})
   next()
 })

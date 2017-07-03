@@ -2,9 +2,10 @@
   <div class="page-doctor">
     <div v-if="dataDetail">
       <header>
-        <div class="headCont">
-      	    <span class="imgBg"></span>
-          <img :src="dataDetail.photoSUrl" class="head">
+        <div class="headCont" v-if="dataDetail">
+          <span class="imgBg">
+            <img :src="dataDetail.photoSUrl" class="head">
+          </span>
         </div>
         <p class="name">{{dataDetail.name}}</p>
         <p class="type">{{dataDetail.title}}</p>
@@ -12,15 +13,15 @@
           <card>
             <div slot="content" class="card-demo-flex card-demo-content01">
               <div class="vux-1px-l vux-1px-r">
-                <span>234</span>
+                <span>{{limitSurplus}}</span>
                 <p>剩余号</p>
               </div>
               <div class="vux-1px-r">
-                <span>500</span>
+                <span>{{limitWww}}</span>
                 <p>问诊量</p>
               </div>
               <div>
-                <span>213</span>
+                <span>{{dataDetail.follow.length}}</span>
                 <p>关注</p>
               </div>
             </div>
@@ -48,17 +49,17 @@
       </ul>
       <footer>
         <card>
-            <div slot="content" class="card-demo-flex card-demo-content01">
-              <div class="vux-1px-r">
-                <img src="../assets/heart2.png">
-                <span>关注</span>
-              </div>
-              <div v-tap="{methods:goOrder}">
-                <img src="../assets/yellowClock.png">
-                <span>预约挂号</span>
-              </div>
+          <div slot="content" class="card-demo-flex card-demo-content01">
+            <div class="vux-1px-r">
+              <img src="../assets/heart2.png">
+              <span>关注</span>
             </div>
-          </card>
+            <div v-tap="{methods:goOrder}">
+              <img src="../assets/yellowClock.png">
+              <span>预约挂号</span>
+            </div>
+          </div>
+        </card>
       </footer>
     </div>
   </div>
@@ -67,30 +68,34 @@
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
   import {GET_DOCTINFOBYID} from '../store/type'
-  import { Group, Cell, Alert, Card } from 'vux'
+  import {Group, Cell, Alert, Card} from 'vux'
 
   export default {
-    name: 'NAME',
+    name       : 'NAME',
     data () {
       return {
-        isClose: true,
-        dataDetail: null
+        isClose     : true,
+        dataDetail  : null,
+        limitWww    : 0,
+        limitSurplus: 0
       }
     },
-    components: {
+    components : {
       Group,
       Cell,
       Alert,
       Card
-    },computed: {
+    }, computed: {
       ...mapGetters([
         'getDoctInfoById'
       ])
     },
     created () {
-      this.$store.dispatch(GET_DOCTINFOBYID, {docId:this.$route.query.doctId})
+      this.$store.dispatch(GET_DOCTINFOBYID, {docId: this.$route.query.doctId})
+       this.limitWww =  this.$route.query.limitWww || 0
+       this.limitSurplus =  this.$route.query.limitSurplus || 0
     },
-    methods: {
+    methods    : {
       open () {
         this.isClose = false
       },
@@ -99,11 +104,11 @@
       },
       goOrder () {
         this.$router.push({
-          name: 'doctorMsg',query: this.$route.query
+          name: 'doctorMsg', query: this.$route.query
         })
       }
     },
-    watch:{
+    watch      : {
       getDoctInfoById (newValue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
@@ -111,7 +116,7 @@
             this.dataDetail = respose.data
           } else {
             this.$vux.alert.show({
-              title: '',
+              title  : '',
               content: respose.errmsg,
             })
           }
@@ -122,34 +127,42 @@
 </script>
 
 <style scoped type="text/stylus" lang="stylus">
-  .page-doctor{   
+  .page-doctor {
   }
+
   .card-demo-flex {
     display: flex;
     color: #fff;
     background: #990005;
   }
+
   .card-demo-content01 {
     padding: .3rem 0;
   }
+
   .card-padding {
     padding: 15px;
   }
+
   .card-demo-flex > div {
     flex: 1;
     text-align: center;
     font-size: .48rem;
   }
-  .card-demo-flex>div>span {
+
+  .card-demo-flex > div > span {
     font-size: .7rem;
     font-weight: 800;
   }
-  .weui-panel:before{
+
+  .weui-panel:before {
     border: none;
   }
-  .vux-1px-r{
+
+  .vux-1px-r {
     position: relative;
   }
+
   .vux-1px-r:after {
     content: " ";
     height: .6rem;
@@ -162,37 +175,47 @@
     transform-origin: 100% 0;
     transform: translateY(-50%) scaleX(0.5);
   }
-  footer{
+
+  footer {
     width: 100%;
     position: fixed;
     bottom: 0;
   }
-  footer .card-demo-flex{
+
+  footer .card-demo-flex {
     background: #fff;
   }
-  footer .card-demo-flex>div>img {
+
+  footer .card-demo-flex > div > img {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     width: .76rem;
   }
-  footer .card-demo-flex>div>span {
+
+  footer .card-demo-flex > div > span {
     color: #333333;
     font-weight: normal;
     font-size: .56rem;
     display: inline-block;
     margin-left: 1.2rem;
   }
+
   footer .vux-1px-r:after {
-  	height: .96rem;
+    height: .96rem;
     border-right: 1px solid #dddddd;
   }
-  footer .card-demo-content01{
-  	padding: .5rem 0;
+
+  footer .card-demo-content01 {
+    padding: .5rem 0;
   }
-  .over-white-space 
+
+  .over-white-space
     overflow hidden
     text-overflow ellipsis
     white-space nowrap
     width 13rem
+  img.head {
+      margin-left: 0;
+    }
 </style>

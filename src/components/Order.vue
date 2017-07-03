@@ -7,10 +7,10 @@
           <div class="vux-1px-r">盛世国医</div>
           <div class="vux-1px-r down">
             <span v-tap="{methods:showDataPicker}">{{ getMounth() }}</span>
-            <popup-picker :data="dateList" 
-                  v-model="dateDefault"
-                  ref='dataPicker'
-                  v-if="isShowDatePicker"></popup-picker>
+            <popup-picker :data="dateList"
+                          v-model="dateDefault"
+                          ref='dataPicker'
+                          v-if="isShowDatePicker"></popup-picker>
           </div>
         </div>
       </card>
@@ -28,7 +28,7 @@
       </div>
     </div>
     <ul class="doctor-list underline-thin">
-      <li v-for="item in doctorInfoList" class="underline-thin" @click="goDoctDetail(item.id)">
+      <li v-for="item in doctorInfoList" class="underline-thin" @click="goDoctDetail(item)">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
@@ -71,28 +71,28 @@
 
 
   export default {
-    name: 'order',
+    name      : 'order',
     data () {
-       var today = Date.now();
-        var dateListArray = []
+      var today         = Date.now();
+      var dateListArray = []
 
-        var dateDefault = [(new Date(today+86400000)).format('yyyy年MM月dd')];
-        for(var i = 1; i < 6; i++) {
-          dateListArray.push((new Date(today + 86400000 * i)).format('yyyy年MM月dd'));
-        }
+      var dateDefault = [(new Date(today + 86400000)).format('yyyy年MM月dd')];
+      for (var i = 1; i < 6; i++) {
+        dateListArray.push((new Date(today + 86400000 * i)).format('yyyy年MM月dd'));
+      }
       return {
-        isActive: false,
-        doctorInfoList: [],
-        dateDefault: dateDefault,
-        dateList: [dateListArray],
-        param: {
+        isActive        : false,
+        doctorInfoList  : [],
+        dateDefault     : dateDefault,
+        dateList        : [dateListArray],
+        param           : {
           date: '',
           name: ''
         },
         isShowDatePicker: true
       }
     },
-    computed: {
+    computed  : {
       ...mapGetters([
         'getOrderInfoList'
       ])
@@ -108,14 +108,14 @@
       XButton,
       PopupPicker
     },
-    methods: {
+    methods   : {
       showPlugin () {
         console.log(this)
         this.$vux.datetime.show({
-          cancelText: '取消',
+          cancelText : '取消',
           confirmText: '确定',
-          format: 'YYYY-MM-DD HH',
-          value: '2017-05-20 18',
+          format     : 'YYYY-MM-DD HH',
+          value      : '2017-05-20 18',
           onConfirm (val) {
             console.log('plugin confirm', val)
           },
@@ -133,16 +133,20 @@
       getMounth(){
         return this.dateDefault[0].split('年')[1]
       },
-      goDoctDetail (id){
-        this.$router.push({name:"doctorInfo",query:{
-          doctId: id
-        }});
+      goDoctDetail (itemData){
+        this.$router.push({
+          name: "doctorInfo", query: {
+            doctId      : itemData.id,
+            limitWww    : itemData.limitWww,
+            limitSurplus: itemData.limitWww - itemData.bookingNum
+          }
+        });
       }
     },
     created () {
       this.$store.dispatch(GET_ORDERINFOLIST, this.param)
     },
-    watch: {
+    watch     : {
       getOrderInfoList (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
@@ -150,16 +154,16 @@
             this.doctorInfoList = respose.data
           } else {
             this.$vux.alert.show({
-              title: '',
+              title  : '',
               content: respose.errmsg,
             })
           }
         }
       },
-      dateDefault:{
-        deep:true,
+      dateDefault: {
+        deep: true,
         handler () {
-          var dateTimeStr = this.dateDefault[0].replace('年','-').replace('月','-')
+          var dateTimeStr = this.dateDefault[0].replace('年', '-').replace('月', '-')
           console.log(dateTimeStr)
           this.param.date = (new Date(dateTimeStr)).getTime();
           this.$store.dispatch(GET_ORDERINFOLIST, this.param)
@@ -223,16 +227,16 @@
       transform: scaleX(0.5);
       transform: translateY(-50%);
     }
-    &:nth-child(3):after{
+    &:nth-child(3):after {
       display none
     }
   }
 
-  .down 
+  .down
     position relative
     span
-      font-size:.7rem !important;
-      &:after 
+      font-size: .7rem !important;
+      &:after
         display block
         content ''
         width 0

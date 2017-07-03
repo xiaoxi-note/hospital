@@ -46,7 +46,7 @@ export const get = (url) => {
       .then(parseJSON)
   }
 }
-const urlBase = '//127.0.0.1:9999'
+const urlBase = ''
 export const post = (url) => {
   return (body = {}, params = {}, timeout = TIMEOUT_MS) => {
     if (Array.isArray(body)) {
@@ -77,3 +77,13 @@ export const getRegister = post('/api/registerPatient')
 export const getOrderInfoList = post('/api/getOrderInfoList')
 export const sendMsgCode = post('/api/sendMsgCode')
 export const getDoctInfoById = post('/api/getDoctInfoById')
+export const orderInfoByStartDate = post('/api/orderInfoByStartDate')
+export const getContacts = post('/api/getContacts')
+export const getCity = post('/api/getCity')
+export const addContact = post('/api/addContact')
+export const orderInfoWidthDateByDoctId = post('/api/orderInfoWidthDateByDoctId')
+export const createOrder = post('/api/createOrder')
+export const getOrderHistory = post('/api/getOrderHistory')
+export const getUserInfo = post('/api/getUserInfo')
+export const getContact = post('/api/getContact')
+export const updateContactById = post('/api/updateContactById')
