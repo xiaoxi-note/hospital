@@ -1,50 +1,52 @@
 <template>
   <div class="page-myorder">
     <tab defaultColor="#fff" active-color="#fff" :line-width="5" bar-active-color="#ed8083">
-      <tab-item selected @on-item-click="onItemClick" class="all">全部</tab-item>
-      <tab-item @on-item-click="onItemClick" class="ordered">已预约</tab-item>
-      <tab-item @on-item-click="onItemClick" class="past">已过期</tab-item>
-      <!-- <tab-item @on-item-click="onItemClick" class="wait">待处理</tab-item> -->
+      <tab-item selected @on-item-click="onItemClick(0)" class="all">全部</tab-item>
+      <tab-item @on-item-click="onItemClick(1)" class="ordered">已预约</tab-item>
+      <tab-item @on-item-click="onItemClick(5)" class="past">已过期</tab-item>
+      <tab-item @on-item-click="onItemClick(2)" class="wait">已取消</tab-item>
     </tab>
     <ul class="list">
-      <li v-for="item in items" class="underline-thin">
+      <li v-for="item in items" class="underline-thin" v-if="item.status == showStatus || showStatus == 0">
         <div class="doctor-info">
           <flexbox align="center" justify="space-between" :gutter="8">
             <flexbox-item :span="1/5">
               <div class="flex-item left">
-                <p class="date">3月20日</p>
-                <p class="week">周四</p>
+                <p class="date">{{getDate(item.visitDate)}}</p>
+                <p class="week">{{getWeek(item.visitDate)}}</p>
               </div>
             </flexbox-item>
             <flexbox-item>
               <div class="flex-item middle">
-                <h2>邓文卓</h2>
-                <p><span>主任医师</span><span>心内科</span></p>
+                <h2>{{item.docName}}</h2>
+                <p><span>中医科</span></p>
               </div>
             </flexbox-item>
             <flexbox-item :span="1/4">
               <div class="flex-item right">
                 <div
                   class="btn-order"
-                  v-if='item.type=="已预约"'
-                  v-tap="{ methods: cancelOrder }"
+                  v-if='item.status == 1'
+                  @click="cancelOrderAction(item.id)"
                 >取消预约
                 </div>
-                <div
-                  class="btn-pay"
-                  v-if='item.type=="待支付"'
-                  v-tap="{ methods: goPay }"
-                >支付
-                </div>
+                <!--<div-->
+                <!--class="btn-pay"-->
+                <!--v-if='item.type=="待支付"'-->
+                <!--v-tap="{ methods: goPay }"-->
+                <!--&gt;支付-->
+                <!--</div>-->
               </div>
             </flexbox-item>
           </flexbox>
         </div>
         <div class="patient-info">
-          <p class="left">就诊人：<span>万甜甜</span></p>
-          <!-- <p class="right">修改</p> -->
+          <p class="left">就诊人：<span>{{item.name}}</span></p>
+          <!--<p class="right">修改</p>-->
         </div>
-        <div class="status" :style="{ background: item.backgroudColor }">{{item.type}}</div>
+        <div class="status un-able" v-if="item.status == 5">已过期</div>
+        <div class="status able" v-if="item.status == 1">已预约</div>
+        <div class="status cancel" v-if="item.status == 2">已取消</div>
       </li>
     </ul>
   </div>
@@ -53,18 +55,15 @@
 <script type="text/ecmascript-6">
 
   import {mapGetters} from 'vuex'
-  import {GETORDERHISTORY} from '../store/type'
+  import {GETORDERHISTORY, CANCELORDER} from '../store/type'
   import {Group, Cell, Alert, Tab, TabItem, Flexbox, FlexboxItem} from 'vux'
 
   export default {
     name      : 'NAME',
     data () {
       return {
-        items: [
-//          {type: '已预约', backgroudColor: '#63c602'},
-//          {type: '已过期', backgroudColor: '#cccccc'},
-          // { type: '待支付', backgroudColor: '#ff6600' }
-        ]
+        showStatus: 0,
+        items     : []
       }
     },
     components: {
@@ -76,26 +75,50 @@
       Flexbox,
       FlexboxItem
     },
-    computed () {
-
+    computed  : {
+      ...mapGetters([
+        'getOrderHistory',
+        'cancelOrder'
+      ])
     },
     created () {
-
       this.$store.dispatch(GETORDERHISTORY)
     },
     methods   : {
-      onItemClick(){
-
+      onItemClick(status){
+        this.showStatus = status
       },
-      cancelOrder(){
+      cancelOrderAction(bookingNo){
+        this.$store.dispatch(CANCELORDER, {bookingNo: bookingNo})
+      },
+      getDate(dateStr){
+        dateStr = (new Date(dateStr)).format('MM月dd日')
+        if (/0/.test(dateStr)) {
+          dateStr = dateStr.substr(1, dateStr.length);
+        }
+        return dateStr;
       }
     },
     watch     : {
       getOrderHistory (newValue, oldVaue) {
         if (newValue.status === 'success') {
+          const response = newValue.payload // 返回值ç
+          if (response.errno === 0) {
+            this.items = response.data;
+          } else {
+            this.showPwdErr = false
+            this.$vux.alert.show({
+              title  : '',
+              content: response.errmsg,
+            })
+          }
+        }
+      },
+      cancelOrder (newValue, oldVaue) {
+        if (newValue.status === 'success') {
           const response = newValue.payload // 返回值
           if (response.errno === 0) {
-
+            this.$store.dispatch(GETORDERHISTORY)
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({
@@ -241,7 +264,7 @@
   .status {
     position: absolute;
     top: 0.3rem;
-    right: -2rem;
+    right: -2.2rem;
     width: 6rem;
     height: 1rem;
     line-height: 1rem;
@@ -270,5 +293,17 @@
 
   .underline-thin:last-child:after {
     display: block;
+  }
+
+  .un-able {
+    background: #999;
+  }
+
+  .able {
+    background: #91ce33;
+  }
+
+  .cancel {
+    background: #ea3338;
   }
 </style>

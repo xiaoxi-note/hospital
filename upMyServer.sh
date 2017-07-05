@@ -1,1 +1,1 @@
-scp -r  `ls|grep -v node_modules|xargs`  myServer2:shengshi/wechat/
+scp -r ./dist  myServer2:shengshi/wechat/public

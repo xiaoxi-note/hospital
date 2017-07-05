@@ -18,6 +18,7 @@ const getOrderHistory            = createMutation(types.GETORDERHISTORY, 'getOrd
 const getUserInfo                = createMutation(types.GETUSERINFO, 'getUserInfo')
 const getContact                 = createMutation(types.GETCONTACT, 'getContact')
 const updateContactById          = createMutation(types.UPDATECONTACTBYID, 'updateContactById')
+const cancelOrder          = createMutation(types.CANCELORDER, 'cancelOrder')
 
 export default {
   [getInfo]                   : getInfo,
@@ -35,5 +36,6 @@ export default {
   [getOrderHistory]           : getOrderHistory,
   [getUserInfo]               : getUserInfo,
   [getContact]                : getContact,
-  [updateContactById]         : updateContactById
+  [updateContactById]         : updateContactById,
+  [cancelOrder]         : cancelOrder
 }

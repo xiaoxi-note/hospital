@@ -147,28 +147,6 @@
         }
         return dateStr;
       },
-      getWeek(index) {
-
-        var date = (new Date(index));
-        var str  = "";
-        var week = date.getDay();
-        if (week == 0) {
-          str = "日";
-        } else if (week == 1) {
-          str = "一";
-        } else if (week == 2) {
-          str = "二";
-        } else if (week == 3) {
-          str = "三";
-        } else if (week == 4) {
-          str = "四";
-        } else if (week == 5) {
-          str = "五";
-        } else if (week == 6) {
-          str = "六";
-        }
-        return '星期' + str;
-      },
       getWorkTime(workTime){
         var result = '';
         switch (workTime) {
