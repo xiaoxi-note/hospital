@@ -72,7 +72,8 @@
       Cell,
       Alert
     },
-    ready () {
+    created () {
+      this.$localStorage.set('token', '')
     },
     methods   : {
       passwords () {
@@ -112,7 +113,7 @@
           if (respose.errno === 0) {
             this.$localStorage.set('token', respose.data.token)
             var preLoginName = this.$localStorage.get('before_login')
-            this.$router.replace({name: preLoginName});
+            this.$router.replace({name: preLoginName || 'order'});
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({

@@ -5,7 +5,8 @@
         <div class="intro">
           <div class="headCont">
             <span class="imgBg"></span>
-            <img :src="doctInfo.photoSUrl" class="head">
+            <img v-if="doctInfo.photoSUrl" :src="doctInfo.photoSUrl" class="head">
+            <img v-else src="../assets/user.jpg" class="head">
           </div>
           <span class="name">{{doctInfo.name}}</span>
           <i></i>

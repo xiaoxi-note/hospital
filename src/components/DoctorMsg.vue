@@ -3,7 +3,8 @@
     <header>
       <div class="headCont">
         <span class="imgBg">
-          <img :src="orderData.photoSUrl" class="head">
+            <img v-if="orderData.photoSUrl" :src="orderData.photoSUrl" class="head">
+            <img v-else src="../assets/user.jpg" class="head">
         </span>
 
       </div>

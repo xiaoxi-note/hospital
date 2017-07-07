@@ -4,7 +4,7 @@
       <card>
         <div slot="content" class="card-demo-flex">
           <div class="vux-1px-r">全科</div>
-          <div class="vux-1px-r">盛世国医</div>
+          <div class="vux-1px-r">盛实国医</div>
           <div class="vux-1px-r down">
             <span v-tap="{methods:showDataPicker}">{{ getMounth() }}</span>
             <popup-picker :data="dateList"
@@ -32,7 +32,8 @@
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
-              <img src="../assets/doctor.png">
+              <img v-if="item.photoSUrl" :src="item.photoSUrl" class="head">
+              <img v-else src="../assets/user.jpg" class="head">
             </div>
           </flexbox-item>
           <flexbox-item>
@@ -160,7 +161,7 @@
           }
         }
       },
-      dateDefault: {
+      dateDefault : {
         deep: true,
         handler () {
           var dateTimeStr = this.dateDefault[0].replace('年', '-').replace('月', '-')
@@ -168,7 +169,16 @@
           this.param.date = (new Date(dateTimeStr)).getTime();
           this.$store.dispatch(GET_ORDERINFOLIST, this.param)
         }
-      }
+      },
+      'param.name': {
+        deep: true,
+        handler () {
+          this.timer && (clearTimeout(this.timer), this.timer = null);
+          this.timer = setTimeout(() => {
+            this.$store.dispatch(GET_ORDERINFOLIST, this.param)
+          }, 500)
+        }
+      },
     }
   }
 </script>
@@ -402,4 +412,6 @@
     display: inline-block;
   }
 
+  .head
+    border-radius: 1.1rem;
 </style>

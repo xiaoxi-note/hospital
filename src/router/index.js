@@ -189,6 +189,14 @@ let router = new Router({
         nextPage('输入疾病信息')
         require(['../components/patientPrivateMsg'], resolve)
       }
+    },
+    {
+      path     : '/editPwd',
+      name     : 'editPwd',
+      component: resolve => {
+        nextPage('修改密码')
+        require(['../components/PwdEdit'], resolve)
+      }
     }
   ]
 })
@@ -198,10 +206,10 @@ let nextPage = function (titleStr) {
 }
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'login') {
+  if (to.name == 'login' && from.name != 'register') {
     localStorage.setItem('before_login', from.name)
   }
-  else {
+  else if (from.name != 'register') {
     localStorage.setItem('before_login', '')
   }
   Vue.$vux.loading.show({text: 'Loading'})

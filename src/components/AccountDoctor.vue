@@ -2,7 +2,7 @@
   <div class="page-orderInfo">
     <header v-if="userInfo">
       <div class="intro">
-        <img src="../assets/doctor-head.png">
+        <img src="../assets/user.jpg">
         <div>
           <div>{{userInfo.name}}</div>
           <div>{{getPhone(userInfo.phone)}}</div>

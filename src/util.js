@@ -69,7 +69,7 @@ export default  {
     }
   },
   created () {
-    if (!this.$localStorage.get('token')) {
+    if (!this.$localStorage.get('token') && this.$route.name !='register') {
       this.$router.replace({name: 'login'})
     }
   }

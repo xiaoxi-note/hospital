@@ -106,7 +106,10 @@
         <div class="underline-thin">
           <label>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日 ：</label>
           <group class="date-birthday">
-            <Datetime v-model="sendData.birthDay" title=""></Datetime>
+            <Datetime v-model="sendData.birthDay"
+                      title=""
+                      :min-year="1910"
+                      :max-year="2017"></Datetime>
           </group>
         </div>
         <ul class="img-lib"
@@ -302,9 +305,7 @@
               title  : '',
               content: '注册成功',
               onHide () {
-                that.$router.push({
-                  name: 'login'
-                })
+                that.$router.go(-1)
               }
             })
           } else {
@@ -316,7 +317,6 @@
         }
       },
       sendMsgCode(newValue){
-        debugger;
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {

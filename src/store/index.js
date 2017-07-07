@@ -28,7 +28,8 @@ const state = {
   getUserInfo               : {payload: {}},
   getContact                : {payload: {}},
   updateContactById         : {payload: {}},
-  cancelOrder               : {payload: {}}
+  cancelOrder               : {payload: {}},
+  editPwd                   : {payload: {}}
 }
 
 const store = new Vuex.Store({
@@ -84,6 +85,9 @@ const store = new Vuex.Store({
     },
     cancelOrder(){
       return state.cancelOrder
+    },
+    editPwd(){
+      return state.editPwd
     }
   },
   mutations: mutations,

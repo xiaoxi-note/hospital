@@ -1,1 +1,1 @@
-scp -r ./dist  myServer2:shengshi/wechat/public
+scp -r ./dist  myServer2:/root/shengshi/wechat/public

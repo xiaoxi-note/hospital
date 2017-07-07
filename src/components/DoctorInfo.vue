@@ -4,7 +4,8 @@
       <header>
         <div class="headCont" v-if="dataDetail">
           <span class="imgBg">
-            <img :src="dataDetail.photoSUrl" class="head">
+            <img v-if="dataDetail.photoSUrl" :src="dataDetail.photoSUrl" class="head">
+            <img v-else src="../assets/user.jpg" class="head">
           </span>
         </div>
         <p class="name">{{dataDetail.name}}</p>
@@ -31,11 +32,12 @@
       <ul class="content underline-thin">
         <li class="underline-thin">
           <p class="area">执业点</p>
-          <p>北京盛实国医馆--{{dataDetail.dept}}</p>
+          <p>北京盛实国医馆{{dataDetail.dept}}</p>
         </li>
         <li class="underline-thin">
           <p class="skill">擅长</p>
           <p v-for="text in dataDetail.experts">{{text}}</p>
+          <p v-if="dataDetail.experts.length == 0"></p>
         </li>
         <li>
           <p class="intro">
@@ -43,17 +45,17 @@
             <span v-if="isClose" v-tap="{methods:open}" class="drop">展开</span>
             <span v-else v-tap="{methods:close}" class="drop">收起</span>
           </p>
-          <p v-if="isClose" class="over-white-space">{{dataDetail.intro}}</p>
-          <p v-else>{{dataDetail.intro}}</p>
+          <p v-if="isClose" class="over-white-space">{{dataDetail.briefIntro}}</p>
+          <p v-else>{{dataDetail.briefIntro}}</p>
         </li>
       </ul>
       <footer>
         <card>
           <div slot="content" class="card-demo-flex card-demo-content01">
-            <div class="vux-1px-r">
-              <img src="../assets/heart2.png">
-              <span>关注</span>
-            </div>
+            <!--<div class="vux-1px-r">-->
+            <!--<img src="../assets/heart2.png">-->
+            <!--<span>关注</span>-->
+            <!--</div>-->
             <div v-tap="{methods:goOrder}">
               <img src="../assets/yellowClock.png">
               <span>预约挂号</span>
@@ -92,8 +94,8 @@
     },
     created () {
       this.$store.dispatch(GET_DOCTINFOBYID, {docId: this.$route.query.doctId})
-       this.limitWww =  this.$route.query.limitWww || 0
-       this.limitSurplus =  this.$route.query.limitSurplus || 0
+      this.limitWww     = this.$route.query.limitWww || 0
+      this.limitSurplus = this.$route.query.limitSurplus || 0
     },
     methods    : {
       open () {
@@ -215,7 +217,8 @@
     text-overflow ellipsis
     white-space nowrap
     width 13rem
+
   img.head {
-      margin-left: 0;
-    }
+    margin-left: 0;
+  }
 </style>

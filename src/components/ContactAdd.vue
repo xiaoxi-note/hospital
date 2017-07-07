@@ -14,7 +14,7 @@
         <div class="phone underline-thin">
           <label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话 ：</label>
           <input
-            type="number"
+            type="text"
             maxlength="11"
             placeholder="请输入电话"
             v-model="sendData.phone"
@@ -107,12 +107,22 @@
     },
     methods   : {
       addContactSure () {
-        if (this.$route.query.id) {
-          this.$store.dispatch(UPDATECONTACTBYID, this.sendData)
+        if (this.checkPhone()) {
+          if (this.$route.query.id) {
+            this.$store.dispatch(UPDATECONTACTBYID, this.sendData)
+          } else {
+            this.$store.dispatch(ADDCONTACT, this.sendData)
+          }
         } else {
-          this.$store.dispatch(ADDCONTACT, this.sendData)
+          this.$vux.alert.show({
+            title  : '',
+            content: '请输入正确手机号',
+          })
         }
-      }
+      },
+      checkPhone (){
+        return (/^1[3-9]\d{9}$/.test(this.sendData.phone))
+      },
     },
     watch     : {
       addContact (newValue){

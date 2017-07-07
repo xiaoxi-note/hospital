@@ -66,9 +66,13 @@ export const updateContactById          = createAction({
   type          : types.UPDATECONTACTBYID,
   payloadCreator: api.updateContactById
 })
-export const cancelOrder          = createAction({
+export const cancelOrder                = createAction({
   type          : types.CANCELORDER,
   payloadCreator: api.cancelOrder
+})
+export const editPwd                    = createAction({
+  type          : types.EDITPWD,
+  payloadCreator: api.editPwd
 })
 export default {
   [getInfo]                   : getInfo,
@@ -87,5 +91,6 @@ export default {
   [getUserInfo]               : getUserInfo,
   [getContact]                : getContact,
   [updateContactById]         : updateContactById,
-  [cancelOrder]         : cancelOrder
+  [cancelOrder]               : cancelOrder,
+  [editPwd]                   : editPwd
 }
