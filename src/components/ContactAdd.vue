@@ -10,6 +10,10 @@
             placeholder="最少两个字"
             v-model="sendData.name"
           >
+          <div :class="[check.name ? 'show': 'hide', 'tip']">
+            <div class="triangle"></div>
+            <div class="content">请输入正确姓名</div>
+          </div>
         </div>
         <div class="phone underline-thin">
           <label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话 ：</label>
@@ -19,6 +23,10 @@
             placeholder="请输入电话"
             v-model="sendData.phone"
           >
+          <div :class="[check.phone ? 'show': 'hide', 'tip']">
+            <div class="triangle"></div>
+            <div class="content">请输入正确电话</div>
+          </div>
         </div>
         <div class="phone underline-thin">
           <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别 ：</label>
@@ -38,32 +46,13 @@
                       :max-year="2017"></Datetime>
           </group>
         </div>
-
-        <!--<div class="phone underline-thin">-->
-        <!--<label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区 ：</label>-->
-        <!--&lt;!&ndash;<span v-model="$refs.regionComponent && $refs.regionComponent.getNameValues()"></span>&ndash;&gt;-->
-        <!--<group v-if="cityList">-->
-        <!--<popup-picker title="地区选择"-->
-        <!--:data="cityList"-->
-        <!--:columns="3"-->
-        <!--v-model="sendData.region"-->
-        <!--ref="regionComponent"></popup-picker>-->
-        <!--</group>-->
-        <!--</div>-->
-        <!--<div class="phone underline-thin">-->
-        <!--<label>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址 ：</label>-->
-        <!--<input-->
-        <!--type="number"-->
-        <!--maxlength="11"-->
-        <!--placeholder="请输入详细地址"-->
-        <!--v-model="sendData.phone"-->
-        <!--&gt;-->
-        <!--</div>-->
-
       </div>
     </div>
-    <div class="add-button" @click="addContactSure">
-      确定
+    <div class="add-button"
+        :class="[disable ? 'btn-red' : 'btn-grey']"
+        @click="addContactSure"
+     >
+      确&nbsp;&nbsp;定
     </div>
   </div>
 </template>
@@ -85,16 +74,19 @@
     },
     data () {
       return {
+        disable: false,
         sendData       : {
           sex     : 0,
           name    : '',
           phone   : '',
           birthday: '',
-          region  : [],
-          address : ''
         },
         cityList       : [],
-        loadedCityArray: []
+        loadedCityArray: [],
+        check: {
+          name: false,
+          phone: false
+        }
       }
     },
     computed  : {
@@ -107,18 +99,37 @@
     },
     methods   : {
       addContactSure () {
-        if (this.checkPhone()) {
+        const isPass = this.checkAll()
+        if (isPass) {
           if (this.$route.query.id) {
             this.$store.dispatch(UPDATECONTACTBYID, this.sendData)
           } else {
             this.$store.dispatch(ADDCONTACT, this.sendData)
           }
-        } else {
-          this.$vux.alert.show({
-            title  : '',
-            content: '请输入正确手机号',
-          })
         }
+      },
+      checkPrams () {
+        if(this.sendData.phone && this.sendData.name && this.sendData.birthday) {
+          this.disable = true
+        } else {
+          this.disable = false
+        }
+      },
+      checkAll (){
+        if (this.sendData.name.length < 2) {
+          this.check.name = true
+        } else {
+          this.check.name = false
+        }
+        if (!this.checkPhone()) {
+          this.check.phone = true
+        } else {
+          this.check.phone = false
+        }
+        if (this.check.name || this.check.phone) {
+          return false
+        }
+        return true
       },
       checkPhone (){
         return (/^1[3-9]\d{9}$/.test(this.sendData.phone))
@@ -151,7 +162,7 @@
           const response = newValue.payload
           console.log('get data', JSON.stringify(response))
           if (response.errno === 0) {
-            this.sendData          = response.data[0];
+            this.sendData          = response.data[0]
             this.sendData.birthday = (new Date(this.sendData.birthday)).format('yyyy-MM-dd')
           } else {
             this.$vux.alert.show({
@@ -182,6 +193,12 @@
               content: response.errmsg,
             })
           }
+        }
+      },
+      sendData: {
+        deep: true,
+        handler(){
+          this.checkPrams()
         }
       }
     },
@@ -292,44 +309,8 @@
       vertical-align: top;
     }
 
-    .show {
-      display: block;
-    }
-
-    .hide {
-      display: none;
-    }
-
     .tip-box input {
       width: 100%;
-    }
-
-    .tip {
-      position: absolute;
-      margin-left: -1.3rem;
-      margin-top: 1.6rem;
-      margin-left: 1.6rem;
-      z-index: 3;
-      display: none;
-    }
-
-    .tip .triangle {
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 6px solid #fdd005;
-      margin-left: 1.2rem;
-    }
-
-    .tip .content {
-      background: #fdd005;
-      padding: 0 .3rem;
-      border-radius: 5px;
-      height: .94rem;
-      line-height: .94rem;
-      font-size: 0.46rem;
-      color: #fff;
     }
 
     .register {
@@ -358,10 +339,8 @@
     position fixed
     bottom 0
     width 100%
-    background #b60005
     height 1.8rem
     font-size .6rem
     line-height 1.8rem
     color #fff
-
 </style>

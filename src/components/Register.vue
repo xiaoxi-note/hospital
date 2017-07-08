@@ -9,13 +9,12 @@
         <div class="phone underline-thin">
           <label>手&nbsp;机&nbsp;号 ：</label>
           <input
-            type="number"
+            type="tel"
             maxlength="11"
             placeholder="请输入您的手机号"
             v-model="sendData.phone"
           >
-          <div class="tip"
-               :class="{block:clickButton && !checkPhone()}">
+          <div :class="[check.phone ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确手机号</div>
           </div>
@@ -28,14 +27,15 @@
         <div class="underline-thin">
           <label>验&nbsp;证&nbsp;码 ：</label>
           <input
-            type="number"
+            type="tel"
+            maxlength="6"
             placeholder="请输入您的验证码"
             v-model="sendData.checkCode"
           >
-          <div class="tip">
+          <!-- <div class="tip">
             <div class="triangle"></div>
             <div class="content">您输入的验证码有误</div>
-          </div>
+          </div> -->
         </div>
         <div class="underline-thin">
           <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
@@ -45,11 +45,11 @@
             placeholder="请输入您的密码"
             v-model="sendData.pwd"
           >
-          <div class="tip"
-               :class="{block:clickButton && sendData.pwd.length == 0}">
+          <!-- <div class="tip"
+               :class="{show:clickButton && sendData.pwd.length == 0}">
             <div class="triangle"></div>
             <div class="content">请输入密码</div>
-          </div>
+          </div> -->
         </div>
         <div class="underline-thin">
           <label>重复密码 ：</label>
@@ -59,8 +59,7 @@
             placeholder="请再次输入您的密码"
             v-model="sendData.pwdAgain"
           >
-          <div class="tip"
-               :class="{block:clickButton && sendData.pwd != sendData.pwdAgain}">
+          <div :class="[check.rePwd ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">两次输入密码不同</div>
           </div>
@@ -74,8 +73,7 @@
             v-model="sendData.name"
             maxlength="20"
           >
-          <div class="tip"
-               :class="{block:clickButton && sendData.name.length !=0}">
+          <div :class="[this.check.name ? 'show': 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确姓名</div>
           </div>
@@ -97,8 +95,7 @@
             placeholder="请输入您的身份证号"
             v-model="sendData.idCard"
           >
-          <div class="tip"
-               :class="{block:clickButton && sendData.idCard.length != 18}">
+          <div :class="[check.idCard ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确身份证号</div>
           </div>
@@ -176,7 +173,7 @@
       return {
         disable             : false, // 按钮是否可点击
         isDoctor            : false, // 医生还是患者
-        clickButton         : false,
+        clickButton         : true,
         sexList             : sexData,
         isSendCode          : false,
         waitCheckCodeTimeEnd: 0,
@@ -194,7 +191,13 @@
         uploadText          : '上传身份证',
         aptitudeArray       : aptitudeArray,
         uploadIndex         : 0,
-        imgUploadEnd        : false
+        imgUploadEnd        : false,
+        check: {
+          phone: false,
+          name: false,
+          rePwd: false,
+          idCard: false
+        }
       }
     },
     computed  : {
@@ -210,9 +213,41 @@
       onDoctorClick () {
         this.isDoctor = true
       },
-      getApiRegister (event) {
-        // event.preventDefault()
-        if (this.disable === false) {
+      checkAll () {
+        if (!this.checkPhone()) {
+          this.check.phone = true
+        } else {
+          this.check.phone = false
+        }
+        if (this.sendData.name.length < 2) {
+          this.check.name = true
+        } else {
+          this.check.name = false
+        }
+        if (this.sendData.pwd !== this.sendData.pwdAgain) {
+          this.check.rePwd = true
+        } else {
+          this.check.rePwd = false
+        }
+        if (this.sendData.idCard.length !== 18) {
+          this.check.idCard = true
+        } else {
+          this.check.idCard = false
+        }
+        if (this.isDoctor && !this.imgUploadEnd) {
+          this.$vux.alert.show({
+            title  : '',
+            content: '请补充完整资质图片',
+          })
+        }
+        if (this.check.phone || this.check.rePwd || this.check.idCard || this.check.name){
+          return false
+        }
+        return true
+      },
+      getApiRegister () {
+        const isPass = this.checkAll()
+        if (this.disable === false || !isPass) {
           return
         }
         const params = {
@@ -267,15 +302,15 @@
             index = _index;
           }
         })
-        this.imgUploadEnd = index == this.aptitudeArray.length
+        !this.imgUploadEnd && (this.imgUploadEnd = index == this.aptitudeArray.length)
         this.uploadIndex  = index;
       },
       edit(index){
         this.uploadIndex = index;
       },
       checkPrams(){
-        if (this.checkPhone()
-          && this.checkIdCard()
+        if (this.sendData.phone
+          && this.sendData.idCard
           && this.sendData.checkCode
           && this.sendData.pwd
           && this.sendData.name
@@ -285,17 +320,9 @@
         } else {
           this.disable = false
         }
-
-        if (this.isDoctor) {
-          if (this.imgUploadEnd) {
-            this.disable = true
-          } else {
-            this.disable = false
-          }
-        }
       }
     },
-    watch     : {
+    watch: {
       getRegister (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
@@ -432,46 +459,6 @@
     .box-input .upload img {
       width: 2.2rem;
       vertical-align: top;
-    }
-
-    .show {
-      display: block;
-    }
-
-    .hide {
-      display: none;
-    }
-
-    .tip-box input {
-      width: 100%;
-    }
-
-    .tip {
-      position: absolute;
-      margin-left: -1.3rem;
-      margin-top: 1.6rem;
-      margin-left: 1.6rem;
-      z-index: 3;
-      display: none;
-    }
-
-    .tip .triangle {
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 6px solid #fdd005;
-      margin-left: 1.2rem;
-    }
-
-    .tip .content {
-      background: #fdd005;
-      padding: 0 .3rem;
-      border-radius: 5px;
-      height: .94rem;
-      line-height: .94rem;
-      font-size: 0.46rem;
-      color: #fff;
     }
 
     .register {
