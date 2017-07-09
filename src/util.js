@@ -1,4 +1,5 @@
-const sexData = [{key: '0', value: '男'}, {key: '1', value: '女'}];
+const sexData    = [{key: '0', value: '男'}, {key: '1', value: '女'}];
+var unCheckToken = 'register,editPwd'.split(',');
 export default  {
   methods: {
     post (opt) {
@@ -69,7 +70,7 @@ export default  {
     }
   },
   created () {
-    if (!this.$localStorage.get('token') && this.$route.name !='register') {
+    if (!this.$localStorage.get('token') && unCheckToken.indexOf(this.$route.name) == -1) {
       this.$router.replace({name: 'login'})
     }
   }
