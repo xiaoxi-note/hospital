@@ -39,7 +39,7 @@
       v-tap.prevent="{methods:getApiLogin}"
     >登&nbsp;&nbsp;录</a>
     <div class="reminder">
-      <a href="">忘记密码？</a>
+      <a href="" v-tap="{methods:goForgetPwd}">忘记密码？</a>
       <a href="" v-tap="{methods:goRegister}"><span>还没账号？</span>去注册</a>
     </div>
     <img class="slogan" src="../assets/slogan.png">
@@ -93,6 +93,11 @@
       goRegister () {
         this.$router.push({
           name: 'register'
+        })
+      },
+      goForgetPwd () {
+        this.$router.push({
+          name: 'forgetPwd'
         })
       },
       getApiLogin () {

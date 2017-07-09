@@ -31,6 +31,14 @@ let router = new Router({
       }
     },
     {
+      path     : '/forgetPwd',
+      name     : 'forgetPwd',
+      component: resolve => {
+        nextPage('忘记密码')
+        require(['../components/ForgetPwd'], resolve)
+      }
+    },
+    {
       path     : '/doctorFocus',
       name     : 'doctorFocus',
       component: resolve => {

@@ -9,6 +9,9 @@
     <div v-tap="{methods:goLogin}"
          class="to-login">登录
     </div>
+    <div v-tap="{methods:goForgetPwd}"
+         class="to-login">忘记密码
+    </div>
     <div v-tap="{methods:goDoctorFocus}"
          class="to-login">名医关注
     </div>
@@ -64,6 +67,11 @@
       ogLogin () {
         this.$router.push({
           name: 'login'
+        })
+      },
+      goForgetPwd () {
+        this.$router.push({
+          name: 'forgetPwd'
         })
       },
       getApiInfo () {
