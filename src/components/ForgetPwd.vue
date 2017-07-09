@@ -56,7 +56,7 @@
     <div class="add-button">
       <a
         :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
-        v-tap.prevent="{methods:getApiRegister}"
+        v-tap.prevent="{methods:getApiResetPwd}"
       >提&nbsp;&nbsp;交</a>
     </div>
   </div>
@@ -64,7 +64,7 @@
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
   import {Group, Popover, Alert} from 'vux'
-  import {GET_REGISTER, GET_SENDMSGCODE} from '../store/type'
+  import {GET_SENDMSGCODE, RESETPWD} from '../store/type'
 
   export default {
     name      : 'forgetPwd',
@@ -88,13 +88,12 @@
         check: {
           phone: false,
           rePwd: false,
-          idCard: false
         }
       }
     },
     computed  : {
       ...mapGetters([
-        'getRegister',
+        'resetPwd',
         'sendMsgCode'
       ])
     },
@@ -115,7 +114,7 @@
         }
         return true
       },
-      getApiRegister () {
+      getApiResetPwd () {
         const isPass = this.checkAll()
         if (this.disable === false || !isPass) {
           return
@@ -126,7 +125,7 @@
           pwd        : this.sendData.pwd,
           pwdAgain   : this.sendData.pwdAgain,
         }
-        this.$store.dispatch(GET_REGISTER, params)
+        this.$store.dispatch(RESETPWD, params)
       },
       checkPhone (){
         return (/^1[3-9]\d{9}$/.test(this.sendData.phone))
@@ -137,6 +136,14 @@
           {
             phone: this.sendData.phone
           })
+      },
+      showTime(){
+        this.waitCheckCodeTimeEnd -= 1;
+        if (this.waitCheckCodeTimeEnd > 0) {
+          setTimeout(this.showTime, 1000)
+        } else {
+          this.isSendCode = false;
+        }
       },
       checkPrams(){
         if (this.sendData.phone
@@ -151,14 +158,14 @@
       }
     },
     watch: {
-      getRegister (newValue, oldVaue) {
+      resetPwd (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
             var that = this;
             this.$vux.alert.show({
               title  : '',
-              content: '注册成功',
+              content: '修改成功',
               onHide () {
                 that.$router.go(-1)
               }

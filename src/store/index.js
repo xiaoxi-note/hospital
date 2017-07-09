@@ -32,7 +32,8 @@ const state = {
   editPwd                   : {payload: {}},
   addFollow                 : {payload: {}},
   deleteFollow              : {payload: {}},
-  getFollow                 : {payload: {}}
+  getFollow                 : {payload: {}},
+  resetPwd                  : {resetPwd: {}}
 }
 
 const store = new Vuex.Store({
@@ -103,6 +104,9 @@ const store = new Vuex.Store({
     },
     deleteFollow(){
       return state.deleteFollow
+    },
+    resetPwd(){
+      return state.resetPwd
     }
   },
   mutations: mutations,
