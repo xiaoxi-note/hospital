@@ -52,10 +52,10 @@
       <footer>
         <card>
           <div slot="content" class="card-demo-flex card-demo-content01">
-            <!--<div class="vux-1px-r">-->
-            <!--<img src="../assets/heart2.png">-->
-            <!--<span>关注</span>-->
-            <!--</div>-->
+            <div class="vux-1px-r">
+            <img src="../assets/heart2.png">
+            <span>关注</span>
+            </div>
             <div v-tap="{methods:goOrder}">
               <img src="../assets/yellowClock.png">
               <span>预约挂号</span>

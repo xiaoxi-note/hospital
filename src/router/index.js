@@ -206,11 +206,13 @@ let nextPage = function (titleStr) {
 }
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'login' && from.name != 'register') {
-    localStorage.setItem('before_login', from.name)
+  if (to.name == 'login' && from.name != 'register' && !!from.name ) {
+    localStorage.setItem('before_login', from.name);
+    localStorage.setItem('before_query', encodeURIComponent(JSON.stringify(from.query)));
   }
   else if (from.name != 'register') {
     localStorage.setItem('before_login', '')
+    localStorage.setItem('before_query', '');
   }
   Vue.$vux.loading.show({text: 'Loading'})
   next()

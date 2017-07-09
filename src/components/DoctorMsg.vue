@@ -32,7 +32,7 @@
             <td v-for="keyStr in dateList"
                 @click="order(dateOrderDataList[keyStr])"
                 :class="{canChois:isNotFull(dateOrderDataList[keyStr], 1),canNotChois:isFull(dateOrderDataList[keyStr], 1)}">
-              <div v-if="dateOrderDataList[keyStr].workTime == 1">
+              <div v-if="dateOrderDataList[keyStr].workTime == 1 || dateOrderDataList[keyStr].workTime == 3">
                 <div v-if="dateOrderDataList[keyStr].limitWww - dateOrderDataList[keyStr].bookingNum <1"></div>
                 <div v-else>
                   <span>预约</span>
@@ -46,7 +46,7 @@
             <td v-for="keyStr in dateList"
                 @click="order(dateOrderDataList[keyStr])"
                 :class="{canChois:isNotFull(dateOrderDataList[keyStr], 2),canNotChois:isFull(dateOrderDataList[keyStr], 2)}">
-              <div v-if="dateOrderDataList[keyStr].workTime == 2">
+              <div v-if="dateOrderDataList[keyStr].workTime == 2 || dateOrderDataList[keyStr].workTime == 3">
                 <div v-if="dateOrderDataList[keyStr].limitWww - dateOrderDataList[keyStr].bookingNum <1"></div>
                 <div v-else>
                   <span>预约</span>
@@ -60,7 +60,7 @@
             <td v-for="keyStr in dateList"
                 @click="order(dateOrderDataList[keyStr])"
                 :class="{canChois:isNotFull(dateOrderDataList[keyStr], 3),canNotChois:isFull(dateOrderDataList[keyStr], 3)}">
-              <div v-if="dateOrderDataList[keyStr].workTime == 3">
+              <div v-if="dateOrderDataList[keyStr].workTime == 3 || dateOrderDataList[keyStr].workTime == 3">
                 <div v-if="dateOrderDataList[keyStr].limitWww - dateOrderDataList[keyStr].bookingNum <1"></div>
                 <div v-else>
                   <span>预约</span>
@@ -164,7 +164,7 @@
         return result;
       },
       isNotFull(data, workTime) {
-        if (data.workTime != workTime)
+        if (data.workTime != workTime && data.workTime != 3)
           return false;
         if (data.limitWww - data.bookingNum == 0)
           return false

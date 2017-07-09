@@ -29,7 +29,10 @@ const state = {
   getContact                : {payload: {}},
   updateContactById         : {payload: {}},
   cancelOrder               : {payload: {}},
-  editPwd                   : {payload: {}}
+  editPwd                   : {payload: {}},
+  addFollow                 : {payload: {}},
+  deleteFollow              : {payload: {}},
+  getFollow                 : {payload: {}}
 }
 
 const store = new Vuex.Store({
@@ -88,6 +91,18 @@ const store = new Vuex.Store({
     },
     editPwd(){
       return state.editPwd
+    },
+    addFollow(){
+      return state.addFollow
+    },
+    addFollow(){
+      return state.addFollow
+    },
+    getFollow(){
+      return state.getFollow
+    },
+    deleteFollow(){
+      return state.deleteFollow
     }
   },
   mutations: mutations,

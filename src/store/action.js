@@ -74,6 +74,18 @@ export const editPwd                    = createAction({
   type          : types.EDITPWD,
   payloadCreator: api.editPwd
 })
+export const addFollow                  = createAction({
+  type          : types.ADDFOLLOW,
+  payloadCreator: api.addFollow
+})
+export const deleteFollow               = createAction({
+  type          : types.DELETEFOLLOW,
+  payloadCreator: api.deleteFollow
+})
+export const getFollow                  = createAction({
+  type          : types.GETFOLLOW,
+  payloadCreator: api.getFollow
+})
 export default {
   [getInfo]                   : getInfo,
   [getLogin]                  : getLogin,
@@ -92,5 +104,7 @@ export default {
   [getContact]                : getContact,
   [updateContactById]         : updateContactById,
   [cancelOrder]               : cancelOrder,
-  [editPwd]                   : editPwd
+  [addFollow]                 : addFollow,
+  [deleteFollow]              : deleteFollow,
+  [getFollow]                 : getFollow
 }

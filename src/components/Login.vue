@@ -111,16 +111,14 @@
         if (newValue.status === 'success') {
           const respose = newValue.payload // 返回值
           if (respose.errno === 0) {
-            if (!respose.data.status) {
-              this.$vux.alert.show({
-                title  : '',
-                content: '用户名或密码错误',
-              })
-              return
-            }
             this.$localStorage.set('token', respose.data.token)
             var preLoginName = this.$localStorage.get('before_login')
-            this.$router.replace({name: preLoginName || 'order'});
+            var queryStr = this.$localStorage.get('before_query')
+            var query = {}
+            if(queryStr){
+              query = JSON.parse(decodeURIComponent(queryStr))
+            }
+            this.$router.replace({name: preLoginName || 'order',query:query});
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({
