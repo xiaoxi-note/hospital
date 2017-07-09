@@ -37,11 +37,6 @@
             placeholder="请输入您的密码"
             v-model="sendData.pwd"
           >
-          <!-- <div class="tip"
-               :class="{show:clickButton && sendData.pwd.length == 0}">
-            <div class="triangle"></div>
-            <div class="content">请输入密码</div>
-          </div> -->
         </div>
         <div class="underline-thin">
           <label>重复密码 ：</label>
@@ -62,7 +57,7 @@
       <a
         :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
         v-tap.prevent="{methods:getApiRegister}"
-      >注&nbsp;&nbsp;册</a>
+      >提&nbsp;&nbsp;交</a>
     </div>
   </div>
 </template>
@@ -147,6 +142,7 @@
         if (this.sendData.phone
           && this.sendData.checkCode
           && this.sendData.pwd
+          && this.sendData.pwdAgain
         ) {
           this.disable = true
         } else {
@@ -211,11 +207,9 @@
 
     .box-input {
       margin: auto;
-      margin-top: .62rem;
       font-size: .54rem;
       text-align: left;
       width: 91.5%;
-      padding-bottom 1rem
     }
 
     .vux-tab .vux-tab-ink-bar {
@@ -227,12 +221,13 @@
       line-height: 1.6rem;
       padding-left: 0.26rem;
       position: relative;
-      margin-top: 0.24rem;
+      padding-top: 0.24rem;
       display: flex;
     }
 
     .box-input .phone {
       position: relative;
+      margin-top: 0
     }
 
     .weui-cells:after, .weui-cells:before {

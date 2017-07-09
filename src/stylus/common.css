@@ -254,3 +254,30 @@ select.weui-select {
   padding-left: 0;
   font-size: .7rem;
 }
+tip-box input {
+  width: 100%;
+}
+.tip {
+  position: absolute;
+  margin-left: -1.3rem;
+  margin-top: 1.6rem;
+  margin-left: 1.6rem;
+  z-index: 3;
+}
+.tip .triangle {
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #fdd005;
+  margin-left: 1.2rem;
+}
+.tip .content {
+  background: #fdd005;
+  padding: 0 .3rem;
+  border-radius: 5px;
+  height: .94rem;
+  line-height: .94rem;
+  font-size: 0.46rem;
+  color: #fff;
+} 
