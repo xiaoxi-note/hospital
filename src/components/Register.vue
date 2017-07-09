@@ -149,11 +149,15 @@
     src : ''
   }, {
     key : 'aptitude',
-    text: '从业资格证',
+    text: '医师执业证',
     src : ''
   }, {
-    key : 'biyezheng',
-    text: '毕业证',
+    key : 'yishizigezheng',
+    text: '医师资格证',
+    src : ''
+  }, {
+    key : 'xuelizhegnshu',
+    text: '学历证',
     src : ''
   }]
 
@@ -192,10 +196,10 @@
         aptitudeArray       : aptitudeArray,
         uploadIndex         : 0,
         imgUploadEnd        : false,
-        check: {
-          phone: false,
-          name: false,
-          rePwd: false,
+        check               : {
+          phone : false,
+          name  : false,
+          rePwd : false,
           idCard: false
         }
       }
@@ -240,7 +244,7 @@
             content: '请补充完整资质图片',
           })
         }
-        if (this.check.phone || this.check.rePwd || this.check.idCard || this.check.name){
+        if (this.check.phone || this.check.rePwd || this.check.idCard || this.check.name) {
           return false
         }
         return true
@@ -303,7 +307,7 @@
           }
         })
         !this.imgUploadEnd && (this.imgUploadEnd = index == this.aptitudeArray.length)
-        this.uploadIndex  = index;
+        this.uploadIndex = index;
       },
       edit(index){
         this.uploadIndex = index;
@@ -322,7 +326,7 @@
         }
       }
     },
-    watch: {
+    watch     : {
       getRegister (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
