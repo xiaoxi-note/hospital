@@ -46,6 +46,14 @@
                       :max-year="2017"></Datetime>
           </group>
         </div>
+        <div class="phone underline-thin textarea">
+          <label>详细地址 ：</label>
+          <group class="addressBox">
+            <XTextarea placeholder="请输入详细地址"
+                      v-model="sendData.address"
+            ></XTextarea>
+          </group>
+        </div>
       </div>
     </div>
     <div class="add-button"
@@ -58,7 +66,7 @@
 </template>
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
-  import {Group, Popover, Alert, PopupPicker, Selector, Datetime} from 'vux'
+  import {Group, Popover, Alert, PopupPicker, Selector, Datetime, XTextarea} from 'vux'
   import {GET_CITY, ADDCONTACT, GETCONTACT, UPDATECONTACTBYID} from '../store/type'
   import VueCoreImageUpload  from 'vue-core-image-upload';
 
@@ -70,7 +78,8 @@
       Alert,
       PopupPicker,
       Selector,
-      Datetime
+      Datetime,
+      XTextarea
     },
     data () {
       return {
@@ -80,6 +89,7 @@
           name    : '',
           phone   : '',
           birthday: '',
+          address : '',
         },
         cityList       : [],
         loadedCityArray: [],
@@ -139,6 +149,7 @@
       addContact (newValue){
         if (newValue.status === 'success') {
           const respose = newValue.payload
+          var _this = this;
           if (respose.errno === 0) {
             this.$vux.alert.show({
               title  : '',
@@ -146,7 +157,7 @@
               type   : 'success',
               time   : 2000,
               onHide(){
-                this.$router.go(-1)
+                _this.$router.go(-1)
               }
             })
           } else {
@@ -251,9 +262,10 @@
       &:first-child {
         margin-top: 0 !important
       }
-
     }
-
+    .box-input > div.underline-thin.textarea {
+      height: auto;
+    }
     .box-input .phone {
       position: relative;
     }
@@ -290,7 +302,9 @@
       flex: 1;
       margin-top: -.24rem;
     }
-
+    .addressBox {
+      width: 75%;
+    }
     .box-input .upload {
       padding: .38rem 0 .6rem .26rem;
       background url('../assets/upload.png')

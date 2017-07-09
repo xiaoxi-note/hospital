@@ -86,6 +86,10 @@ export const getFollow                  = createAction({
   type          : types.GETFOLLOW,
   payloadCreator: api.getFollow
 })
+export const resetPwd                  = createAction({
+  type          : types.RESETPWD,
+  payloadCreator: api.resetPwd
+})
 export default {
   [getInfo]                   : getInfo,
   [getLogin]                  : getLogin,
@@ -106,5 +110,6 @@ export default {
   [cancelOrder]               : cancelOrder,
   [addFollow]                 : addFollow,
   [deleteFollow]              : deleteFollow,
-  [getFollow]                 : getFollow
+  [getFollow]                 : getFollow,
+  [resetPwd]                  : resetPwd
 }

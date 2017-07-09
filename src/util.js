@@ -1,5 +1,5 @@
 const sexData    = [{key: '0', value: '男'}, {key: '1', value: '女'}];
-var unCheckToken = 'register,editPwd'.split(',');
+var unCheckToken = 'register,forgetPwd'.split(',');
 export default  {
   methods: {
     post (opt) {

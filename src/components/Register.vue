@@ -32,10 +32,6 @@
             placeholder="请输入您的验证码"
             v-model="sendData.checkCode"
           >
-          <!-- <div class="tip">
-            <div class="triangle"></div>
-            <div class="content">您输入的验证码有误</div>
-          </div> -->
         </div>
         <div class="underline-thin">
           <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码 ：</label>
@@ -45,11 +41,6 @@
             placeholder="请输入您的密码"
             v-model="sendData.pwd"
           >
-          <!-- <div class="tip"
-               :class="{show:clickButton && sendData.pwd.length == 0}">
-            <div class="triangle"></div>
-            <div class="content">请输入密码</div>
-          </div> -->
         </div>
         <div class="underline-thin">
           <label>重复密码 ：</label>
@@ -99,6 +90,15 @@
             <div class="triangle"></div>
             <div class="content">请输入正确身份证号</div>
           </div>
+        </div>
+        <div class="underline-thin">
+          <label>详细地址 ：</label>
+          <input
+            type="text"
+            name=""
+            placeholder="请输入您的详细地址"
+            v-model="sendData.address"
+          >
         </div>
         <div class="underline-thin">
           <label>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日 ：</label>
@@ -189,7 +189,8 @@
           pwdAgain : '',
           name     : '',
           idCard   : '',
-          birthDay : ''
+          address  : '',
+          birthDay : '',
         },
         imgId               : '',
         uploadText          : '上传身份证',
@@ -262,6 +263,7 @@
           name       : this.sendData.name,
           sex        : this.sendData.sex,
           idCard     : this.sendData.idCard,
+          address    : this.sendData.address,
           birthDay   : (new Date(this.sendData.birthDay)).getTime(),
           birthDayStr: this.sendData.birthDay
         }
@@ -389,7 +391,7 @@
 
     .box-input {
       margin: auto;
-      margin-top: .62rem;
+      margin-top: .3rem;
       font-size: .54rem;
       text-align: left;
       width: 91.5%;
