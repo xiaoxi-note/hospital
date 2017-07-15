@@ -109,23 +109,12 @@
                       :max-year="2017"></Datetime>
           </group>
         </div>
-        <ul class="img-lib"
-            :class="{'upload-unable':uploadIndex >= aptitudeArray.length}"
-            v-if="isDoctor">
-          <li v-for="(item,index) in aptitudeArray" v-if="item.src" @click="edit(index)">
-            <div class="lib-title">{{item.text}}</div>
-            <img :src="item.src" alt="">
+        <ul class="img-lib" v-if="isDoctor">
+          <li v-for="(item,index) in aptitudeArray">
+            <image-canvas-upload :message="item" @uploaded="uploadfile"></image-canvas-upload>
           </li>
+          <div class="clear"></div>
         </ul>
-        <vue-core-image-upload
-          v-if="uploadIndex < aptitudeArray.length && isDoctor"
-          :class="['upload']"
-          :crop="false"
-          :text="aptitudeArray[uploadIndex].text"
-          @imageuploaded="loadImg"
-          :max-file-size="5242880"
-          url="/upload">
-        </vue-core-image-upload>
       </div>
     </div>
     <div class="add-button">
@@ -140,7 +129,7 @@
   import {mapGetters} from 'vuex'
   import {Tab, TabItem, Group, Popover, Alert, Selector, Datetime} from 'vux'
   import {GET_REGISTER, GET_SENDMSGCODE} from '../store/type'
-  import VueCoreImageUpload  from 'vue-core-image-upload';
+  import ImageCanvasUpload from './imgUpload';
 
   var sexData = [{key: '0', value: '男'}, {key: '1', value: '女'}]
   var aptitudeArray = [{
@@ -161,7 +150,7 @@
     src : ''
   }]
 
-  export default {
+    export default {
     name      : 'register',
     components: {
       Tab,
@@ -171,7 +160,7 @@
       Alert,
       Selector,
       Datetime,
-      'vue-core-image-upload': VueCoreImageUpload
+      ImageCanvasUpload
     },
     data () {
       return {
@@ -295,26 +284,6 @@
           this.isSendCode = false;
         }
       },
-      loadImg(data){
-
-        this.aptitudeArray[this.uploadIndex].src = '/img/' + data.data.uuid;
-        this.aptitudeArray[this.uploadIndex].uri = data.data.uuid;
-
-        var isEnd = false,
-            index = this.aptitudeArray.length;
-        [].forEach.call(this.aptitudeArray, (item, _index) => {
-
-          if (!isEnd && !item.src) {
-            isEnd = true;
-            index = _index;
-          }
-        })
-        !this.imgUploadEnd && (this.imgUploadEnd = index == this.aptitudeArray.length)
-        this.uploadIndex = index;
-      },
-      edit(index){
-        this.uploadIndex = index;
-      },
       checkPrams(){
         if (this.sendData.phone
           && this.sendData.idCard
@@ -328,6 +297,9 @@
         } else {
           this.disable = false
         }
+      },
+      uploadfile(id){
+        console.log(id)
       }
     },
     watch     : {
@@ -451,25 +423,6 @@
       margin-top: -.24rem;
     }
 
-    .box-input .upload {
-      /*padding: .38rem 0 .6rem .26rem;*/
-      background url('../assets/upload.png')
-      width 3.6rem
-      height: 3.6rem;
-      display inline-block
-      background-size cover
-      text-align center
-    }
-
-    .box-input .upload label {
-      line-height: 1.28rem;
-    }
-
-    .box-input .upload img {
-      width: 2.2rem;
-      vertical-align: top;
-    }
-
     .register {
       margin-top: 1.2rem;
     }
@@ -498,19 +451,18 @@
     width 100%
 
   .img-lib
-    padding-left 1rem
-    padding-right 1rem
     padding-top .5rem
     li
       text-align center
-      width 33%
+      width 25%
       float left
       img
         height 2rem
-
+    .clear
+      clear both
   .upload-unable
     &:after
       content: ''
       display block
-      clear both
+      clear both 
 </style>
