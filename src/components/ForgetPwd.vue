@@ -173,7 +173,7 @@
           } else {
             this.$vux.alert.show({
               title  : '',
-              content: respose.errmsg,
+              content: '新密码不可与原密码相同',
             })
           }
         }

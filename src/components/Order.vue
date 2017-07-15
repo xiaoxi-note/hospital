@@ -28,11 +28,14 @@
       </div>
     </div>
     <ul class="doctor-list underline-thin">
-      <li v-for="item in doctorInfoList" class="underline-thin" @click="goDoctDetail(item)">
+      <li v-for="item in showData"
+          class="underline-thin"
+          @click="goDoctDetail(item)"
+          v-if="isShowDoct(item.id)">
         <flexbox align="center" justify="space-between" :gutter="8">
           <flexbox-item :span="1/5">
             <div class="flex-item left">
-              <img v-if="item.photoSUrl" :src="item.photoSUrl" class="head">
+              <img v-if="item.photoLUrl" :src="item.photoLUrl" class="head">
               <img v-else src="../assets/user.jpg" class="head">
             </div>
           </flexbox-item>
@@ -47,7 +50,7 @@
               <p>
                 <span>剩余号:</span>
                 <span class="rest-order"
-                      :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww}}</span>
+                      :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">{{item.limitWww - item.bookingNum}}</span>
                 <span>挂号费:</span>
                 <span class="" :style="{'color': item.limitWww != 0 ? '#f39700' : '#666'}">￥{{item.fees}}</span>
               </p>
@@ -69,8 +72,6 @@
   import {mapGetters} from 'vuex'
   import {GET_ORDERINFOLIST} from '../store/type'
   import {Group, Cell, Alert, Card, Flexbox, FlexboxItem, Datetime, XButton, PopupPicker} from 'vux'
-
-
   export default {
     name      : 'order',
     data () {
@@ -78,6 +79,7 @@
       var dateListArray = []
 
       var dateDefault = [(new Date(today + 86400000)).format('yyyy年MM月dd')];
+      var defaultDate = (new Date(today + 86400000)).getTime();
       for (var i = 1; i < 6; i++) {
         dateListArray.push((new Date(today + 86400000 * i)).format('yyyy年MM月dd'));
       }
@@ -87,10 +89,11 @@
         dateDefault     : dateDefault,
         dateList        : [dateListArray],
         param           : {
-          date: '',
+          date: defaultDate,
           name: ''
         },
-        isShowDatePicker: true
+        isShowDatePicker: true,
+        showData        : []
       }
     },
     computed  : {
@@ -142,6 +145,10 @@
             limitSurplus: itemData.limitWww - itemData.bookingNum
           }
         });
+      },
+      isShowDoct(id){
+        var hideDoc = [2369, 2400, 2430]
+        return hideDoc.indexOf(id) == -1
       }
     },
     created () {
@@ -153,6 +160,7 @@
           const respose = newValue.payload
           if (respose.errno === 0) {
             this.doctorInfoList = respose.data
+            this.showData       = this.doctorInfoList
           } else {
             this.$vux.alert.show({
               title  : '',
@@ -173,10 +181,16 @@
       'param.name': {
         deep: true,
         handler () {
+          var _showData = [];
           this.timer && (clearTimeout(this.timer), this.timer = null);
           this.timer = setTimeout(() => {
-            this.$store.dispatch(GET_ORDERINFOLIST, this.param)
+            [].forEach.call(this.doctorInfoList, (item, index) => {
+              if (item.name.indexOf(this.param.name) > -1)
+                _showData.push(item)
+            })
+            this.showData = _showData;
           }, 500)
+
         }
       },
     }
@@ -414,4 +428,6 @@
 
   .head
     border-radius: 1.1rem;
+    width 2.2rem
+    height 2.2rem
 </style>

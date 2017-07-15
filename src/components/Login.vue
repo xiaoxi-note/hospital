@@ -10,6 +10,8 @@
           maxlength="11"
           placeholder="请输入您的手机号"
           v-model="phone"
+          @focus="focus"
+          @blur="blur"
         >
       </div>
       <div class="password underline-thin">
@@ -21,6 +23,8 @@
           placeholder="请输入您的密码"
           v-model="pwd"
           @input="onChange"
+          @focus="focus"
+          @blur="blur"
         >
         <input
           v-else
@@ -29,6 +33,8 @@
           placeholder="请输入您的密码"
           v-model="pwd"
           @input="onChange"
+          @focus="focus"
+          @blur="blur"
         >
         <img src="../assets/password.png" v-tap="{methods:passwords}">
       </div>
@@ -42,7 +48,7 @@
       <a href="" v-tap="{methods:goForgetPwd}">忘记密码？</a>
       <a href="" v-tap="{methods:goRegister}"><span>还没账号？</span>去注册</a>
     </div>
-    <img class="slogan" src="../assets/slogan.png">
+    <img class="slogan" v-if="!isFocus" src="../assets/slogan.png">
   </div>
 </template>
 
@@ -59,7 +65,8 @@
         disable   : false, // 按钮是否可点击
         showPwd   : false, // 是否显示密码
         phone     : '',
-        pwd       : ''
+        pwd       : '',
+        isFocus   : false
       }
     },
     computed  : {
@@ -109,6 +116,12 @@
           pwd  : this.pwd
         }
         this.$store.dispatch(GET_LOGIN, params)
+      },
+      focus(){
+        this.isFocus = true
+      },
+      blur(){
+        this.isFocus = false
       }
     },
     watch     : {
@@ -116,14 +129,21 @@
         if (newValue.status === 'success') {
           const respose = newValue.payload // 返回值
           if (respose.errno === 0) {
-            this.$localStorage.set('token', respose.data.token)
-            var preLoginName = this.$localStorage.get('before_login')
-            var queryStr = this.$localStorage.get('before_query')
-            var query = {}
-            if(queryStr){
-              query = JSON.parse(decodeURIComponent(queryStr))
+            if(respose.data.status) {
+              this.$localStorage.set('token', respose.data.token)
+              var preLoginName = this.$localStorage.get('before_login')
+              var queryStr     = this.$localStorage.get('before_query')
+              var query        = {}
+              if (queryStr) {
+                query = JSON.parse(decodeURIComponent(queryStr))
+              }
+              this.$router.replace({name: preLoginName || 'order', query: query});
+            }else {
+              this.$vux.alert.show({
+                title  : '',
+                content: '用户名或密码错误！',
+              })
             }
-            this.$router.replace({name: preLoginName || 'order',query:query});
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({

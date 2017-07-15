@@ -5,7 +5,7 @@
         <div class="intro">
           <div class="headCont">
             <span class="imgBg"></span>
-            <img v-if="doctInfo.photoSUrl" :src="doctInfo.photoSUrl" class="head">
+            <img v-if="doctInfo.photoLUrl" :src="doctInfo.photoLUrl" class="head">
             <img v-else src="../assets/user.jpg" class="head">
           </div>
           <span class="name">{{doctInfo.name}}</span>
@@ -15,7 +15,7 @@
         <div class="message">
           <p>就诊医馆：北京国医馆</p>
           <p>就诊科室：{{doctInfo.dept}}</p>
-          <p>就诊时间：{{orderDate}} {{day}} {{workTime}}</p>
+          <p>就诊时间：{{orderDate}} {{day}}</p>
           <p>挂号费用：{{fees}}元</p>
         </div>
         <div class="rule">
@@ -121,7 +121,6 @@
         this.$store.dispatch(GET_DOCTINFOBYID, {docId: this.$route.query.doctId})
       }
 
-
       this.$store.dispatch(ORDERINFOWIDTHDATEBYDOCTID, {
         date : this.$route.query.orderDate,
         docId: this.$route.query.doctId
@@ -214,7 +213,7 @@
         if (newValue.status === 'success') {
           const response = newValue.payload
           if (response.errno === 0) {
-            if (response.data.bookingNo)
+            if (response.data.bookingNo) {
               var self = this;
               this.$vux.alert.show({
                 title  : '',
@@ -224,6 +223,7 @@
                   self.$router.push({name: 'myorder'})
                 }
               })
+            }
           } else {
             this.$vux.alert.show({
               title  : '',

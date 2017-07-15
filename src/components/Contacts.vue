@@ -2,7 +2,7 @@
   <div class="Contacts-page">
     <div class="list-region">
       <ul>
-        <li v-for="item in contactsData" @click="checked(item)" >
+        <li v-for="item in contactsData" @click="checked(item,item.case_no)" >
           <div class="main-info">
             <span>{{item.name}}</span>
             <span>{{getSex(item.sex)}}</span>

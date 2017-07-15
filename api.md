@@ -132,7 +132,20 @@
            errno:0,
            errmsg:'',
            data: [
-	          id:'',//医师id				name:'',//医师姓名				clinicId:'',//诊所id				title:'',//医师头衔				expert:'',//擅长				briefIntro:'',//简介				dept:'',//科室				fees:'',//诊费				workTime:'',//0:上午 1:下午2:夜间3:全天				limitAll:'',//当日最多可预约数				limitWww:'',//互联网最多可预约数				bookingNum:'',//已预约数				date:'',//出诊日期			]
+	          id:'',//医师id
+				name:'',//医师姓名
+				clinicId:'',//诊所id
+				title:'',//医师头衔
+				expert:'',//擅长
+				briefIntro:'',//简介
+				dept:'',//科室
+				fees:'',//诊费
+				workTime:'',//0:上午 1:下午2:夜间3:全天
+				limitAll:'',//当日最多可预约数
+				limitWww:'',//互联网最多可预约数
+				bookingNum:'',//已预约数
+				date:'',//出诊日期
+			]
         }
     ```
 6. ##### 获取医生详细信息 #####
@@ -151,7 +164,26 @@
            errno:0,
            errmsg:'',
            data: {
-	          id	:'',//	医师id				name	:'',//	医师姓名				code	:'',//	医师资格证编码				mobile	:'',//	医师手机号				clinicId	:'',//	诊所id				gender	:'',//	性别；0 : 男  1 ： 女				birthday	:'',//	出生日期 ；“2001-03-21”				nation	:'',//	国籍				native	:'',//	籍贯				idType	:'',//	证件类型; 0:身份证;1:军官证;2:护照;3:台胞证;4:其他;9:无证件				idNo	:'',//	证件号码				title	:'',//	头衔				experts	:'',//	擅长				briefIntro	:'',//	医师简介				intro	:'',//	医师介绍				dept	:'',//	科室，分类				loginName	:'',//	系统登录名				address	:'',//	家庭住址				photoLUrl	:'',//	大头像地址				photoSUrl	:'',//	小头像地址				}
+	          id	:'',//	医师id
+				name	:'',//	医师姓名
+				code	:'',//	医师资格证编码
+				mobile	:'',//	医师手机号
+				clinicId	:'',//	诊所id
+				gender	:'',//	性别；0 : 男  1 ： 女
+				birthday	:'',//	出生日期 ；“2001-03-21”
+				nation	:'',//	国籍
+				native	:'',//	籍贯
+				idType	:'',//	证件类型; 0:身份证;1:军官证;2:护照;3:台胞证;4:其他;9:无证件
+				idNo	:'',//	证件号码
+				title	:'',//	头衔
+				experts	:'',//	擅长
+				briefIntro	:'',//	医师简介
+				intro	:'',//	医师介绍
+				dept	:'',//	科室，分类
+				loginName	:'',//	系统登录名
+				address	:'',//	家庭住址
+				photoLUrl	:'',//	大头像地址
+				photoLUrl	:'',//	小头像地址				}
         }
     ```
     
@@ -173,7 +205,15 @@
            errno:0,
            errmsg:'',
            data: [{
-           	id	:'',//	医师id				name	:'',//	医师姓名				clinicId	:'',//	诊所id				fees	:'',//	诊费				workTime	:'',//	0:上午 1:下午2:夜间3:全天				limitAll	:'',//	当日最多可预约数				limitWww	:'',//	互联网最多可预约数				bookingNum	:'',//	已预约数				remainTime	:'',//	剩余可预约时间段，["08:00","08:30","09:00","09:30"]			}]
+           	id	:'',//	医师id
+				name	:'',//	医师姓名
+				clinicId	:'',//	诊所id
+				fees	:'',//	诊费
+				workTime	:'',//	0:上午 1:下午2:夜间3:全天
+				limitAll	:'',//	当日最多可预约数
+				limitWww	:'',//	互联网最多可预约数
+				bookingNum	:'',//	已预约数
+				remainTime	:'',//	剩余可预约时间段，["08:00","08:30","09:00","09:30"]			}]
         }
     ```
 8. ##### 获取当前患者预约信息 #####
@@ -188,7 +228,17 @@
            errno:0,
            errmsg:'',
            data: [{
-           	id	:'',//	预约编号				name	:'',//	患者姓名				clinicId	:'',//	诊所id				visitDate	:'',//	就诊日期				mobile	:'',//	患者手机号				isFirst	:'',//	“Y”表示初诊， “N”表示复诊				docId	:'',//	医师id				docName	:'',//	医师姓名				createTime	:'',//	预约日期yyyy-MM-dd HH:mm:ss 				status	:'',//	1:预约未到 2:已取消 3:失约 4:已挂号 5:已过期 6:未到期				remark	:'',//	备注			
+           	id	:'',//	预约编号
+				name	:'',//	患者姓名
+				clinicId	:'',//	诊所id
+				visitDate	:'',//	就诊日期
+				mobile	:'',//	患者手机号
+				isFirst	:'',//	“Y”表示初诊， “N”表示复诊
+				docId	:'',//	医师id
+				docName	:'',//	医师姓名
+				createTime	:'',//	预约日期yyyy-MM-dd HH:mm:ss 
+				status	:'',//	1:预约未到 2:已取消 3:失约 4:已挂号 5:已过期 6:未到期
+				remark	:'',//	备注			
 				}]
         }
     ```
@@ -204,13 +254,17 @@
            errno:0,
            errmsg:'',
            data: [{
-           	id	:'',//	cityID				name	:'',//	省名称
+           	id	:'',//	cityID
+				name	:'',//	省名称
 				child:[{
-	           	id	:'',//	cityID					name	:'',//	市名称		
+	           	id	:'',//	cityID
+					name	:'',//	市名称		
 					child:[{
-		           	id	:'',//	cityID						name	:'',//	县名称
+		           	id	:'',//	cityID
+						name	:'',//	县名称
 					}]
-				}]			}]
+				}]
+			}]
         }
     ```
 10. ##### 关注医生 #####

@@ -19,7 +19,7 @@
           <span class="audit left">预约记录</span>
           <span class="right"></span>
         </li>
-        <li class="underline-thin">
+        <li class="underline-thin" @click="goForgetPwd">
           <span class="change_pwd left">修改密码</span>
           <span class="right"></span>
         </li>
@@ -27,8 +27,12 @@
           <span class="bind_tel left">手机绑定</span>
           <span class="right"></span>
         </li>
-        <li @click="goContacts">
+        <li class="underline-thin" @click="goContacts">
           <span class="address left">常用联系人</span>
+          <span class="right"></span>
+        </li>
+        <li @click="goFollow">
+          <span class="follow left">关注列表</span>
           <span class="right"></span>
         </li>
       </ul>
@@ -69,6 +73,14 @@
       },
       goContacts(){
         this.$router.push({name: 'Contacts', query: {isShow: 1}})
+      },
+      goFollow(){
+        this.$router.push({name: 'doctorFocus'})
+      },
+      goForgetPwd () {
+        this.$router.push({
+          name: 'forgetPwd'
+        })
       }
     }, watch  : {
       getUserInfo (newValue, oldVaue) {
@@ -117,6 +129,7 @@
   .intro img {
     width: 2.6rem;
     margin-right: .5rem;
+    border-radius: 1.3rem;
   }
 
   .intro span {
@@ -174,6 +187,10 @@
 
   .content li .address {
     background-position: 0 -10.3rem;
+  }
+
+  .content li .follow {
+    background-position: 0 -1.1rem;
   }
 
   .content li .right {

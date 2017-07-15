@@ -23,6 +23,7 @@ const editPwd                    = createMutation(types.EDITPWD, 'editPwd')
 const addFollow                  = createMutation(types.ADDFOLLOW, 'addFollow')
 const deleteFollow               = createMutation(types.DELETEFOLLOW, 'deleteFollow')
 const resetPwd                   = createMutation(types.RESETPWD, 'resetPwd')
+const getFollow                  = createMutation(types.GETFOLLOW, 'getFollow')
 
 export default {
   [getInfo]                   : getInfo,
@@ -44,5 +45,6 @@ export default {
   [cancelOrder]               : cancelOrder,
   [addFollow]                 : addFollow,
   [deleteFollow]              : deleteFollow,
-  [resetPwd]                  : resetPwd
+  [resetPwd]                  : resetPwd,
+  [getFollow]                 : getFollow
 }

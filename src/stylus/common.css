@@ -102,8 +102,7 @@ header span.imgBg {
   left: 50%;
   display: block;
   transform: translateX(-50%);
-  background: #fff;
-  opacity: .5;
+  background: rgba(255,255,255,.5);
   filter: alpha(opacity=50);
   border-radius: 100%;
   z-index: 1;
@@ -200,6 +199,9 @@ header .room {
 .content li p {
   font-size: .52rem;
   margin-left: 1.3rem;
+}
+.content li p:first-child{
+  margin-left: 0!important;
 }
 
 .show {

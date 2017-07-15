@@ -14,7 +14,7 @@
             placeholder="请输入您的手机号"
             v-model="sendData.phone"
           >
-          <div :class="[check.phone ? 'show' : 'hide', 'tip']">
+          <div :class="[isShowError && check.phone ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确手机号</div>
           </div>
@@ -50,7 +50,7 @@
             placeholder="请再次输入您的密码"
             v-model="sendData.pwdAgain"
           >
-          <div :class="[check.rePwd ? 'show' : 'hide', 'tip']">
+          <div :class="[isShowError && check.rePwd ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">两次输入密码不同</div>
           </div>
@@ -64,7 +64,7 @@
             v-model="sendData.name"
             maxlength="20"
           >
-          <div :class="[this.check.name ? 'show': 'hide', 'tip']">
+          <div :class="[isShowError && this.check.name ? 'show': 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确姓名</div>
           </div>
@@ -86,7 +86,7 @@
             placeholder="请输入您的身份证号"
             v-model="sendData.idCard"
           >
-          <div :class="[check.idCard ? 'show' : 'hide', 'tip']">
+          <div :class="[isShowError && check.idCard ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
             <div class="content">请输入正确身份证号</div>
           </div>
@@ -142,7 +142,7 @@
   import {GET_REGISTER, GET_SENDMSGCODE} from '../store/type'
   import VueCoreImageUpload  from 'vue-core-image-upload';
 
-  var sexData = [{key: '1', value: '男'}, {key: '2', value: '女'}]
+  var sexData = [{key: '0', value: '男'}, {key: '1', value: '女'}]
   var aptitudeArray = [{
     key : 'idCard',
     text: '身份证',
@@ -202,7 +202,8 @@
           name  : false,
           rePwd : false,
           idCard: false
-        }
+        },
+        isShowError         : false
       }
     },
     computed  : {
@@ -239,7 +240,7 @@
         } else {
           this.check.idCard = false
         }
-        if (this.isDoctor && !this.imgUploadEnd) {
+        if (this.isShowError && this.isDoctor && !this.imgUploadEnd) {
           this.$vux.alert.show({
             title  : '',
             content: '请补充完整资质图片',
@@ -323,6 +324,7 @@
           && this.sendData.birthDay
         ) {
           this.disable = true
+          !this.isShowError && (this.isShowError = true)
         } else {
           this.disable = false
         }
@@ -361,6 +363,7 @@
       sendData: {
         deep: true,
         handler(){
+          this.checkAll();
           this.checkPrams();
         }
       },

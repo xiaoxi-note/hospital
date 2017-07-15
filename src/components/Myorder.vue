@@ -5,6 +5,7 @@
       <tab-item @on-item-click="onItemClick(1)" class="ordered">已预约</tab-item>
       <tab-item @on-item-click="onItemClick(5)" class="past">已过期</tab-item>
       <tab-item @on-item-click="onItemClick(2)" class="wait">已取消</tab-item>
+      <tab-item @on-item-click="onItemClick(3)" class="wait">已失约</tab-item>
     </tab>
     <ul class="list">
       <li v-for="item in items" class="underline-thin" v-if="item.status == showStatus || showStatus == 0">
@@ -47,6 +48,7 @@
         <div class="status un-able" v-if="item.status == 5">已过期</div>
         <div class="status able" v-if="item.status == 1">已预约</div>
         <div class="status cancel" v-if="item.status == 2">已取消</div>
+        <div class="status cancel" v-if="item.status == 3">已失约</div>
       </li>
     </ul>
   </div>
@@ -104,7 +106,13 @@
         if (newValue.status === 'success') {
           const response = newValue.payload // 返回值ç
           if (response.errno === 0) {
-            this.items = response.data;
+            var _data = response.data;
+            [].forEach.call(_data, (item) => {
+              if (item.visitDate <= (Date.now() + 30 * 60 * 1000) && item.status == 1) {
+                item.status = 5;
+              }
+            });
+            this.items = _data;
           } else {
             this.showPwdErr = false
             this.$vux.alert.show({
@@ -135,6 +143,7 @@
 <style scoped rel="stylesheet/stylus">
   .page-myorder {
     font-size: .5rem;
+    overflow-y: hidden;
   }
 
   .vux-tab {

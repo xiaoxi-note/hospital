@@ -4,7 +4,7 @@
       <header>
         <div class="headCont" v-if="dataDetail">
           <span class="imgBg">
-            <img v-if="dataDetail.photoSUrl" :src="dataDetail.photoSUrl" class="head">
+            <img v-if="dataDetail.photoLUrl" :src="dataDetail.photoLUrl" class="head">
             <img v-else src="../assets/user.jpg" class="head">
           </span>
         </div>
@@ -13,11 +13,11 @@
         <div class="info">
           <card>
             <div slot="content" class="card-demo-flex card-demo-content01">
-              <div class="vux-1px-l vux-1px-r">
+              <div class="vux-1px-l vux-1px-r" v-if="!isFromFollow">
                 <span>{{limitSurplus}}</span>
                 <p>剩余号</p>
               </div>
-              <div class="vux-1px-r">
+              <div class="vux-1px-r" v-if="!isFromFollow">
                 <span>{{limitWww}}</span>
                 <p>问诊量</p>
               </div>
@@ -34,7 +34,7 @@
           <p class="area">执业点</p>
           <p>北京盛实国医馆{{dataDetail.dept}}</p>
         </li>
-        <li class="underline-thin">
+        <li class="underline-thin" style="display:none">
           <p class="skill">擅长</p>
           <p v-for="text in dataDetail.experts">{{text}}</p>
           <p v-if="dataDetail.experts.length == 0"></p>
@@ -52,9 +52,9 @@
       <footer>
         <card>
           <div slot="content" class="card-demo-flex card-demo-content01">
-            <div class="vux-1px-r">
-            <img src="../assets/heart2.png">
-            <span>关注</span>
+            <div class="vux-1px-r" @click="actionFollow">
+              <img src="../assets/heart2.png">
+              <span>{{dataDetail.isFollow?'不再关注':'关注'}}</span>
             </div>
             <div v-tap="{methods:goOrder}">
               <img src="../assets/yellowClock.png">
@@ -69,7 +69,7 @@
 
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
-  import {GET_DOCTINFOBYID} from '../store/type'
+  import {GET_DOCTINFOBYID, ADDFOLLOW, DELETEFOLLOW} from '../store/type'
   import {Group, Cell, Alert, Card} from 'vux'
 
   export default {
@@ -79,7 +79,9 @@
         isClose     : true,
         dataDetail  : null,
         limitWww    : 0,
-        limitSurplus: 0
+        limitSurplus: 0,
+        isFollow    : false,
+        isFromFollow: false
       }
     },
     components : {
@@ -89,13 +91,16 @@
       Card
     }, computed: {
       ...mapGetters([
-        'getDoctInfoById'
+        'getDoctInfoById',
+        'deleteFollow',
+        'addFollow'
       ])
     },
     created () {
       this.$store.dispatch(GET_DOCTINFOBYID, {docId: this.$route.query.doctId})
       this.limitWww     = this.$route.query.limitWww || 0
       this.limitSurplus = this.$route.query.limitSurplus || 0
+      this.isFromFollow = this.$route.query.fromFollow || false
     },
     methods    : {
       open () {
@@ -108,6 +113,24 @@
         this.$router.push({
           name: 'doctorMsg', query: this.$route.query
         })
+      },
+      actionFollow(){
+        if (this.dataDetail.isFollow) {
+          var _this = this;
+          this.$vux.confirm.show({
+            title  : '',
+            content: '不再关注' + _this.dataDetail.name + '大夫？',
+            // 组件除show外的属性
+            onCancel () {
+
+            },
+            onConfirm () {
+              _this.$store.dispatch(DELETEFOLLOW, {doctId: _this.$route.query.doctId})
+            }
+          })
+        } else {
+          this.$store.dispatch(ADDFOLLOW, {doctId: this.$route.query.doctId})
+        }
       }
     },
     watch      : {
@@ -115,7 +138,7 @@
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
-            this.dataDetail = respose.data
+            this.dataDetail = respose.data;
           } else {
             this.$vux.alert.show({
               title  : '',
@@ -123,7 +146,33 @@
             })
           }
         }
-      }
+      },
+      addFollow (newValue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload
+          if (respose.errno === 0) {
+            this.dataDetail.isFollow = true
+          } else {
+            this.$vux.alert.show({
+              title  : '',
+              content: respose.errmsg,
+            })
+          }
+        }
+      },
+      deleteFollow (newValue) {
+        if (newValue.status === 'success') {
+          const respose = newValue.payload
+          if (respose.errno === 0) {
+            this.dataDetail.isFollow = false
+          } else {
+            this.$vux.alert.show({
+              title  : '',
+              content: respose.errmsg,
+            })
+          }
+        }
+      },
     }
   }
 </script>
