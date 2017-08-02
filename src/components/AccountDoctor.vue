@@ -37,6 +37,9 @@
         </li>
       </ul>
     </div>
+    <div class="button-region">
+      <span @click="logout">退出登录</span>
+    </div>
   </div>
 </template>
 
@@ -81,8 +84,38 @@
         this.$router.push({
           name: 'forgetPwd'
         })
+      },
+      logout(){
+        var _this = this;
+        this.$vux.confirm.show({
+          title  : '',
+          content: '确定退出登录？',
+          // 组件除show外的属性
+          onCancel () {
+
+          },
+          onConfirm () {
+            _this.$localStorage.set('token', '')
+
+            var urlArray = [];
+            var location = window.location;
+            urlArray.push(location.origin)
+            urlArray.push(location.pathname)
+            if (location.pathname.indexOf('?') > -1) {
+              urlArray.push('&')
+            } else {
+              urlArray.push('?')
+            }
+            urlArray.push('t=')
+            urlArray.push(Date.now())
+            urlArray.push(location.hash)
+            window.location.href = urlArray.join('');
+          }
+        })
+
       }
-    }, watch  : {
+    },
+    watch     : {
       getUserInfo (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const response = newValue.payload // 返回值
@@ -101,7 +134,7 @@
   }
 </script>
 
-<style scoped rel="stylesheet/stylus">
+<style scoped type="text/stylus" lang="stylus">
   .page-orderInfo {
   }
 
@@ -197,5 +230,19 @@
     float: right;
     padding-right: .76rem;
     color: #666;
+  }
+
+  .button-region {
+    position: fixed;
+    width 100%
+    bottom 1rem
+    span {
+      display inline-block
+      background #fff;
+      width 80%
+      height 1.5rem
+      line-height 1.5rem
+      border-radius .1rem
+    }
   }
 </style>

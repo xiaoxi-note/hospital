@@ -115,7 +115,8 @@
         canChois         : 'canChois',
         orderData        : null,
         dateList         : [],
-        dateOrderDataList: {}
+        dateOrderDataList: {},
+        searchIndex      : 0
       }
     },
     components: {
@@ -188,24 +189,32 @@
             },
             this.$route.query)
         })
+      },
+      getOrderData(){
+        var step     = 86400000;
+        var today    = Date.now(),
+            addStart = step * (this.searchIndex * 5),
+            endStart = step * ((this.searchIndex + 1) * 5) + 1;
+        today
+        var startDate = (new Date((new Date(today + addStart)).format('yyyy-MM-dd'))).getTime();
+        var endDate   = (new Date((new Date(today + endStart)).format('yyyy-MM-dd'))).getTime();
+//        for (var i = 1; i < 6; i++) {
+//          var dayStr = (new Date(today + 86400000 * i)).format('yyyy-MM-dd');
+//          this.dateList.push(dayStr);
+//          this.dateOrderDataList[dayStr] = {};
+//        }
+//        console.log(this.dateList)
+        var sendData = {
+          docId    : this.$route.query.doctId,
+          startDate: startDate,
+          endDate  : endDate
+        }
+        this.$store.dispatch(GET_ORDERINFOBYSTARTDATE, sendData);
+        this.searchIndex++;
       }
     },
     created() {
-      var today     = Date.now();
-      var startDate = (new Date((new Date(today + 86400000)).format('yyyy-MM-dd'))).getTime();
-      var endDate   = (new Date((new Date(today + 86400000 * 6)).format('yyyy-MM-dd'))).getTime();
-      for (var i = 1; i < 6; i++) {
-        var dayStr = (new Date(today + 86400000 * i)).format('yyyy-MM-dd');
-        this.dateList.push(dayStr);
-        this.dateOrderDataList[dayStr] = {};
-      }
-      console.log(this.dateList)
-      var sendData = {
-        docId    : this.$route.query.doctId,
-        startDate: startDate,
-        endDate  : endDate
-      }
-      this.$store.dispatch(GET_ORDERINFOBYSTARTDATE, sendData)
+      this.getOrderData();
     },
     watch     : {
       orderInfoByStartDate(newValue, oldVaue) {
@@ -216,8 +225,14 @@
             this.orderData = respose.data;
             //不同日期，分配
             [].forEach.call(respose.data.duty, (item) => {
-              this.dateOrderDataList[item.date] = item;
+              if (this.dateList.length < 5) {
+                this.dateList.push(item.date);
+                this.dateOrderDataList[item.date] = item;
+              }
             })
+            if (this.dateList.length < 5) {
+              this.getOrderData();
+            }
           } else {
             this.$vux.alert.show({
               title  : '',
@@ -229,7 +244,7 @@
     }
   }
 </script>
-<style scoped rel="stylesheet/stylus">
+<style scoped type="text/stylus" lang="stylus">
   .page-doctor {
   }
 

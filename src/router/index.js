@@ -205,6 +205,22 @@ let router = new Router({
         nextPage('修改密码')
         require(['../components/PwdEdit'], resolve)
       }
+    },
+    {
+      path     : '/drugInfo',
+      name     : 'drugInfo',
+      component: resolve => {
+        nextPage('药方详情确认')
+        require(['../components/drugInfo'], resolve)
+      }
+    },
+    {
+      path     : '/drugList',
+      name     : 'drugList',
+      component: resolve => {
+        nextPage('药方列表')
+        require(['../components/drugList'], resolve)
+      }
     }
   ]
 })
@@ -214,7 +230,7 @@ let nextPage = function (titleStr) {
 }
 
 router.beforeEach((to, from, next) => {
-  if (to.name == 'login' && from.name != 'register' && !!from.name ) {
+  if (to.name == 'login' && from.name != 'register' && !!from.name) {
     localStorage.setItem('before_login', from.name);
     localStorage.setItem('before_query', encodeURIComponent(JSON.stringify(from.query)));
   }

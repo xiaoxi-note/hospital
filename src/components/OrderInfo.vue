@@ -8,12 +8,13 @@
             <img v-if="doctInfo.photoLUrl" :src="doctInfo.photoLUrl" class="head">
             <img v-else src="../assets/user.jpg" class="head">
           </div>
-          <span class="name">{{doctInfo.name}}</span>
-          <i></i>
-          <span class="type">{{doctInfo.title}}</span>
+          <div>
+            <div class="name">{{doctInfo.name}}</div>
+            <div class="type">{{doctInfo.title}}</div>
+          </div>
         </div>
         <div class="message">
-          <p>就诊医馆：北京国医馆</p>
+          <p>就诊医馆：盛实国医馆</p>
           <p>就诊科室：{{doctInfo.dept}}</p>
           <p>就诊时间：{{orderDate}} {{day}}</p>
           <p>挂号费用：{{fees}}元</p>
@@ -327,6 +328,9 @@
     /*font-size: .9rem;*/
     padding: 0 0 0 .5rem;
   }
+    .intro .type{
+      padding: 0 0 0 .5rem;
+    }
 
   .intro i {
     width: 1px;

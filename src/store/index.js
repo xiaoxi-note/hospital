@@ -33,7 +33,10 @@ const state = {
   addFollow                 : {payload: {}},
   deleteFollow              : {payload: {}},
   getFollow                 : {payload: {}},
-  resetPwd                  : {resetPwd: {}}
+  resetPwd                  : {payload: {}},
+  addDrugInfo               : {payload: {}},
+  getDrugInfoList           : {payload: {}},
+  getDrugInfo               : {payload: {}}
 }
 
 const store = new Vuex.Store({
@@ -107,6 +110,15 @@ const store = new Vuex.Store({
     },
     resetPwd(){
       return state.resetPwd
+    },
+    addDrugInfo(){
+      return state.addDrugInfo
+    },
+    getDrugInfoList(){
+      return state.getDrugInfoList
+    },
+    getDrugInfo(){
+      return state.getDrugInfo
     }
   },
   mutations: mutations,

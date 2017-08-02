@@ -2,7 +2,7 @@
   <div class="Contacts-page">
     <div class="list-region">
       <ul>
-        <li v-for="item in contactsData" @click="checked(item,item.case_no)" >
+        <li v-for="item in contactsData" @click="checked(item,item.case_no)">
           <div class="main-info">
             <span>{{item.name}}</span>
             <span>{{getSex(item.sex)}}</span>
@@ -54,14 +54,25 @@
           })
 
         } else {
-          this.$router.replace({
-            name : 'orderInfo',
-            query: Object.assign(this.$route.query, {
-              caseNo: item.case_no,
-              name  : item.name,
-              age   : this.getAge(item.birthday)
+          if (this.$route.query.drugInfo) {
+            this.$router.replace({
+              name : 'drugInfo',
+              query: Object.assign(this.$route.query, {
+                caseNo: item.case_no,
+                name  : item.name,
+                age   : this.getAge(item.birthday)
+              })
             })
-          })
+          } else {
+            this.$router.replace({
+              name : 'orderInfo',
+              query: Object.assign(this.$route.query, {
+                caseNo: item.case_no,
+                name  : item.name,
+                age   : this.getAge(item.birthday)
+              })
+            })
+          }
         }
       }
     },

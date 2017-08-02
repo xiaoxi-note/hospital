@@ -19,7 +19,6 @@
       <div class="inner">
         <select>
           <option>北京</option>
-          <option>上海</option>
         </select>
         <div class="search-input">
           <i></i>

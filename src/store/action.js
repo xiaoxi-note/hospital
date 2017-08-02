@@ -86,9 +86,21 @@ export const getFollow                  = createAction({
   type          : types.GETFOLLOW,
   payloadCreator: api.getFollow
 })
-export const resetPwd                  = createAction({
+export const resetPwd                   = createAction({
   type          : types.RESETPWD,
   payloadCreator: api.resetPwd
+})
+export const addDrugInfo                = createAction({
+  type          : types.ADDDRUGINFO,
+  payloadCreator: api.addDrugInfo
+})
+export const getDrugInfoList            = createAction({
+  type          : types.GETDRUGINFOLIST,
+  payloadCreator: api.getDrugInfoList
+})
+export const getDrugInfo                = createAction({
+  type          : types.GETDRUGINFO,
+  payloadCreator: api.getDrugInfo
 })
 export default {
   [getInfo]                   : getInfo,
@@ -111,5 +123,8 @@ export default {
   [addFollow]                 : addFollow,
   [deleteFollow]              : deleteFollow,
   [getFollow]                 : getFollow,
-  [resetPwd]                  : resetPwd
+  [resetPwd]                  : resetPwd,
+  [addDrugInfo]               : addDrugInfo,
+  [getDrugInfoList]           : getDrugInfoList,
+  [getDrugInfo]               : getDrugInfo
 }

@@ -42,6 +42,9 @@
     <div v-tap="{methods:goTinySickRoom}"
          class="to-login">微病房
     </div>
+    <div v-tap="{methods:drugList}"
+         class="to-login">药房列表
+    </div>
     <div v-for="(item, index) in msgList">
       {{index+1}}:{{item}}
     </div>
@@ -136,6 +139,11 @@
         this.$router.push({
           name: 'tinysickroom'
         })
+      },
+      drugList () {
+        this.$router.push({
+          name: 'drugList'
+        })
       }
     },
     ready () {
@@ -151,7 +159,7 @@
     }
   }
 </script>
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" type="text/stylus">
   .to-login
     border 1px solid #999
     font-size 20px

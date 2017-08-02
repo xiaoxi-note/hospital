@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+  <title>Title</title>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <style>
+    .pay {
+      text-align: center;
+    }
+
+    .pay span {
+      width: 60%;
+      height: 30px;
+      line-height: 30px;
+      font-size: 20px;
+      display: inline-block;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+<div id="api"></div>
+<div class="pay">
+  <span id="pay">支付</span>
+</div>
+
+</body>
+
+<script>
+  $(function () {
+    var url = '/api/getWeixinSign?url=' + encodeURIComponent(window.location.href);
+    $.ajax({
+      url    : url,
+      method : 'GET',
+      success: function (data) {
+        if (data.errno == 0) {
+          data = data.data;
+          $('#api').html(JSON.stringify(data));
+          wx.config({
+            debug    : false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId    : data.appId, // 必填，公众号的唯一标识
+            timestamp: data.timestamp, // 必填，生成签名的时间戳
+            nonceStr : data.nonceStr, // 必填，生成签名的随机串
+            signature: data.signature, // 必填，签名，见附录1
+            jsApiList: [
+              "chooseWXPay"
+            ] // 所有要调用的 API 都要加到这个列表中
+          });
+
+          wx.error(function (e) {
+            alert('wxerror', JSON.stringify(e))
+          })
+        } else {
+          alert('获取支付接口异常');
+        }
+      }
+    })
+  })
+  var clickPay = function () {
+    var url = '/api/pay' + window.location.search;
+    $.ajax({
+      url    : url,
+      method : 'POST',
+      data   : {id: 54},
+      success: function (data) {
+        if (data.errno == 0) {
+          data = data.data;
+//          data = {
+//            "appId"    : "wx046a22e9c3c4e171",
+//            "timeStamp": "1501322971",
+//            "nonceStr" : "peh9ccflmk",
+//            "signType" : "MD5",
+//            "package"  : "wx20170729180931c5ac4140eb0123613644",
+//            "paySign"  : "843FF59936DB4F086BC938E96A368A2E"
+//          };
+          wx.ready(function () { // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            wx.chooseWXPay({
+              appId    : data.appId,
+              timestamp: data.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+              nonceStr : data.nonceStr, // 支付签名随机串，不长于 32 位
+              package  : 'prepay_id=' + data.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+              signType : data.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+              paySign  : data.paySign, // 支付签名
+              success  : function (res) {
+                // 支付成功后的回调函数
+                if (res.errMsg == "chooseWXPay:ok") {
+                  //支付成功
+                  alert('支付成功');
+                } else {
+                  alert(res.errMsg);
+                }
+              },
+              cancel   : function (c) {
+                console.log(JSON.stringify(c))
+                //支付取消
+                alert('支付取消');
+              }
+            });
+          });
+
+        } else {
+          alert('获取支付接口异常');
+        }
+      }
+    })
+
+  }
+
+  $('#pay').click(clickPay)
+</script>
+</html>

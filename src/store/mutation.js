@@ -24,6 +24,9 @@ const addFollow                  = createMutation(types.ADDFOLLOW, 'addFollow')
 const deleteFollow               = createMutation(types.DELETEFOLLOW, 'deleteFollow')
 const resetPwd                   = createMutation(types.RESETPWD, 'resetPwd')
 const getFollow                  = createMutation(types.GETFOLLOW, 'getFollow')
+const addDrugInfo                = createMutation(types.ADDDRUGINFO, 'addDrugInfo')
+const getDrugInfoList            = createMutation(types.GETDRUGINFOLIST, 'getDrugInfoList')
+const getDrugInfo                = createMutation(types.GETDRUGINFO, 'getDrugInfo')
 
 export default {
   [getInfo]                   : getInfo,
@@ -46,5 +49,8 @@ export default {
   [addFollow]                 : addFollow,
   [deleteFollow]              : deleteFollow,
   [resetPwd]                  : resetPwd,
-  [getFollow]                 : getFollow
+  [getFollow]                 : getFollow,
+  [addDrugInfo]               : addDrugInfo,
+  [getDrugInfoList]           : getDrugInfoList,
+  [getDrugInfo]               : getDrugInfo
 }

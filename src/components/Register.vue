@@ -13,6 +13,8 @@
             maxlength="11"
             placeholder="请输入您的手机号"
             v-model="sendData.phone"
+            @focus="focus"
+            @blur="blur"
           >
           <div :class="[isShowError && check.phone ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
@@ -31,6 +33,8 @@
             maxlength="6"
             placeholder="请输入您的验证码"
             v-model="sendData.checkCode"
+            @focus="focus"
+            @blur="blur"
           >
         </div>
         <div class="underline-thin">
@@ -40,6 +44,8 @@
             name=""
             placeholder="请输入您的密码"
             v-model="sendData.pwd"
+            @focus="focus"
+            @blur="blur"
           >
         </div>
         <div class="underline-thin">
@@ -49,6 +55,8 @@
             name=""
             placeholder="请再次输入您的密码"
             v-model="sendData.pwdAgain"
+            @focus="focus"
+            @blur="blur"
           >
           <div :class="[isShowError && check.rePwd ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
@@ -63,6 +71,8 @@
             placeholder="请输入您的真实姓名"
             v-model="sendData.name"
             maxlength="20"
+            @focus="focus"
+            @blur="blur"
           >
           <div :class="[isShowError && this.check.name ? 'show': 'hide', 'tip']">
             <div class="triangle"></div>
@@ -85,6 +95,8 @@
             name=""
             placeholder="请输入您的身份证号"
             v-model="sendData.idCard"
+            @focus="focus"
+            @blur="blur"
           >
           <div :class="[isShowError && check.idCard ? 'show' : 'hide', 'tip']">
             <div class="triangle"></div>
@@ -98,6 +110,8 @@
             name=""
             placeholder="请输入您的详细地址"
             v-model="sendData.address"
+            @focus="focus"
+            @blur="blur"
           >
         </div>
         <div class="underline-thin">
@@ -111,13 +125,13 @@
         </div>
         <ul class="img-lib" v-if="isDoctor">
           <li v-for="(item,index) in aptitudeArray">
-            <image-canvas-upload :message="item" @uploaded="uploadfile"></image-canvas-upload>
+            <image-canvas-upload :base-data="item" @uploaded="uploadfile"></image-canvas-upload>
           </li>
           <div class="clear"></div>
         </ul>
       </div>
     </div>
-    <div class="add-button">
+    <div class="add-button" v-if="!isFocus">
       <a
         :class="[disable ? 'btn-red' : 'btn-grey', 'btn', 'register']"
         v-tap.prevent="{methods:getApiRegister}"
@@ -150,7 +164,7 @@
     src : ''
   }]
 
-    export default {
+  export default {
     name      : 'register',
     components: {
       Tab,
@@ -192,7 +206,8 @@
           rePwd : false,
           idCard: false
         },
-        isShowError         : false
+        isShowError         : false,
+        isFocus             : false
       }
     },
     computed  : {
@@ -209,36 +224,46 @@
         this.isDoctor = true
       },
       checkAll () {
+        var result = true;
         if (!this.checkPhone()) {
           this.check.phone = true
+          result           = false;
         } else {
           this.check.phone = false
         }
         if (this.sendData.name.length < 2) {
           this.check.name = true
+          result          = false;
         } else {
           this.check.name = false
         }
         if (this.sendData.pwd !== this.sendData.pwdAgain) {
           this.check.rePwd = true
+          result           = false;
         } else {
           this.check.rePwd = false
         }
         if (this.sendData.idCard.length !== 18) {
           this.check.idCard = true
+          result            = false;
         } else {
+          if (!this.sendData.birthDay) {
+            this.sendData.birthDay = this.getBirthdatByIdNo(this.sendData.idCard)
+          }
           this.check.idCard = false
         }
         if (this.isShowError && this.isDoctor && !this.imgUploadEnd) {
+          alert(JSON.stringify(this.aptitudeArray))
           this.$vux.alert.show({
             title  : '',
             content: '请补充完整资质图片',
           })
+          result = false;
         }
         if (this.check.phone || this.check.rePwd || this.check.idCard || this.check.name) {
           return false
         }
-        return true
+        return result
       },
       getApiRegister () {
         const isPass = this.checkAll()
@@ -254,9 +279,10 @@
           sex        : this.sendData.sex,
           idCard     : this.sendData.idCard,
           address    : this.sendData.address,
-          birthDay   : (new Date(this.sendData.birthDay)).getTime(),
+          birthDay   : this.sendData.birthDay,
           birthDayStr: this.sendData.birthDay
         }
+        //(new Date(this.sendData.birthDay)).getTime()
 
         if (this.isDoctor) {
           params.imgInfo = encodeURIComponent(JSON.stringify(this.aptitudeArray))
@@ -298,8 +324,51 @@
           this.disable = false
         }
       },
-      uploadfile(id){
-        console.log(id)
+      uploadfile(id, key){
+        var loadedCount = 0;
+        [].forEach.call(this.aptitudeArray, (item) => {
+          if (item.key == key) {
+            item.src = id;
+            item.uri = id;
+          }
+          if (item.src) loadedCount++;
+        })
+        this.imgUploadEnd = loadedCount == this.aptitudeArray.length;
+      },
+      focus(){
+        this.isFocus = true
+      },
+      blur(){
+        this.isFocus = false
+      },
+      trim(s) {
+        return s.replace(/^\s+|\s+$/g, "");
+      },
+      getBirthdatByIdNo(iIdNo) {
+        var tmpStr    = "";
+        var idDate    = "";
+        var tmpInt    = 0;
+        var strReturn = "";
+
+        iIdNo = this.trim(iIdNo);
+
+        if ((iIdNo.length != 15) && (iIdNo.length != 18)) {
+          strReturn = "输入的身份证号位数错误";
+          return strReturn;
+        }
+
+        if (iIdNo.length == 15) {
+          tmpStr = iIdNo.substring(6, 12);
+          tmpStr = "19" + tmpStr;
+          tmpStr = tmpStr.substring(0, 4) + "-" + tmpStr.substring(4, 6) + "-" + tmpStr.substring(6)
+
+          return tmpStr;
+        } else {
+          tmpStr = iIdNo.substring(6, 14);
+          tmpStr = tmpStr.substring(0, 4) + "-" + tmpStr.substring(4, 6) + "-" + tmpStr.substring(6)
+
+          return tmpStr;
+        }
       }
     },
     watch     : {
@@ -352,7 +421,7 @@
 <style type="text/stylus" lang="stylus">
 
   .page-register
-    padding-bottom: 1rem;
+    padding-bottom: 3rem;
 
     .tab {
       position: relative;
@@ -378,54 +447,58 @@
     }
 
     .box-input > div.underline-thin {
-      height: 1.6rem;
-      line-height: 1.6rem;
+      height: 1.8rem;
+      line-height: 1.8rem;
       padding-left: 0.26rem;
       position: relative;
       margin-top: 0.24rem;
       display: flex;
+      input {
+        line-height .7rem !important;
+      }
     }
 
-    .box-input .phone {
-      position: relative;
-    }
+  .box-input .phone {
+    position: relative;
+  }
 
-    .weui-cells:after, .weui-cells:before {
-      display none
-    }
+  .weui-cells:after, .weui-cells:before {
+    display none
+  }
 
-    .box-input .phone .getCode {
-      display: inline-block
-      width: 3.66rem
-      height: 1.12rem
-      line-height: 1rem
-      text-align: center
-      border: 1px solid #f18900
-      border-radius: 1.14rem
-      color: #f18900
-      position: absolute
-      top: 50%
-      transform: translateY(-50%);
-      right: 0;
-      box-sizing: border-box;
-    }
-    .getCode.disabled
-      color #949393 !important
-      border: 1px solid #949393 !important
+  .box-input .phone .getCode {
+    display: inline-block
+    width: 3.66rem
+    height: 1.12rem
+    line-height: 1rem
+    text-align: center
+    border: 1px solid #f18900
+    border-radius: 1.14rem
+    color: #f18900
+    position: absolute
+    top: .8rem
+    transform: translateY(-50%);
+    right: 0;
+    box-sizing: border-box;
+  }
 
-    .sexSelect {
-      display: inline-block;
-      /*position: absolute;*/
-      width: 30%;
-      height: 100%;
-      line-height: 1.6rem;
-      flex: 1;
-      margin-top: -.24rem;
-    }
+  .getCode.disabled
+    color #949393 !important
+    border: 1px solid #949393 !important
 
-    .register {
-      margin-top: 1.2rem;
-    }
+  .sexSelect {
+    display: inline-block;
+    /*position: absolute;*/
+    width: 30%;
+    height: 100%;
+    line-height: 1.6rem;
+    flex: 1;
+    margin-top: -.24rem;
+  }
+
+  .register {
+    margin-top: 1.2rem;
+  }
 
   .weui-cells
     margin-top 0 !important
@@ -460,9 +533,20 @@
         height 2rem
     .clear
       clear both
+
   .upload-unable
     &:after
       content: ''
       display block
-      clear both 
+      clear both
+
+  select.weui-select
+    color: #333;
+    font-size: .5rem;
+    line-height: 2.28rem;
+
+  .weui-cell_select .weui-cell__bd:after,
+  .weui-cell_access .weui-cell__ft:after
+    top:65% !important
+
 </style>

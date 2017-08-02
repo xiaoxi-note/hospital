@@ -37,8 +37,7 @@
     "vuex": "^2.2.1",
     "vux": "^2.1.1-rc.14",
     "vux-loader": "^1.0.68",
-    "webpack": "^2.6.1",
-    "webpack-merge": "^2.6.1"
+    "webpack": "^2.6.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -83,7 +82,7 @@
     "webpack-bundle-analyzer": "^2.2.1",
     "webpack-dev-middleware": "^1.10.0",
     "webpack-hot-middleware": "^2.16.1",
-    "webpack-merge": "^2.6.1"
+    "webpack-merge": "^4.1.0"
   },
   "engines": {
     "node": ">= 4.0.0",
