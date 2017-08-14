@@ -1,32 +1,5 @@
 <template>
   <div class="page-progress">
-    <div class="content hospital-drug">
-      <div class="title underline-thin" v-tap="{methods:showHospitalList}">
-        <span>医馆药方[{{hospitalDrug.length}}]</span>
-      </div>
-      <ul v-show="hospitalDrugShow" class="underline-thin">
-        <li v-for="item in hospitalDrug" class="underline-thin">
-          <div class="intro">
-            <p class="date">
-              <span class="left">北京国医馆</span>
-              <span class="right">2016-03-11</span>
-            </p>
-            <div class="clear"></div>
-            <p class="person">
-              <span class="left">内科 周红艳</span>
-              <span class="right">就诊人：万甜甜</span>
-            </p>
-            <div class="clear"></div>
-          </div>
-          <div class="detail">
-            <span class="right" v-tap="{methods:goProgressDetail}">6剂</span>
-            <a class="left">处方</a>
-            <a class="left" v-tap="{methods:goProgressDetail}">查看进度</a>
-            <div class="clear"></div>
-          </div>
-        </li>
-      </ul>
-    </div>
     <div class="content outer-drug">
       <div class="title" v-tap="{methods:showOuterList}">
         <span>馆外药方[{{outerDrug.length}}]</span>
@@ -35,7 +8,33 @@
         <li v-for="item in outerDrug" class="underline-thin">
           <div class="intro">
             <p class="date">
-              <span class="left">北京国医馆</span>
+              <span class="left">盛实国医馆</span>
+              <span class="right">{{(new Date(item.create_time)).format('yyyy-MM-dd')}}</span>
+            </p>
+            <div class="clear"></div>
+            <p class="person" v-if="item.name">
+              <span class="right">就诊人：{{item.name}}</span>
+            </p>
+            <div class="clear"></div>
+          </div>
+          <div class="detail">
+            <span class="right">{{item.count}}剂</span>
+            <a class="left" @click="goDrugDetail(item.id,item.img_uri)">处方</a>
+            <a class="left" @click="goProgressDetail(item.id)">查看进度</a>
+            <div class="clear"></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="content hospital-drug" v-if="!1">
+      <div class="title underline-thin" v-tap="{methods:showHospitalList}">
+        <span>医馆药方[{{hospitalDrug.length}}]</span>
+      </div>
+      <ul v-show="outerDrugShow" class="underline-thin">
+        <li v-for="item in hospitalDrug" class="underline-thin">
+          <div class="intro">
+            <p class="date">
+              <span class="left">盛实国医馆</span>
               <span class="right">{{(new Date(item.create_time)).format('yyyy-MM-dd')}}</span>
             </p>
             <div class="clear"></div>
@@ -53,7 +52,6 @@
         </li>
       </ul>
     </div>
-
   </div>
 </template>
 
@@ -94,6 +92,15 @@
         this.$router.push({
           name : 'progressDetail',
           query: Object.assign({id: id})
+        })
+      },
+      goDrugDetail (id, imgUri) {
+        this.$router.push({
+          name : 'drugDetail',
+          query: Object.assign({
+            id : id,
+            uri: imgUri
+          })
         })
       },
       showHospitalList () {

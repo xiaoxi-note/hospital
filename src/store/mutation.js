@@ -27,6 +27,8 @@ const getFollow                  = createMutation(types.GETFOLLOW, 'getFollow')
 const addDrugInfo                = createMutation(types.ADDDRUGINFO, 'addDrugInfo')
 const getDrugInfoList            = createMutation(types.GETDRUGINFOLIST, 'getDrugInfoList')
 const getDrugInfo                = createMutation(types.GETDRUGINFO, 'getDrugInfo')
+const getAllDoctor               = createMutation(types.GETALLDOCTOR, 'getAllDoctor')
+const getDrugDetail              = createMutation(types.GETDRUGDETAIL, 'getDrugDetail')
 
 export default {
   [getInfo]                   : getInfo,
@@ -52,5 +54,7 @@ export default {
   [getFollow]                 : getFollow,
   [addDrugInfo]               : addDrugInfo,
   [getDrugInfoList]           : getDrugInfoList,
-  [getDrugInfo]               : getDrugInfo
+  [getDrugInfo]               : getDrugInfo,
+  [getAllDoctor]              : getAllDoctor,
+  [getDrugDetail]             : getDrugDetail,
 }

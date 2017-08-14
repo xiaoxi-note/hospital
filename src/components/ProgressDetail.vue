@@ -3,11 +3,12 @@
     <ul>
       <li v-for="(item,index) in statusArray"
           :class="{unfinished:index == status-1}"
-          v-if="index <status"
+          v-if="index < status"
       >
         <div class="left">
-          <p class="date" v-if="index==0||index<status-1">{{(new Date(time)).format('yyyy.MM.dd')}}</p>
-          <p class="time" v-if="index==0||index<status-1">{{(new Date(time)).format('hh:mm')}}</p>
+          <p class="date" v-if="index==0||index<status-1">{{(new
+            Date(timeData[item.timeKey])).format('yyyy.MM.dd')}}</p>
+          <p class="time" v-if="index==0||index<status-1">{{(new Date(timeData[item.timeKey])).format('hh:mm:ss')}}</p>
         </div>
         <div class="center">
           <div class="circle">
@@ -20,7 +21,13 @@
           <h2 v-if="index == status-1">{{item.now.text}}</h2>
           <h2 v-if="index < status-1">{{item.pre.text}}</h2>
           <p class="intro">{{item.desc}}</p>
-          <a href="" class="pay" v-if="item.key == 'pay'">支付</a>
+          <a class="pay" v-if="item.key == 'pay' && status ==3" @click="goPay">支付</a>
+          <p class="intro" v-if="item.key == 'drug-control' && status==5">
+            {{drugData.express_type == 0 ?'闪送':'顺丰快递:'+drugData.express_no}}
+          </p>
+          <span v-if="drugData.express_type==1"
+                @click='goExpressDetail(drugData.express_no)'>
+            查看快递详情</span>
         </div>
       </li>
     </ul>
@@ -45,7 +52,7 @@
             text: '成功提交药方',
           },
           key    : 'img-commit',
-          timeKey: 'commit'
+          timeKey: 'create_time'
         },
         {
           now    : {
@@ -58,7 +65,7 @@
             text: '审核不通过',
           },
           key    : 'preview',
-          timeKey: 'preview'
+          timeKey: 'audit_time'
         },
         {
           now    : {
@@ -68,7 +75,7 @@
             text: '已支付',
           },
           key    : 'pay',
-          timeKey: 'pay'
+          timeKey: 'update_time'
         },
         {
           now    : {
@@ -78,7 +85,7 @@
             text: '药方已发药',
           },
           key    : 'drug-control',
-          timeKey: 'sendTime'
+          timeKey: 'create_express_time'
         },
         {
           now    : {
@@ -88,13 +95,14 @@
             text: '用户已收药，本单完成',
           },
           key    : 'end',
-          timeKey: 'endTime'
+          timeKey: 'end_time'
         },
       ]
       return {
         statusArray: statusArray,
-        status     : 3,
-        time       : '2017-07-30 19:09:45'
+        status     : 0,
+        timeData   : {},
+        drugData   : {}
       }
     },
     computed  : {
@@ -108,18 +116,40 @@
       Alert
     },
     created () {
-//      this.$store.dispatch(GETDRUGINFO, {
-//        id: this.$route.query.id
-//      })
+      this.$store.dispatch(GETDRUGINFO, {
+        id: this.$route.query.id
+      })
     },
-    methods   : {},
+    methods   : {
+      goPay (){
+        var payUrl = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx046a22e9c3c4e171&redirect_uri={url}&response_type=code&scope=snsapi_base&state=park#wechat_redirect';
+        var url    = 'http://clinic.chinamedico.com/pay/index.html?orderid=' + this.$route.query.id + '&total=' + this.total_fee + '&redirectUrl=' + encodeURIComponent(window.location.href);
+        window.location.replace(payUrl.replace('{url}', encodeURIComponent(url)));
+      },
+      goExpressDetail(expressNo){
+        var htmlStr          = 'https://m.kuaidi100.com/index_all.html?type=shunfeng&postid=' + expressNo + '&callbackurl=' + encodeURIComponent(window.location.href)
+        window.location.href = htmlStr;
+      }
+    },
     watch     : {
       getDrugInfo (newValue, oldVaue) {
         if (newValue.status === 'success') {
           const respose = newValue.payload
           if (respose.errno === 0) {
-            this.doctorInfoList = respose.data
-//            this.showData       = this.doctorInfoList
+            this.drugData  = respose.data.drug
+            this.status    = respose.data.drug.status
+            this.total_fee = respose.data.drug.total_fee;
+            this.timeData  = respose.data.date
+            if (this.status == 0) {
+              this.status = 1;
+            }
+            if (this.status == 3 && this.$route.query.search == 1) {
+              setTimeout(() => {
+                this.$store.dispatch(GETDRUGINFO, {
+                  id: this.$route.query.id
+                })
+              }, 3000)
+            }
           } else {
             this.$vux.alert.show({
               title  : '',
@@ -128,11 +158,6 @@
           }
         }
       },
-    },
-    methods   : {
-      getStatus (){
-
-      }
     }
   }
 </script>
@@ -192,7 +217,6 @@
     z-index: 3;
   }
 
-
   .page-progress-detail .center .circle img {
     width: 100%;
     height: auto;
@@ -249,8 +273,8 @@
     background: #b60005;
   }
 
-  .page-progress-detail .unfinished h2{
-    color:#b60005;
+  .page-progress-detail .unfinished h2 {
+    color: #b60005;
   }
 
   .page-progress-detail .unfinished .left {

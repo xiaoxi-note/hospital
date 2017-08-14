@@ -1,22 +1,22 @@
 <template>
   <div class="page-tiny content underline-thin">
     <ul>
-      <li v-tap="{methods:takeDrug}" class="underline-thin">
-        <span class="formula left">我要配方</span>
-        <span class="right"></span>
-      </li>
+      <!--<li v-tap="{methods:takeDrug}" class="underline-thin">-->
+        <!--<span class="formula left">我要配方</span>-->
+        <!--<span class="right"></span>-->
+      <!--</li>-->
       <li v-tap="{methods:changeDrug}" class="underline-thin">
         <span class="turn left">我要转方</span>
-        <span class="right">已认证</span>
+        <!--<span class="right">已认证</span>-->
       </li>
       <li v-tap="{methods:searchProgress}" class="underline-thin">
         <span class="query_pro left">进度查询</span>
         <span class="right"></span>
       </li>
-      <li v-tap="{methods:searchProgress}">
-        <span class="query_logistics left">物流查询</span>
-        <span class="right"></span>
-      </li>
+      <!--<li v-tap="{methods:searchProgress}">-->
+        <!--<span class="query_logistics left">物流查询</span>-->
+        <!--<span class="right"></span>-->
+      <!--</li>-->
     </ul>
   </div>
 </template>
@@ -46,7 +46,7 @@
       },
       searchProgress () {
         this.$router.push({
-          name: 'searchprogress'
+          name: 'drugList'
         })
       },
       changeDrug () {

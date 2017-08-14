@@ -102,6 +102,14 @@ export const getDrugInfo                = createAction({
   type          : types.GETDRUGINFO,
   payloadCreator: api.getDrugInfo
 })
+export const getAllDoctor               = createAction({
+  type          : types.GETALLDOCTOR,
+  payloadCreator: api.getAllDoctor
+})
+export const getDrugDetail              = createAction({
+  type          : types.GETDRUGDETAIL,
+  payloadCreator: api.getDrugDetail
+})
 export default {
   [getInfo]                   : getInfo,
   [getLogin]                  : getLogin,
@@ -126,5 +134,7 @@ export default {
   [resetPwd]                  : resetPwd,
   [addDrugInfo]               : addDrugInfo,
   [getDrugInfoList]           : getDrugInfoList,
-  [getDrugInfo]               : getDrugInfo
+  [getDrugInfo]               : getDrugInfo,
+  [getAllDoctor]              : getAllDoctor,
+  [getDrugDetail]             : getDrugDetail
 }

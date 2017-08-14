@@ -221,6 +221,22 @@ let router = new Router({
         nextPage('药方列表')
         require(['../components/drugList'], resolve)
       }
+    },
+    {
+      path     : '/DoctorAll',
+      name     : 'DoctorAll',
+      component: resolve => {
+        nextPage('名医推荐')
+        require(['../components/DoctorAll'], resolve)
+      }
+    },
+    {
+      path     : '/drugDetail',
+      name     : 'drugDetail',
+      component: resolve => {
+        nextPage('药方详情')
+        require(['../components/drugDetail'], resolve)
+      }
     }
   ]
 })

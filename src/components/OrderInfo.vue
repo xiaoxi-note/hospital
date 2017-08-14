@@ -19,12 +19,6 @@
           <p>就诊时间：{{orderDate}} {{day}}</p>
           <p>挂号费用：{{fees}}元</p>
         </div>
-        <div class="rule">
-          <p>
-            我已了解并同意以下规则
-            <img src="../assets/down.png">
-          </p>
-        </div>
       </div>
     </header>
     <div class="content underline-thin">
@@ -51,6 +45,29 @@
         <!--<span class="right">会员卡</span>-->
         <!--</li>-->
       </ul>
+    </div>
+    <div class="rule"
+         :class="{'show-rule':showRule,'hide-rule':!showRule}">
+      <p @click="editShow">
+        我已了解并同意以下规则
+        <img src="../assets/down.png">
+      </p>
+      <div class="rule-content">
+        <ul>
+          <li>
+            1、为向您提供更完善的服务，盛实国医馆线上预约挂号时需填写您的个人信息。在此盛实国医馆向您郑重承诺：所填全部个人信息，我们将会采取一切措施为您严格保密。为方便就诊，请您如实填写。
+          </li>
+          <li>
+            2、本系统为免费预约系统，概不向预约患者收取任何费用。
+          </li>
+          <li>
+            3、若遇专家因工作及特殊原因停诊，我们会及时与您联系取消预约，请务必保持您的通讯畅通；同时盛实国医馆会安排同等级别专家出诊。
+          </li>
+          <li>
+            4、患者如遇特殊情况需更改或取消预约时，请您务必于就诊日前一个工作日，下午16:00点前通过拨打电话400-082-1601进行信息更改或取消预约。如无故爽约系统将默认记录，如无故爽约在1月内累计达到2次，此后3个月内将无法享受预约挂号服务。
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="commit-region">
       <a class="btn-submit able" @click="createNewOrder">提&nbsp;交</a>
@@ -96,7 +113,8 @@
         msg          : '',
         orderDateList: [],
         visitDate    : [],
-        userInfo     : null
+        userInfo     : null,
+        showRule     : false
       }
     },
     components: {
@@ -180,6 +198,9 @@
       },
       getButtonAble (){
         return !!this.contactData.caseNo
+      },
+      editShow(){
+        this.showRule = !this.showRule;
       }
     },
     watch     : {
@@ -256,7 +277,7 @@
 
 <style scoped type="text/stylus" lang="stylus">
   .page-orderInfo {
-    padding-bottom: 1rem;
+    padding-bottom: 5rem;
   }
 
   header {
@@ -264,7 +285,7 @@
     text-align: left;
     color: #fff;
     font-size: .56rem;
-    height: 10.44rem;
+    height: auto;
   }
 
   .doc-info-cont {
@@ -328,9 +349,10 @@
     /*font-size: .9rem;*/
     padding: 0 0 0 .5rem;
   }
-    .intro .type{
-      padding: 0 0 0 .5rem;
-    }
+
+  .intro .type {
+    padding: 0 0 0 .5rem;
+  }
 
   .intro i {
     width: 1px;
@@ -341,16 +363,29 @@
   }
 
   .rule p {
-    color: #fdd005;
+    color: #bf7a7c;
     position: relative;
+    height 1.5rem
+    line-height 1.5rem
   }
 
   .rule img {
     position: absolute;
-    right: 0;
+    right: 0rem;
     top: 50%;
-    transform: translateY(-50%);
+    transition: all .5s;
     width: .58rem;
+  }
+
+  .rule {
+    background #fff
+    text-align left
+    padding-left 1rem
+    padding-right 1rem
+    .rule-content {
+      /*transition: all .5s;*/
+      overflow hidden
+    }
   }
 
   .content {
@@ -373,7 +408,7 @@
     right: 0;
     background: url(../assets/allIcon.png) no-repeat;
     background-size: .8rem auto;
-    background-position: left -4.2rem;
+    background-position: left -4.1rem;
   }
 
   .content li .left {
@@ -442,5 +477,19 @@
       position absolute
       top 0.3rem
       margin-top 0 !important
+
+  .show-rule
+    p
+      img
+        transform rotate(-180deg)
+    .rule-content
+      height auto
+      padding-bottom 1rem
+      font-size .6rem
+      color: #9a9a9a
+
+  .hide-rule
+    .rule-content
+      height 0
 
 </style>

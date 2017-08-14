@@ -1,5 +1,5 @@
 const sexData    = [{key: '0', value: '男'}, {key: '1', value: '女'}];
-var unCheckToken = 'register,forgetPwd'.split(',');
+var unCheckToken = 'register,forgetPwd,DoctorAll'.split(',');
 export default  {
   methods: {
     post (opt) {
@@ -62,6 +62,9 @@ export default  {
         str = "六";
       }
       return '星期' + str;
+    },
+    back(){
+      this.$router.go(-1);
     }
   },
   data(){
@@ -70,7 +73,9 @@ export default  {
     }
   },
   created () {
-    if (!this.$localStorage.get('token') && unCheckToken.indexOf(this.$route.name) == -1) {
+    console.log('router name', this.$route.name, Date.now())
+    if (!this.$route.name) return;
+    if (unCheckToken.indexOf(this.$route.name) == -1 && !this.$localStorage.get('token')) {
       this.$router.replace({name: 'login'})
     }
   }
